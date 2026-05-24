@@ -1596,7 +1596,7 @@ async function loadPropertiesFromDB() {
 }
 
 // DATA
-const properties = [
+let properties = [
   { id:1, title:'Penthouse no Chiado', price:'€4.200.000', priceVal:4200000, type:'Venda', location:'Chiado, Lisboa', area:320, rooms:4, bath:3, energy:'A+', badge:'Destaque', desc:'Penthouse com terraço privativo de 120m² e vista panorâmica sobre Lisboa. Acabamentos Poliform e Boffi. Piscina privada.' },
   { id:2, title:'Moradia em Cascais', price:'€3.500.000', priceVal:3500000, type:'Venda', location:'Cascais, Lisboa', area:480, rooms:5, bath:4, energy:'A', badge:'Exclusivo', desc:'Moradia de arquitetura contemporânea com jardim, piscina aquecida e spa. A 5 minutos do Oceano Atlântico.' },
   { id:3, title:'Apartamento T3 Príncipe Real', price:'€1.250.000', priceVal:1250000, type:'Venda', location:'Príncipe Real, Lisboa', area:185, rooms:3, bath:2, energy:'A+', badge:'Novo', desc:'Apartamento renovado com materiais nobres, vista desafogada e garagem dupla. Edifício de 1900 com alma.' },
@@ -1605,7 +1605,7 @@ const properties = [
   { id:6, title:'T2 Boavista Premium', price:'€2.200/mês', priceVal:2200, type:'Arrendamento', location:'Boavista, Porto', area:120, rooms:2, bath:2, energy:'A+', badge:'Arrendamento', desc:'Apartamento moderno em edifício de luxo. Varanda espaçosa com vista cidade, garagem e arrecadação.' },
 ];
 
-const team = [
+let team = [
   { name:'Margarida Ferreira', role:'Diretora Comercial', initials:'MF', phone:'+351 910 000 001', ig:'@margarida_z' },
   { name:'Ricardo Alves', role:'Consultor Sénior', initials:'RA', phone:'+351 910 000 002', ig:'@ricardo_z' },
   { name:'Sofia Lopes', role:'Especialista em Luxo', initials:'SL', phone:'+351 910 000 003', ig:'@sofia_z' },
@@ -1619,7 +1619,7 @@ const testimonials = [
   { text:'Extraordinária atenção ao cliente. A Margarida percebeu imediatamente o que procurávamos e apresentou opções que nem sabíamos que existiam. Resultado impecável.', name:'João & Isabel Rodrigues', detail:'Compraram T4 no Porto', stars:'★★★★★', initials:'JR' },
 ];
 
-const blogPosts = [
+let blogPosts = [
   { cat:'Mercado', title:'Lisboa entra no top 10 das cidades europeias com maior valorização imobiliária em 2025', date:'15 Jan 2025', author:'Margarida Ferreira' },
   { cat:'Investimento', title:'Como maximizar o retorno do investimento imobiliário em Portugal', date:'8 Jan 2025', author:'Ricardo Alves' },
   { cat:'Decoração', title:'Tendências de design de interiores para imóveis de luxo em 2025', date:'2 Jan 2025', author:'Sofia Lopes' },
