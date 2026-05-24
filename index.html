@@ -1,0 +1,1858 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0A0A0A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="description" content="Z Imobiliária — Imóveis de alto padrão em Portugal. Compre, venda ou alugue com exclusividade e sofisticação.">
+<meta name="keywords" content="imóveis luxo, apartamentos premium, moradias exclusivas, imobiliária Portugal">
+<title>Z — Imobiliária Premium</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --white: #FFFFFF;
+  --black: #0A0A0A;
+  --gray-50: #F8F8F6;
+  --gray-100: #F0EFE9;
+  --gray-200: #E2E0D8;
+  --gray-300: #C8C6BC;
+  --gray-400: #9E9C94;
+  --gray-500: #6E6C64;
+  --gray-700: #3A3834;
+  --gray-900: #1A1916;
+  --gold: #B8935A;
+  --gold-light: #D4AF7A;
+  --gold-dark: #8B6B3A;
+  --gold-pale: #F5EDD8;
+  --nav-h: 80px;
+  --transition: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+[data-theme="dark"] {
+  --white: #0A0A0A;
+  --black: #F5F4F0;
+  --gray-50: #111110;
+  --gray-100: #1A1916;
+  --gray-200: #242320;
+  --gray-300: #3A3834;
+  --gray-400: #6E6C64;
+  --gray-500: #9E9C94;
+  --gray-700: #C8C6BC;
+  --gray-900: #E8E6DC;
+  --gold-pale: #1E1A10;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--white);
+  color: var(--black);
+  overflow-x: hidden;
+  transition: background 0.4s, color 0.4s;
+}
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--gray-100); }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  height: var(--nav-h);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 5vw;
+  transition: background 0.5s var(--transition), backdrop-filter 0.5s;
+}
+nav.scrolled {
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--gray-200);
+  box-shadow: 0 4px 40px rgba(0,0,0,0.04);
+}
+[data-theme="dark"] nav.scrolled {
+  background: rgba(10,10,10,0.92);
+}
+.nav-logo {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+.nav-logo:hover { opacity: 0.85; }
+nav.scrolled .nav-logo { opacity: 1; }
+.nav-links {
+  display: flex; align-items: center; gap: 2.5rem; list-style: none;
+}
+.nav-links a {
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+  transition: color 0.3s;
+  font-weight: 400;
+}
+nav.scrolled .nav-links a { color: var(--gray-500); }
+nav.scrolled .nav-links a:hover, .nav-links a:hover { color: var(--gold); }
+.nav-cta {
+  padding: 10px 24px;
+  border: 1px solid rgba(255,255,255,0.5);
+  color: var(--white) !important;
+  border-radius: 2px;
+  font-size: 0.75rem !important;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.3s !important;
+  white-space: nowrap;
+}
+nav.scrolled .nav-cta {
+  border-color: var(--gold);
+  color: var(--gold) !important;
+}
+.nav-cta:hover { background: var(--gold) !important; border-color: var(--gold) !important; color: var(--white) !important; }
+.nav-right { display: flex; align-items: center; gap: 1.5rem; }
+.theme-toggle {
+  background: none; border: none; cursor: pointer;
+  color: rgba(255,255,255,0.7); font-size: 1.1rem; line-height: 1;
+  transition: color 0.3s; padding: 4px;
+}
+nav.scrolled .theme-toggle { color: var(--gray-500); }
+.theme-toggle:hover { color: var(--gold); }
+.hamburger { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; padding: 4px; }
+.hamburger span { display: block; width: 22px; height: 1.5px; background: var(--white); transition: all 0.3s; }
+nav.scrolled .hamburger span { background: var(--black); }
+
+/* HERO */
+.hero {
+  position: relative; height: 100vh; min-height: 700px;
+  display: flex; align-items: flex-end; justify-content: flex-start;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, #1A1916 0%, #2C2A24 40%, #0A0A08 100%);
+}
+.hero-gradient {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.65) 100%);
+  z-index: 1;
+}
+.hero-visual {
+  position: absolute; inset: 0;
+  display: grid; grid-template-columns: 1fr 1fr;
+}
+.hero-img-block {
+  position: relative; overflow: hidden;
+}
+.hero-img-block::after {
+  content: ''; position: absolute; inset: 0;
+  background: rgba(0,0,0,0.15);
+}
+.hero-placeholder {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+}
+.hero-placeholder.a { background: linear-gradient(145deg, #2D2920 0%, #1E1B14 50%, #3C3428 100%); }
+.hero-placeholder.b { background: linear-gradient(145deg, #1A1916 0%, #2A2520 50%, #161410 100%); }
+.hp-inner {
+  display: flex; flex-direction: column; align-items: center; gap: 16px; opacity: 0.15;
+}
+.hp-inner svg { width: 80px; height: 80px; }
+.hero-content {
+  position: relative; z-index: 2;
+  padding: 0 5vw 10vh;
+  max-width: 760px;
+}
+.hero-eyebrow {
+  font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 1.5rem;
+  display: flex; align-items: center; gap: 12px;
+}
+.hero-eyebrow::before {
+  content: ''; width: 32px; height: 1px; background: var(--gold);
+}
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3.5rem, 7vw, 7rem);
+  font-weight: 300;
+  line-height: 1.02;
+  color: var(--white);
+  margin-bottom: 2rem;
+  letter-spacing: -0.01em;
+}
+.hero-title em { font-style: italic; color: var(--gold-light); }
+.hero-subtitle {
+  font-size: 1rem;
+  font-weight: 300;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.7;
+  margin-bottom: 3rem;
+  max-width: 480px;
+}
+.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn-primary {
+  padding: 16px 36px;
+  background: var(--gold);
+  color: var(--white);
+  border: none; border-radius: 2px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.35s var(--transition);
+  text-decoration: none;
+  display: inline-flex; align-items: center; gap: 10px;
+}
+.btn-primary:hover { background: var(--gold-dark); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(184,147,90,0.35); }
+.btn-outline {
+  padding: 16px 36px;
+  background: transparent;
+  color: var(--white);
+  border: 1px solid rgba(255,255,255,0.4);
+  border-radius: 2px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.35s var(--transition);
+  text-decoration: none;
+  display: inline-flex; align-items: center; gap: 10px;
+}
+.btn-outline:hover { border-color: var(--gold); color: var(--gold); background: rgba(184,147,90,0.07); }
+.hero-scroll {
+  position: absolute; bottom: 40px; right: 5vw; z-index: 2;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  color: rgba(255,255,255,0.5); font-size: 0.65rem; letter-spacing: 0.2em;
+  text-transform: uppercase; cursor: pointer;
+}
+.scroll-line {
+  width: 1px; height: 48px; background: rgba(255,255,255,0.3);
+  position: relative; overflow: hidden;
+}
+.scroll-line::after {
+  content: ''; position: absolute; top: -100%; left: 0; width: 1px; height: 100%;
+  background: var(--gold);
+  animation: scrollLine 2s ease-in-out infinite;
+}
+@keyframes scrollLine { 0% { top: -100%; } 100% { top: 100%; } }
+.hero-stats {
+  position: absolute; right: 5vw; top: 50%; transform: translateY(-50%);
+  z-index: 2; display: flex; flex-direction: column; gap: 2rem;
+}
+.stat-item { text-align: right; }
+.stat-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.5rem; font-weight: 300; color: var(--white); line-height: 1;
+  display: block;
+}
+.stat-label {
+  font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+}
+
+/* SECTION COMMON */
+section { padding: 100px 5vw; }
+.section-label {
+  font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 1rem;
+  display: flex; align-items: center; gap: 12px;
+}
+.section-label::before { content: ''; width: 24px; height: 1px; background: var(--gold); }
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.2rem, 4vw, 3.8rem);
+  font-weight: 300;
+  line-height: 1.1;
+  color: var(--black);
+  margin-bottom: 1.5rem;
+}
+.section-title em { font-style: italic; color: var(--gold); }
+.section-subtitle {
+  font-size: 0.95rem; font-weight: 300; color: var(--gray-500);
+  line-height: 1.8; max-width: 520px;
+}
+
+/* SEARCH */
+.search-section {
+  background: var(--gray-50);
+  padding: 60px 5vw;
+  border-top: 1px solid var(--gray-200);
+  border-bottom: 1px solid var(--gray-200);
+}
+.search-tabs {
+  display: flex; gap: 0; margin-bottom: 2rem; border-bottom: 1px solid var(--gray-200);
+}
+.search-tab {
+  padding: 12px 28px;
+  font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase;
+  background: none; border: none; cursor: pointer;
+  color: var(--gray-400); border-bottom: 2px solid transparent;
+  margin-bottom: -1px; transition: all 0.3s; font-family: 'DM Sans', sans-serif;
+}
+.search-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+.search-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px; align-items: end;
+}
+.search-field { display: flex; flex-direction: column; gap: 6px; }
+.search-field label {
+  font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--gray-400); font-weight: 400;
+}
+.search-field select, .search-field input {
+  height: 48px; padding: 0 14px;
+  border: 1px solid var(--gray-200);
+  background: var(--white); color: var(--black);
+  font-family: 'DM Sans', sans-serif; font-size: 0.88rem;
+  border-radius: 2px; outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  -webkit-appearance: none; appearance: none;
+  cursor: pointer;
+}
+.search-field select:focus, .search-field input:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(184,147,90,0.12);
+}
+.search-btn {
+  height: 48px; padding: 0 32px;
+  background: var(--black); color: var(--white);
+  border: none; border-radius: 2px; cursor: pointer;
+  font-family: 'DM Sans', sans-serif; font-size: 0.78rem;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  transition: all 0.3s; white-space: nowrap;
+  display: flex; align-items: center; gap: 8px;
+}
+.search-btn:hover { background: var(--gold); transform: translateY(-1px); }
+
+/* PROPERTIES */
+.properties-section { background: var(--white); }
+.section-header {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  margin-bottom: 4rem; flex-wrap: wrap; gap: 1.5rem;
+}
+.view-all {
+  font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--gold); text-decoration: none;
+  display: flex; align-items: center; gap: 8px;
+  transition: gap 0.3s;
+}
+.view-all:hover { gap: 14px; }
+.view-all::after { content: '→'; }
+.properties-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 2px;
+}
+.property-card {
+  position: relative; overflow: hidden; cursor: pointer;
+  background: var(--gray-900);
+}
+.property-card::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 50%, transparent 100%);
+  z-index: 1; transition: opacity 0.4s;
+}
+.prop-img {
+  width: 100%; aspect-ratio: 4/3; object-fit: cover;
+  transition: transform 0.7s var(--transition);
+}
+.property-card:hover .prop-img { transform: scale(1.05); }
+.prop-badge {
+  position: absolute; top: 20px; left: 20px; z-index: 2;
+  padding: 5px 14px;
+  background: var(--gold);
+  color: var(--white);
+  font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+  border-radius: 1px;
+}
+.prop-fav {
+  position: absolute; top: 16px; right: 16px; z-index: 2;
+  background: rgba(255,255,255,0.15); backdrop-filter: blur(8px);
+  border: none; border-radius: 50%; width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: all 0.3s; color: var(--white);
+  font-size: 1rem;
+}
+.prop-fav:hover, .prop-fav.active { background: var(--gold); }
+.prop-info {
+  position: absolute; bottom: 0; left: 0; right: 0; z-index: 2;
+  padding: 24px;
+}
+.prop-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem; font-weight: 400; color: var(--white);
+  margin-bottom: 4px;
+}
+.prop-price span { font-size: 0.9rem; font-weight: 300; opacity: 0.7; }
+.prop-title { font-size: 0.95rem; font-weight: 400; color: rgba(255,255,255,0.9); margin-bottom: 14px; }
+.prop-meta {
+  display: flex; gap: 20px; align-items: center;
+}
+.prop-meta-item {
+  font-size: 0.75rem; color: rgba(255,255,255,0.6);
+  display: flex; align-items: center; gap: 5px;
+}
+.prop-actions {
+  position: absolute; bottom: -60px; left: 0; right: 0; z-index: 3;
+  padding: 0 24px;
+  transition: bottom 0.4s var(--transition);
+}
+.property-card:hover .prop-actions { bottom: 24px; }
+.property-card:hover .prop-info { bottom: 60px; transition: bottom 0.4s var(--transition); }
+.prop-btn {
+  width: 100%; padding: 12px;
+  background: var(--gold); color: var(--white);
+  border: none; border-radius: 2px; cursor: pointer;
+  font-family: 'DM Sans', sans-serif; font-size: 0.75rem;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  transition: background 0.3s;
+}
+.prop-btn:hover { background: var(--gold-dark); }
+
+/* DIVIDER */
+.gold-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold), transparent);
+  margin: 0 5vw;
+}
+
+/* ABOUT */
+.about-section {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 6vw; align-items: center;
+}
+.about-visual {
+  position: relative; aspect-ratio: 4/5;
+}
+.about-main-img {
+  width: 100%; height: 100%;
+  background: linear-gradient(145deg, #2D2920, #1E1B14);
+  border-radius: 2px; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.about-accent-img {
+  position: absolute; bottom: -30px; right: -30px;
+  width: 55%; aspect-ratio: 1;
+  background: linear-gradient(145deg, #B8935A20, #B8935A40);
+  border: 2px solid var(--gold);
+  border-radius: 2px;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 8px;
+}
+.about-accent-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3rem; font-weight: 300; color: var(--gold);
+}
+.about-accent-label { font-size: 0.7rem; letter-spacing: 0.2em; color: var(--gray-500); text-transform: uppercase; }
+.about-features {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 2rem; margin-top: 3rem;
+}
+.about-feat { }
+.about-feat-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem; font-weight: 500; margin-bottom: 6px; color: var(--black);
+}
+.about-feat-text { font-size: 0.85rem; color: var(--gray-500); line-height: 1.7; font-weight: 300; }
+.about-feat-icon { font-size: 1.4rem; margin-bottom: 10px; color: var(--gold); }
+
+/* TEAM */
+.team-section { background: var(--gray-50); }
+.team-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5px; margin-top: 4rem;
+}
+.team-card {
+  background: var(--white); overflow: hidden; position: relative;
+  transition: transform 0.4s var(--transition), box-shadow 0.4s;
+}
+.team-card:hover { transform: translateY(-4px); box-shadow: 0 24px 60px rgba(0,0,0,0.1); z-index: 1; }
+.team-photo {
+  aspect-ratio: 3/4; width: 100%; overflow: hidden;
+  background: linear-gradient(145deg, #2D2920, #1E1B14);
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.team-photo-inner {
+  width: 60%; aspect-ratio: 1; border-radius: 50%;
+  background: linear-gradient(145deg, #3C3428, #2D2920);
+  display: flex; align-items: center; justify-content: center;
+  border: 2px solid rgba(184,147,90,0.3);
+}
+.team-photo-inner span {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3rem; font-weight: 300; color: var(--gold);
+}
+.team-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%);
+  opacity: 0; transition: opacity 0.4s;
+  display: flex; align-items: flex-end; justify-content: center;
+  padding-bottom: 20px; gap: 14px;
+}
+.team-card:hover .team-overlay { opacity: 1; }
+.team-social {
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.5); background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center;
+  color: var(--white); font-size: 0.8rem; cursor: pointer;
+  transition: all 0.3s; text-decoration: none;
+}
+.team-social:hover { background: var(--gold); border-color: var(--gold); }
+.team-info { padding: 20px 24px; }
+.team-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem; font-weight: 400; color: var(--black); margin-bottom: 4px;
+}
+.team-role { font-size: 0.75rem; color: var(--gold); letter-spacing: 0.1em; margin-bottom: 12px; }
+.team-whatsapp {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 0.78rem; color: var(--gray-500); text-decoration: none;
+  transition: color 0.3s;
+}
+.team-whatsapp:hover { color: #25D366; }
+
+/* TESTIMONIALS */
+.testimonials-section { background: var(--black); position: relative; overflow: hidden; }
+.testimonials-section::before {
+  content: '"'; position: absolute;
+  font-family: 'Cormorant Garamond', serif; font-size: 30rem; font-weight: 300;
+  color: rgba(184,147,90,0.04); line-height: 1;
+  top: -4rem; left: 2vw; pointer-events: none;
+}
+.testimonials-section .section-title { color: var(--white); }
+.testimonials-section .section-label { }
+.testimonials-section .section-subtitle { color: rgba(255,255,255,0.5); }
+.testimonials-track {
+  display: flex; gap: 24px; overflow: hidden;
+  margin-top: 4rem; position: relative;
+}
+.testimonial-item {
+  flex: 0 0 calc(50% - 12px); background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08); border-radius: 2px;
+  padding: 40px; transition: all 0.4s;
+}
+.testimonial-item:hover { background: rgba(184,147,90,0.06); border-color: rgba(184,147,90,0.2); }
+.stars { color: var(--gold); font-size: 0.85rem; margin-bottom: 1.5rem; letter-spacing: 3px; }
+.testimonial-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem; font-weight: 300; font-style: italic;
+  color: rgba(255,255,255,0.85); line-height: 1.6; margin-bottom: 2rem;
+}
+.testimonial-author { display: flex; align-items: center; gap: 14px; }
+.author-avatar {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: var(--white);
+  font-weight: 300; flex-shrink: 0;
+}
+.author-name { font-size: 0.9rem; color: var(--white); font-weight: 400; }
+.author-detail { font-size: 0.75rem; color: rgba(255,255,255,0.4); margin-top: 2px; }
+.carousel-controls { display: flex; gap: 8px; margin-top: 2rem; }
+.carousel-btn {
+  width: 44px; height: 44px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.2); background: none; cursor: pointer;
+  color: rgba(255,255,255,0.6); font-size: 1.1rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.3s;
+}
+.carousel-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+/* BLOG */
+.blog-section { background: var(--white); }
+.blog-grid {
+  display: grid; grid-template-columns: 2fr 1fr 1fr;
+  gap: 2px; margin-top: 4rem;
+}
+.blog-card {
+  position: relative; overflow: hidden; cursor: pointer; background: var(--gray-100);
+  transition: transform 0.4s;
+}
+.blog-card:hover { z-index: 1; }
+.blog-img {
+  aspect-ratio: 16/10; width: 100%;
+  background: linear-gradient(145deg, #2D2920, #1E1B14);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden; position: relative;
+}
+.blog-card:first-child .blog-img { aspect-ratio: 16/9; }
+.blog-img-inner {
+  position: absolute; inset: 0;
+  transition: transform 0.6s var(--transition);
+}
+.blog-card:hover .blog-img-inner { transform: scale(1.04); }
+.blog-cat {
+  display: inline-block; margin: 20px 20px 0;
+  font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gold); padding: 4px 12px; border: 1px solid var(--gold);
+  border-radius: 1px;
+}
+.blog-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem; font-weight: 400; color: var(--black);
+  line-height: 1.3; padding: 12px 20px 20px;
+}
+.blog-card:first-child .blog-title { font-size: 1.8rem; }
+.blog-meta {
+  padding: 0 20px 20px;
+  font-size: 0.75rem; color: var(--gray-400);
+  display: flex; align-items: center; gap: 12px;
+}
+.blog-meta::before { content: '—'; color: var(--gold-light); }
+
+/* CONTACT */
+.contact-section { background: var(--gray-50); }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6vw; margin-top: 4rem; }
+.contact-form { display: flex; flex-direction: column; gap: 16px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group label {
+  font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--gray-400);
+}
+.form-group input, .form-group textarea, .form-group select {
+  padding: 14px 16px;
+  border: 1px solid var(--gray-200);
+  background: var(--white); color: var(--black);
+  font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+  border-radius: 2px; outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.form-group input:focus, .form-group textarea:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(184,147,90,0.1);
+}
+.form-group textarea { min-height: 140px; resize: vertical; }
+.contact-info { display: flex; flex-direction: column; gap: 3rem; }
+.contact-info-item { display: flex; gap: 20px; align-items: flex-start; }
+.contact-icon {
+  width: 48px; height: 48px; background: var(--gold-pale);
+  border: 1px solid rgba(184,147,90,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; color: var(--gold); flex-shrink: 0; border-radius: 2px;
+}
+.contact-info-title { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray-400); margin-bottom: 4px; }
+.contact-info-val { font-size: 0.95rem; color: var(--black); line-height: 1.6; }
+.map-placeholder {
+  width: 100%; height: 240px; background: linear-gradient(145deg, #E8E6DC, #D8D5C8);
+  border-radius: 2px; margin-top: 2rem;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--gray-200); color: var(--gray-400); font-size: 0.85rem;
+  letter-spacing: 0.1em; text-transform: uppercase; flex-direction: column; gap: 8px;
+}
+
+/* FOOTER */
+footer { background: var(--gray-900); padding: 80px 5vw 40px; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 4rem; margin-bottom: 4rem; }
+.footer-logo {
+  font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 300;
+  letter-spacing: 0.3em; color: var(--white); margin-bottom: 1.2rem; display: block;
+}
+.footer-tagline { font-size: 0.85rem; color: rgba(255,255,255,0.35); font-weight: 300; line-height: 1.7; margin-bottom: 2rem; }
+.footer-socials { display: flex; gap: 12px; }
+.footer-social {
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.15);
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,0.5); font-size: 0.85rem; text-decoration: none;
+  transition: all 0.3s;
+}
+.footer-social:hover { border-color: var(--gold); color: var(--gold); background: rgba(184,147,90,0.1); }
+.footer-col-title {
+  font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(255,255,255,0.35); margin-bottom: 1.5rem;
+}
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer-links a {
+  font-size: 0.88rem; color: rgba(255,255,255,0.55); text-decoration: none;
+  transition: color 0.3s; font-weight: 300;
+}
+.footer-links a:hover { color: var(--gold); }
+.newsletter-form { display: flex; flex-direction: column; gap: 10px; }
+.newsletter-input {
+  padding: 12px 16px; background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1); border-radius: 2px;
+  color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 0.85rem;
+  outline: none; transition: border-color 0.3s;
+}
+.newsletter-input:focus { border-color: var(--gold); }
+.newsletter-input::placeholder { color: rgba(255,255,255,0.25); }
+.newsletter-btn {
+  padding: 12px 20px; background: var(--gold); color: var(--white);
+  border: none; border-radius: 2px; cursor: pointer;
+  font-family: 'DM Sans', sans-serif; font-size: 0.75rem; letter-spacing: 0.15em;
+  text-transform: uppercase; transition: background 0.3s;
+}
+.newsletter-btn:hover { background: var(--gold-dark); }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: 2rem;
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+}
+.footer-copy { font-size: 0.78rem; color: rgba(255,255,255,0.25); }
+.footer-bottom-links { display: flex; gap: 2rem; }
+.footer-bottom-links a { font-size: 0.75rem; color: rgba(255,255,255,0.3); text-decoration: none; transition: color 0.3s; }
+.footer-bottom-links a:hover { color: var(--gold); }
+
+/* MODAL */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 2000;
+  background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
+  display: none; align-items: center; justify-content: center;
+  padding: 20px;
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  background: var(--white); max-width: 900px; width: 100%;
+  max-height: 90vh; overflow-y: auto; border-radius: 2px;
+  animation: modalIn 0.4s var(--transition);
+}
+@keyframes modalIn { from { opacity: 0; transform: translateY(20px) scale(0.98); } to { opacity: 1; transform: none; } }
+.modal-header {
+  padding: 32px 40px 0;
+  display: flex; justify-content: space-between; align-items: flex-start;
+}
+.modal-close {
+  background: none; border: none; cursor: pointer; font-size: 1.5rem;
+  color: var(--gray-400); transition: color 0.3s; line-height: 1;
+}
+.modal-close:hover { color: var(--black); }
+.modal-gallery {
+  display: grid; grid-template-columns: 2fr 1fr;
+  gap: 2px; margin: 20px 0;
+}
+.modal-main-img { aspect-ratio: 16/10; background: linear-gradient(145deg, #2D2920, #1E1B14); }
+.modal-side-imgs { display: flex; flex-direction: column; gap: 2px; }
+.modal-side-img { flex: 1; background: linear-gradient(145deg, #1E1B14, #2D2920); }
+.modal-body { padding: 0 40px 40px; }
+.modal-price {
+  font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 300;
+  color: var(--gold); margin: 20px 0 4px;
+}
+.modal-address { color: var(--gray-500); font-size: 0.9rem; margin-bottom: 24px; }
+.modal-specs {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px;
+  padding: 20px; background: var(--gray-50); border-radius: 2px;
+}
+.spec-item { text-align: center; }
+.spec-num { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 300; color: var(--black); }
+.spec-label { font-size: 0.7rem; color: var(--gray-400); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 2px; }
+.modal-desc { font-size: 0.9rem; color: var(--gray-500); line-height: 1.8; font-weight: 300; margin-bottom: 28px; }
+.modal-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn-gold { padding: 14px 28px; background: var(--gold); color: var(--white); border: none; border-radius: 2px; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; transition: all 0.3s; display: flex; align-items: center; gap: 8px; }
+.btn-gold:hover { background: var(--gold-dark); }
+.btn-dark { padding: 14px 28px; background: var(--black); color: var(--white); border: none; border-radius: 2px; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; transition: all 0.3s; }
+.btn-dark:hover { background: var(--gray-700); }
+
+/* WHATSAPP FLOAT */
+.wa-float {
+  position: fixed; bottom: 32px; right: 32px; z-index: 999;
+  width: 56px; height: 56px; border-radius: 50%;
+  background: #25D366; color: var(--white); border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+  box-shadow: 0 8px 24px rgba(37,211,102,0.4);
+  transition: all 0.3s; text-decoration: none;
+}
+.wa-float:hover { transform: scale(1.1); box-shadow: 0 12px 32px rgba(37,211,102,0.5); }
+.wa-float::before {
+  content: 'Falar com corretor';
+  position: absolute; right: 66px; top: 50%; transform: translateY(-50%);
+  background: var(--gray-900); color: var(--white);
+  font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 300;
+  padding: 8px 14px; border-radius: 2px; white-space: nowrap;
+  opacity: 0; transition: opacity 0.3s; pointer-events: none;
+}
+.wa-float:hover::before { opacity: 1; }
+
+/* NOTIFICATION */
+.notification {
+  position: fixed; top: 90px; right: 24px; z-index: 1500;
+  background: var(--white); border: 1px solid var(--gray-200);
+  padding: 14px 20px; border-radius: 2px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+  font-size: 0.85rem; color: var(--black);
+  display: flex; align-items: center; gap: 10px;
+  transform: translateX(120%); transition: transform 0.4s var(--transition);
+  border-left: 3px solid var(--gold);
+}
+.notification.show { transform: translateX(0); }
+.notif-icon { color: var(--gold); font-size: 1rem; }
+
+/* ANIMATIONS */
+.reveal {
+  opacity: 0; transform: translateY(32px);
+  transition: opacity 0.8s var(--transition), transform 0.8s var(--transition);
+}
+.reveal.visible { opacity: 1; transform: none; }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* LOGIN MODAL */
+.login-modal {
+  background: var(--white); max-width: 440px; width: 100%;
+  border-radius: 2px; padding: 48px;
+  animation: modalIn 0.4s var(--transition);
+}
+.login-logo {
+  font-family: 'Cormorant Garamond', serif; font-size: 2.2rem;
+  font-weight: 300; letter-spacing: 0.3em; color: var(--black);
+  text-align: center; margin-bottom: 8px;
+}
+.login-subtitle { text-align: center; color: var(--gray-400); font-size: 0.85rem; margin-bottom: 2rem; }
+.login-tabs { display: flex; border-bottom: 1px solid var(--gray-200); margin-bottom: 1.5rem; }
+.login-tab { flex: 1; padding: 10px; text-align: center; background: none; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.8rem; letter-spacing: 0.1em; color: var(--gray-400); border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all 0.3s; }
+.login-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+.admin-note { background: var(--gold-pale); border: 1px solid rgba(184,147,90,0.2); padding: 12px 16px; border-radius: 2px; font-size: 0.78rem; color: var(--gray-500); margin-bottom: 1.5rem; }
+
+/* RESPONSIVE */
+/* ── TABLET ── */
+@media (max-width: 1024px) {
+  .hero-stats { display: none; }
+  .blog-grid { grid-template-columns: 1fr 1fr; }
+  .blog-card:first-child { grid-column: span 2; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+  .properties-grid { grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); }
+  .team-grid { grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); }
+}
+
+/* ── MOBILE LANDSCAPE / SMALL TABLET ── */
+@media (max-width: 768px) {
+  :root { --nav-h: 64px; }
+
+  /* NAV */
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  nav { padding: 0 4vw; }
+  nav.scrolled .hamburger span { background: var(--black); }
+
+  /* HERO */
+  .hero { min-height: 100svh; align-items: flex-end; }
+  .hero-visual { grid-template-columns: 1fr; }
+  .hero-img-block:last-child { display: none; }
+  .hero-title { font-size: clamp(2.4rem, 9vw, 4rem); }
+  .hero-subtitle { font-size: 0.9rem; max-width: 100%; }
+  .hero-content { padding: 0 4vw 10vh; }
+  .hero-eyebrow { font-size: 0.65rem; }
+  .hero-scroll { display: none; }
+
+  /* SECTIONS */
+  section { padding: 60px 4vw; }
+  .section-title { font-size: clamp(1.8rem, 6vw, 2.8rem); }
+  .section-header { flex-direction: column; align-items: flex-start; gap: 1rem; margin-bottom: 2.5rem; }
+
+  /* SEARCH */
+  .search-section { padding: 40px 4vw; }
+  .search-tabs { overflow-x: auto; -webkit-overflow-scrolling: touch; gap: 0; }
+  .search-tab { flex-shrink: 0; padding: 10px 20px; }
+  .search-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .search-field:last-child { grid-column: span 2; }
+  .search-btn { width: 100%; justify-content: center; }
+
+  /* PROPERTIES */
+  .properties-grid { grid-template-columns: 1fr; gap: 2px; }
+  .prop-actions { bottom: 0 !important; position: relative; }
+  .property-card .prop-info { bottom: 0 !important; position: relative; background: var(--gray-900); padding: 16px; }
+  .property-card::after { display: none; }
+  .property-card { background: var(--gray-100); }
+  .prop-price { color: var(--black); }
+  .prop-title { color: var(--gray-700); }
+  .prop-meta-item { color: var(--gray-500); }
+  .prop-img { aspect-ratio: 16/9; }
+  .prop-btn { border-radius: 0; }
+
+  /* ABOUT */
+  .about-section { grid-template-columns: 1fr; gap: 0; }
+  .about-visual { display: none; }
+  .about-features { grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem; }
+
+  /* TEAM */
+  .team-grid { grid-template-columns: 1fr 1fr; gap: 2px; }
+  .team-photo { aspect-ratio: 1/1; }
+
+  /* TESTIMONIALS */
+  .testimonials-section { padding: 60px 4vw; }
+  .testimonials-track { gap: 16px; }
+  .testimonial-item { flex: 0 0 88%; padding: 28px 20px; }
+  .testimonial-text { font-size: 1.1rem; }
+  .carousel-controls { margin-top: 1.5rem; }
+
+  /* BLOG */
+  .blog-grid { grid-template-columns: 1fr; gap: 2px; }
+  .blog-card:first-child { grid-column: auto; }
+  .blog-title { font-size: 1.1rem; }
+  .blog-card:first-child .blog-title { font-size: 1.3rem; }
+
+  /* CONTACT */
+  .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .contact-form { order: 1; }
+  .contact-info { order: 2; gap: 1.5rem; }
+  .form-row { grid-template-columns: 1fr; gap: 12px; }
+  .map-placeholder { height: 180px; margin-top: 1.5rem; }
+
+  /* MODAL */
+  .modal { max-height: 95svh; border-radius: 4px 4px 0 0; margin-top: auto; width: 100%; }
+  .modal-overlay { align-items: flex-end; padding: 0; }
+  .modal-gallery { grid-template-columns: 1fr; }
+  .modal-side-imgs { display: none; }
+  .modal-specs { grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 16px; }
+  .modal-body { padding: 0 16px 24px; }
+  .modal-header { padding: 16px 16px 0; }
+  .modal-price { font-size: 1.8rem; margin: 14px 0 4px; }
+  .modal-actions { flex-direction: column; }
+  .btn-gold, .btn-dark { width: 100%; justify-content: center; text-align: center; }
+
+  /* LOGIN */
+  .login-modal { padding: 32px 24px; border-radius: 4px 4px 0 0; margin-top: auto; width: 100%; max-width: 100%; }
+
+  /* FOOTER */
+  .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+  footer { padding: 60px 4vw 32px; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+  .footer-bottom-links { gap: 1.5rem; }
+
+  /* WHATSAPP */
+  .wa-float { bottom: 20px; right: 16px; width: 52px; height: 52px; }
+  .wa-float::before { display: none; }
+
+  /* NOTIFICATION */
+  .notification { right: 12px; left: 12px; top: 74px; }
+}
+
+/* ── MOBILE PORTRAIT ── */
+@media (max-width: 480px) {
+  /* HERO */
+  .hero-title { font-size: clamp(2rem, 11vw, 3rem); }
+  .hero-actions { flex-direction: column; gap: 10px; }
+  .btn-primary, .btn-outline { width: 100%; justify-content: center; padding: 15px 24px; }
+
+  /* SEARCH */
+  .search-grid { grid-template-columns: 1fr; }
+  .search-field:last-child { grid-column: auto; }
+
+  /* TEAM */
+  .team-grid { grid-template-columns: 1fr; }
+  .team-photo { aspect-ratio: 4/3; }
+
+  /* ABOUT */
+  .about-features { grid-template-columns: 1fr; }
+
+  /* TESTIMONIALS */
+  .testimonial-item { flex: 0 0 92%; }
+
+  /* MODAL */
+  .modal-specs { grid-template-columns: repeat(2,1fr); }
+  .spec-num { font-size: 1.4rem; }
+
+  /* FOOTER */
+  .footer-socials { gap: 10px; }
+  .footer-bottom-links { flex-wrap: wrap; gap: 1rem; }
+
+  /* SECTION */
+  section { padding: 50px 4vw; }
+  .section-title { font-size: clamp(1.6rem, 8vw, 2.2rem); }
+}
+
+/* ── TOUCH: remove hover-only animations on touch devices ── */
+@media (hover: none) {
+  .property-card .prop-actions { bottom: 0; position: relative; }
+  .property-card:hover .prop-info { bottom: 0; }
+  .property-card:hover .prop-img { transform: none; }
+  .team-card:hover { transform: none; box-shadow: none; }
+  .blog-card:hover .blog-img-inner { transform: none; }
+}
+
+/* ── SAFE AREA (iPhone notch / home bar) ── */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  footer { padding-bottom: calc(32px + env(safe-area-inset-bottom)); }
+  .wa-float { bottom: calc(20px + env(safe-area-inset-bottom)); }
+  #mobileMenu { padding-bottom: env(safe-area-inset-bottom); }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav id="navbar">
+  <a href="#" class="nav-logo" style="display:flex;align-items:center;">
+    <svg width="48" height="56" viewBox="0 0 110 124" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="navG" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#D4AF7A"/>
+          <stop offset="100%" stop-color="#8B6B3A"/>
+        </linearGradient>
+      </defs>
+      <text x="55" y="88" font-family="Georgia,'Times New Roman',serif" font-size="104" font-weight="400" fill="url(#navG)" text-anchor="middle" letter-spacing="-3">Z</text>
+      <line x1="14" y1="97" x2="96" y2="97" stroke="#B8935A" stroke-width="0.8" opacity="0.7"/>
+      <text x="55" y="112" font-family="'Arial Narrow',Arial,sans-serif" font-size="10" fill="#B8935A" text-anchor="middle" letter-spacing="5">IMÓVEIS</text>
+    </svg>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#imoveis">Imóveis</a></li>
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#equipa">Equipa</a></li>
+    <li><a href="#blog">Blog</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+    <li><a href="#" class="nav-cta" onclick="openLogin(event)">Entrar</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="theme-toggle" onclick="toggleTheme()" title="Alternar tema" aria-label="Alternar tema escuro/claro">
+      <span id="theme-icon">◐</span>
+    </button>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div id="mobileMenu" style="position:fixed;inset:0;z-index:999;background:#0A0A0A;display:none;flex-direction:column;align-items:flex-start;justify-content:center;padding:0 10vw;">
+  <div style="position:absolute;top:0;left:0;right:0;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 4vw;border-bottom:1px solid rgba(255,255,255,0.06);">
+    <svg width="36" height="42" viewBox="0 0 110 124" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="mG" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#D4AF7A"/><stop offset="100%" stop-color="#8B6B3A"/></linearGradient></defs>
+      <text x="55" y="88" font-family="Georgia,serif" font-size="104" fill="url(#mG)" text-anchor="middle">Z</text>
+      <line x1="14" y1="97" x2="96" y2="97" stroke="#B8935A" stroke-width="0.8" opacity="0.7"/>
+      <text x="55" y="112" font-family="Arial,sans-serif" font-size="10" fill="#B8935A" text-anchor="middle" letter-spacing="5">IMÓVEIS</text>
+    </svg>
+    <button onclick="closeMobile()" style="background:none;border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.7);font-size:1.1rem;cursor:pointer;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;">✕</button>
+  </div>
+  <nav style="display:flex;flex-direction:column;gap:0;width:100%;">
+    <a href="#imoveis" onclick="closeMobile()" style="font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:300;color:rgba(255,255,255,0.9);text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:space-between;">Imóveis <span style="font-size:1rem;color:var(--gold);opacity:0.7;">→</span></a>
+    <a href="#sobre" onclick="closeMobile()" style="font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:300;color:rgba(255,255,255,0.9);text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:space-between;">Sobre <span style="font-size:1rem;color:var(--gold);opacity:0.7;">→</span></a>
+    <a href="#equipa" onclick="closeMobile()" style="font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:300;color:rgba(255,255,255,0.9);text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:space-between;">Equipa <span style="font-size:1rem;color:var(--gold);opacity:0.7;">→</span></a>
+    <a href="#blog" onclick="closeMobile()" style="font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:300;color:rgba(255,255,255,0.9);text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:space-between;">Blog <span style="font-size:1rem;color:var(--gold);opacity:0.7;">→</span></a>
+    <a href="#contacto" onclick="closeMobile()" style="font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:300;color:rgba(255,255,255,0.9);text-decoration:none;padding:12px 0;display:flex;align-items:center;justify-content:space-between;">Contacto <span style="font-size:1rem;color:var(--gold);opacity:0.7;">→</span></a>
+  </nav>
+  <div style="margin-top:2.5rem;display:flex;flex-direction:column;gap:12px;width:100%;">
+    <a href="https://wa.me/351910000000" target="_blank" style="display:flex;align-items:center;gap:12px;padding:14px 20px;background:#25D36618;border:1px solid #25D36630;border-radius:2px;color:#25D366;text-decoration:none;font-size:0.85rem;letter-spacing:0.1em;">
+      <span style="font-size:1.2rem;">💬</span> Falar com corretor
+    </a>
+    <a href="#" onclick="closeMobile();openLogin(event)" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:14px 20px;background:var(--gold);border-radius:2px;color:#fff;text-decoration:none;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;">
+      Área de cliente
+    </a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-bg"></div>
+  <div class="hero-visual">
+    <div class="hero-img-block">
+      <div class="hero-placeholder a" style="width:100%;height:100%;">
+        <div class="hp-inner">
+          <svg viewBox="0 0 80 80" fill="none">
+            <rect x="10" y="40" width="60" height="35" rx="1" stroke="rgba(184,147,90,0.4)" stroke-width="1"/>
+            <path d="M10 42L40 20L70 42" stroke="rgba(184,147,90,0.4)" stroke-width="1"/>
+            <rect x="30" y="55" width="20" height="20" stroke="rgba(184,147,90,0.3)" stroke-width="0.8"/>
+            <rect x="14" y="47" width="12" height="10" stroke="rgba(184,147,90,0.25)" stroke-width="0.8"/>
+            <rect x="54" y="47" width="12" height="10" stroke="rgba(184,147,90,0.25)" stroke-width="0.8"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="hero-img-block">
+      <div class="hero-placeholder b" style="width:100%;height:100%;">
+        <div class="hp-inner">
+          <svg viewBox="0 0 80 80" fill="none">
+            <rect x="8" y="20" width="64" height="48" rx="2" stroke="rgba(184,147,90,0.3)" stroke-width="1"/>
+            <rect x="18" y="30" width="18" height="14" stroke="rgba(184,147,90,0.25)" stroke-width="0.8"/>
+            <rect x="44" y="30" width="18" height="14" stroke="rgba(184,147,90,0.25)" stroke-width="0.8"/>
+            <rect x="28" y="52" width="24" height="16" stroke="rgba(184,147,90,0.3)" stroke-width="0.8"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-gradient"></div>
+  
+  <div class="hero-content">
+    <div class="hero-eyebrow">Imobiliária de Alto Padrão</div>
+    <h1 class="hero-title">
+      Viver com<br><em>distinção</em><br>começa aqui
+    </h1>
+    <p class="hero-subtitle">Selecionamos os imóveis mais exclusivos de Portugal para quem valoriza elegância, conforto e investimento inteligente.</p>
+    <div class="hero-actions">
+      <a href="#imoveis" class="btn-primary">
+        <span>Ver imóveis</span>
+        <span>→</span>
+      </a>
+      <a href="https://wa.me/351910000000" target="_blank" class="btn-outline">
+        <span>Falar com corretor</span>
+      </a>
+    </div>
+  </div>
+  
+  <div class="hero-stats">
+    <div class="stat-item">
+      <span class="stat-num">340+</span>
+      <span class="stat-label">Imóveis exclusivos</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">98%</span>
+      <span class="stat-label">Satisfação</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">12</span>
+      <span class="stat-label">Anos no mercado</span>
+    </div>
+  </div>
+  
+  <div class="hero-scroll" onclick="document.querySelector('.search-section').scrollIntoView({behavior:'smooth'})">
+    <div class="scroll-line"></div>
+    <span>Explorar</span>
+  </div>
+</section>
+
+<!-- SEARCH -->
+<div class="search-section">
+  <div class="search-tabs">
+    <button class="search-tab active" onclick="setTab(this,'Comprar')">Comprar</button>
+    <button class="search-tab" onclick="setTab(this,'Arrendar')">Arrendar</button>
+    <button class="search-tab" onclick="setTab(this,'Investir')">Investir</button>
+  </div>
+  <div class="search-grid">
+    <div class="search-field">
+      <label>Tipo de imóvel</label>
+      <select>
+        <option>Todos</option>
+        <option>Apartamento</option>
+        <option>Moradia</option>
+        <option>Penthouse</option>
+        <option>Quinta</option>
+        <option>Escritório</option>
+      </select>
+    </div>
+    <div class="search-field">
+      <label>Cidade</label>
+      <select>
+        <option>Todas</option>
+        <option>Lisboa</option>
+        <option>Porto</option>
+        <option>Cascais</option>
+        <option>Sintra</option>
+        <option>Algarve</option>
+      </select>
+    </div>
+    <div class="search-field">
+      <label>Bairro</label>
+      <select>
+        <option>Todos</option>
+        <option>Chiado</option>
+        <option>Príncipe Real</option>
+        <option>Estrela</option>
+        <option>Foz do Douro</option>
+        <option>Matosinhos</option>
+      </select>
+    </div>
+    <div class="search-field">
+      <label>Faixa de preço</label>
+      <select>
+        <option>Qualquer preço</option>
+        <option>Até €500k</option>
+        <option>€500k — €1M</option>
+        <option>€1M — €2M</option>
+        <option>€2M — €5M</option>
+        <option>Acima €5M</option>
+      </select>
+    </div>
+    <div class="search-field">
+      <label>Quartos</label>
+      <select>
+        <option>Qualquer</option>
+        <option>1+</option>
+        <option>2+</option>
+        <option>3+</option>
+        <option>4+</option>
+        <option>5+</option>
+      </select>
+    </div>
+    <div class="search-field">
+      <label>&nbsp;</label>
+      <button class="search-btn" onclick="searchProperties()">
+        <span>🔍</span> Buscar imóveis
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- PROPERTIES -->
+<section class="properties-section" id="imoveis">
+  <div class="section-header">
+    <div>
+      <div class="section-label reveal">Portfólio exclusivo</div>
+      <h2 class="section-title reveal reveal-delay-1">Imóveis em <em>destaque</em></h2>
+      <p class="section-subtitle reveal reveal-delay-2">Uma seleção criteriosa dos melhores imóveis disponíveis no mercado premium português.</p>
+    </div>
+    <a href="#imoveis" class="view-all reveal reveal-delay-2">Ver todos</a>
+  </div>
+  
+  <div class="properties-grid" id="propertiesGrid">
+    <!-- Cards injected by JS -->
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- ABOUT -->
+<section id="sobre" style="padding:100px 5vw;">
+  <div class="about-section">
+    <div class="about-visual reveal">
+      <div class="about-main-img">
+        <div style="opacity:0.2;">
+          <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+            <rect x="15" y="60" width="90" height="52" stroke="#B8935A" stroke-width="1.5"/>
+            <path d="M15 63L60 28L105 63" stroke="#B8935A" stroke-width="1.5"/>
+            <rect x="44" y="80" width="32" height="32" stroke="#B8935A" stroke-width="1"/>
+            <rect x="22" y="70" width="18" height="14" stroke="#B8935A" stroke-width="0.8"/>
+            <rect x="80" y="70" width="18" height="14" stroke="#B8935A" stroke-width="0.8"/>
+            <circle cx="60" cy="55" r="6" stroke="#B8935A" stroke-width="0.8"/>
+          </svg>
+        </div>
+      </div>
+      <div class="about-accent-img">
+        <span class="about-accent-num">12</span>
+        <span class="about-accent-label">Anos de excelência</span>
+      </div>
+    </div>
+    
+    <div>
+      <div class="section-label reveal">Sobre a Z</div>
+      <h2 class="section-title reveal reveal-delay-1">Uma história construída sobre <em>confiança</em></h2>
+      <p class="section-subtitle reveal reveal-delay-2" style="margin-bottom:2rem;">
+        Desde 2012, a Z Imobiliária tem sido sinónimo de excelência no mercado imobiliário premium português. A nossa missão é simples: conectar as pessoas aos espaços que transformam vidas.
+      </p>
+      <p style="font-size:0.9rem;color:var(--gray-500);font-weight:300;line-height:1.8;max-width:520px;margin-bottom:3rem;" class="reveal reveal-delay-3">
+        Com uma equipa de especialistas altamente qualificados e uma rede exclusiva de propriedades, garantimos que cada transação seja uma experiência memorável e sem igual.
+      </p>
+      <div class="about-features reveal reveal-delay-3">
+        <div class="about-feat">
+          <div class="about-feat-icon">◈</div>
+          <div class="about-feat-title">Exclusividade</div>
+          <p class="about-feat-text">Acesso a imóveis que não encontra em mais lado algum no mercado.</p>
+        </div>
+        <div class="about-feat">
+          <div class="about-feat-icon">◎</div>
+          <div class="about-feat-title">Discrição</div>
+          <p class="about-feat-text">Total confidencialidade em todos os processos e negociações.</p>
+        </div>
+        <div class="about-feat">
+          <div class="about-feat-icon">◑</div>
+          <div class="about-feat-title">Experiência</div>
+          <p class="about-feat-text">12 anos de expertise no segmento premium e de luxo.</p>
+        </div>
+        <div class="about-feat">
+          <div class="about-feat-icon">◐</div>
+          <div class="about-feat-title">Resultados</div>
+          <p class="about-feat-text">€2.4B em transações concluídas com sucesso.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team-section" id="equipa">
+  <div class="section-label reveal">A nossa equipa</div>
+  <h2 class="section-title reveal reveal-delay-1">Consultores de <em>excelência</em></h2>
+  <p class="section-subtitle reveal reveal-delay-2">Profissionais dedicados a encontrar o imóvel perfeito para si.</p>
+  
+  <div class="team-grid" id="teamGrid"></div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section" id="depoimentos">
+  <div class="section-label reveal">Testemunhos</div>
+  <h2 class="section-title reveal reveal-delay-1">O que dizem os <em>nossos clientes</em></h2>
+  <p class="section-subtitle reveal reveal-delay-2">Histórias reais de pessoas que encontraram o seu lar ideal connosco.</p>
+  
+  <div class="testimonials-track" id="testimonialTrack"></div>
+  <div class="carousel-controls">
+    <button class="carousel-btn" onclick="moveCarousel(-1)">←</button>
+    <button class="carousel-btn" onclick="moveCarousel(1)">→</button>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section class="blog-section" id="blog">
+  <div class="section-header">
+    <div>
+      <div class="section-label reveal">Insights</div>
+      <h2 class="section-title reveal reveal-delay-1">Blog <em>imobiliário</em></h2>
+      <p class="section-subtitle reveal reveal-delay-2">Dicas, tendências e análises do mercado premium.</p>
+    </div>
+    <a href="#blog" class="view-all reveal">Ver todos os artigos</a>
+  </div>
+  <div class="blog-grid" id="blogGrid"></div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contacto">
+  <div class="section-label reveal">Contacto</div>
+  <h2 class="section-title reveal reveal-delay-1">Fale <em>connosco</em></h2>
+  <p class="section-subtitle reveal reveal-delay-2">A nossa equipa está disponível para o ajudar a encontrar o imóvel dos seus sonhos.</p>
+  
+  <div class="contact-grid">
+    <div class="contact-form reveal">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nome completo</label>
+          <input type="text" placeholder="O seu nome">
+        </div>
+        <div class="form-group">
+          <label>Telefone</label>
+          <input type="tel" placeholder="+351 9XX XXX XXX">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" placeholder="email@exemplo.com">
+      </div>
+      <div class="form-group">
+        <label>Assunto</label>
+        <select style="padding:14px 16px;border:1px solid var(--gray-200);background:var(--white);color:var(--black);font-family:'DM Sans',sans-serif;font-size:0.9rem;border-radius:2px;outline:none;-webkit-appearance:none;appearance:none;cursor:pointer;transition:border-color 0.3s;">
+          <option>Comprar imóvel</option>
+          <option>Arrendar imóvel</option>
+          <option>Vender imóvel</option>
+          <option>Investimento</option>
+          <option>Informações gerais</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Mensagem</label>
+        <textarea placeholder="Descreva o que procura..."></textarea>
+      </div>
+      <button class="btn-primary" style="width:fit-content;" onclick="submitForm()">
+        Enviar mensagem <span>→</span>
+      </button>
+    </div>
+    
+    <div class="contact-info reveal reveal-delay-2">
+      <div class="contact-info-item">
+        <div class="contact-icon">📍</div>
+        <div>
+          <div class="contact-info-title">Morada</div>
+          <div class="contact-info-val">Avenida da Liberdade, 250<br>1250-149 Lisboa, Portugal</div>
+        </div>
+      </div>
+      <div class="contact-info-item">
+        <div class="contact-icon">📞</div>
+        <div>
+          <div class="contact-info-title">Telefone</div>
+          <div class="contact-info-val">+351 21 000 0000<br>+351 910 000 000</div>
+        </div>
+      </div>
+      <div class="contact-info-item">
+        <div class="contact-icon">✉️</div>
+        <div>
+          <div class="contact-info-title">Email</div>
+          <div class="contact-info-val">info@zimobiliaria.pt<br>comercial@zimobiliaria.pt</div>
+        </div>
+      </div>
+      <div class="contact-info-item">
+        <div class="contact-icon">🕐</div>
+        <div>
+          <div class="contact-info-title">Horário</div>
+          <div class="contact-info-val">Segunda — Sexta: 9h — 19h<br>Sábado: 10h — 16h</div>
+        </div>
+      </div>
+      <div class="map-placeholder">
+        <span style="font-size:1.5rem;opacity:0.4;">🗺</span>
+        <span>Google Maps integrado</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <svg width="72" height="84" viewBox="0 0 110 124" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:1.2rem;">
+        <defs>
+          <linearGradient id="footG" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#D4AF7A"/>
+            <stop offset="100%" stop-color="#8B6B3A"/>
+          </linearGradient>
+        </defs>
+        <text x="55" y="88" font-family="Georgia,'Times New Roman',serif" font-size="104" font-weight="400" fill="url(#footG)" text-anchor="middle" letter-spacing="-3">Z</text>
+        <line x1="14" y1="97" x2="96" y2="97" stroke="#B8935A" stroke-width="0.8" opacity="0.6"/>
+        <text x="55" y="112" font-family="'Arial Narrow',Arial,sans-serif" font-size="10" fill="#B8935A" text-anchor="middle" letter-spacing="5">IMÓVEIS</text>
+      </svg>
+      <p class="footer-tagline">Imobiliária premium especializada em propriedades de alto padrão em Portugal. Elegância, confiança e resultados excepcionais desde 2012.</p>
+      <div class="footer-socials">
+        <a href="#" class="footer-social" title="Instagram">ig</a>
+        <a href="#" class="footer-social" title="LinkedIn">in</a>
+        <a href="#" class="footer-social" title="Facebook">fb</a>
+        <a href="#" class="footer-social" title="YouTube">yt</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Imóveis</div>
+      <ul class="footer-links">
+        <li><a href="#">Comprar</a></li>
+        <li><a href="#">Arrendar</a></li>
+        <li><a href="#">Investir</a></li>
+        <li><a href="#">Novos empreendimentos</a></li>
+        <li><a href="#">Propriedades exclusivas</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Empresa</div>
+      <ul class="footer-links">
+        <li><a href="#sobre">Sobre nós</a></li>
+        <li><a href="#equipa">Equipa</a></li>
+        <li><a href="#blog">Blog</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+        <li><a href="#" onclick="openLogin(event)">Área de cliente</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Newsletter</div>
+      <p style="font-size:0.82rem;color:rgba(255,255,255,0.35);margin-bottom:1.2rem;font-weight:300;line-height:1.6;">Receba em primeira mão as melhores oportunidades do mercado premium.</p>
+      <div class="newsletter-form">
+        <input type="email" class="newsletter-input" placeholder="O seu email">
+        <button class="newsletter-btn" onclick="subscribeNewsletter()">Subscrever</button>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 Z Imobiliária. Todos os direitos reservados. AMI: 12345</p>
+    <div class="footer-bottom-links">
+      <a href="#">Privacidade</a>
+      <a href="#">Termos</a>
+      <a href="#">Cookies</a>
+    </div>
+  </div>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/351910000000?text=Olá,%20gostaria%20de%20informações%20sobre%20imóveis." target="_blank" class="wa-float" title="WhatsApp">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- PROPERTY MODAL -->
+<div class="modal-overlay" id="propertyModal">
+  <div class="modal" id="modalContent">
+    <div class="modal-header">
+      <div>
+        <div style="font-size:0.65rem;letter-spacing:0.2em;color:var(--gold);text-transform:uppercase;" id="modalBadge">Venda</div>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;margin-top:4px;" id="modalTitle">Apartamento T3</h2>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-gallery">
+      <div class="modal-main-img" style="display:flex;align-items:center;justify-content:center;">
+        <svg width="80" height="80" viewBox="0 0 80 80" fill="none" opacity="0.2">
+          <rect x="10" y="40" width="60" height="35" stroke="#B8935A" stroke-width="1.5"/>
+          <path d="M10 42L40 20L70 42" stroke="#B8935A" stroke-width="1.5"/>
+          <rect x="30" y="55" width="20" height="20" stroke="#B8935A" stroke-width="1"/>
+        </svg>
+      </div>
+      <div class="modal-side-imgs">
+        <div class="modal-side-img"></div>
+        <div class="modal-side-img"></div>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-price" id="modalPrice">€1.250.000</div>
+      <div class="modal-address" id="modalAddress">📍 Príncipe Real, Lisboa</div>
+      <div class="modal-specs" id="modalSpecs">
+        <div class="spec-item"><div class="spec-num">3</div><div class="spec-label">Quartos</div></div>
+        <div class="spec-item"><div class="spec-num">2</div><div class="spec-label">WC</div></div>
+        <div class="spec-item"><div class="spec-num">185</div><div class="spec-label">m² Área</div></div>
+        <div class="spec-item"><div class="spec-num">A+</div><div class="spec-label">Energia</div></div>
+      </div>
+      <p class="modal-desc" id="modalDesc">
+        Magnífico apartamento com acabamentos de luxo no coração de Lisboa. Com vistas desafogadas sobre a cidade, este imóvel exclusivo combina arquitetura contemporânea com materiais nobres selecionados. Cozinha totalmente equipada, suite master com closet, varanda espaçosa e lugar de garagem incluído.
+      </p>
+      <div class="modal-actions">
+        <a href="https://wa.me/351910000000" target="_blank" class="btn-gold">
+          <span>💬</span> WhatsApp
+        </a>
+        <button class="btn-dark" onclick="closeModal();document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">
+          Solicitar visita
+        </button>
+        <button class="btn-outline" style="padding:14px 24px;border-radius:2px;color:var(--black);border-color:var(--gray-200);font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;background:transparent;font-family:'DM Sans',sans-serif;transition:all 0.3s;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--gray-200)'" onclick="shareProperty()">
+          Partilhar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LOGIN MODAL -->
+<div class="modal-overlay" id="loginModal">
+  <div class="login-modal">
+    <div style="display:flex;justify-content:center;margin-bottom:8px;">
+      <svg width="60" height="70" viewBox="0 0 110 124" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="loginG" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#D4AF7A"/>
+            <stop offset="100%" stop-color="#8B6B3A"/>
+          </linearGradient>
+        </defs>
+        <text x="55" y="88" font-family="Georgia,'Times New Roman',serif" font-size="104" font-weight="400" fill="url(#loginG)" text-anchor="middle" letter-spacing="-3">Z</text>
+        <line x1="14" y1="97" x2="96" y2="97" stroke="#B8935A" stroke-width="0.8" opacity="0.7"/>
+        <text x="55" y="112" font-family="'Arial Narrow',Arial,sans-serif" font-size="10" fill="#B8935A" text-anchor="middle" letter-spacing="5">IMÓVEIS</text>
+      </svg>
+    </div>
+    <p class="login-subtitle">Bem-vindo à área de cliente</p>
+    <div class="login-tabs">
+      <button class="login-tab active" onclick="switchLoginTab(this,'client')">Cliente</button>
+      <button class="login-tab" onclick="switchLoginTab(this,'admin')">Administração</button>
+    </div>
+    <div id="loginFormContent">
+      <div class="form-group" style="margin-bottom:14px;">
+        <label style="font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray-400);">Email</label>
+        <input type="email" placeholder="email@exemplo.com" style="width:100%;padding:14px 16px;border:1px solid var(--gray-200);background:var(--white);color:var(--black);font-family:'DM Sans',sans-serif;font-size:0.9rem;border-radius:2px;outline:none;transition:border-color 0.3s;margin-top:6px;">
+      </div>
+      <div class="form-group" style="margin-bottom:24px;">
+        <label style="font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray-400);">Password</label>
+        <input type="password" placeholder="••••••••" style="width:100%;padding:14px 16px;border:1px solid var(--gray-200);background:var(--white);color:var(--black);font-family:'DM Sans',sans-serif;font-size:0.9rem;border-radius:2px;outline:none;transition:border-color 0.3s;margin-top:6px;">
+      </div>
+      <button class="btn-primary" style="width:100%;justify-content:center;" onclick="doLogin()">Entrar</button>
+      <p style="text-align:center;margin-top:1.5rem;font-size:0.82rem;color:var(--gray-400);">
+        Não tem conta? <a href="#" style="color:var(--gold);text-decoration:none;">Registar</a>
+      </p>
+    </div>
+    <button onclick="document.getElementById('loginModal').classList.remove('open')" style="position:absolute;top:16px;right:20px;background:none;border:none;cursor:pointer;font-size:1.5rem;color:var(--gray-400);">✕</button>
+  </div>
+</div>
+
+<!-- NOTIFICATION -->
+<div class="notification" id="notification">
+  <span class="notif-icon" id="notifIcon">✓</span>
+  <span id="notifText">Ação realizada com sucesso!</span>
+</div>
+
+<script>
+// DATA
+const properties = [
+  { id:1, title:'Penthouse no Chiado', price:'€4.200.000', priceVal:4200000, type:'Venda', location:'Chiado, Lisboa', area:320, rooms:4, bath:3, energy:'A+', badge:'Destaque', desc:'Penthouse com terraço privativo de 120m² e vista panorâmica sobre Lisboa. Acabamentos Poliform e Boffi. Piscina privada.' },
+  { id:2, title:'Moradia em Cascais', price:'€3.500.000', priceVal:3500000, type:'Venda', location:'Cascais, Lisboa', area:480, rooms:5, bath:4, energy:'A', badge:'Exclusivo', desc:'Moradia de arquitetura contemporânea com jardim, piscina aquecida e spa. A 5 minutos do Oceano Atlântico.' },
+  { id:3, title:'Apartamento T3 Príncipe Real', price:'€1.250.000', priceVal:1250000, type:'Venda', location:'Príncipe Real, Lisboa', area:185, rooms:3, bath:2, energy:'A+', badge:'Novo', desc:'Apartamento renovado com materiais nobres, vista desafogada e garagem dupla. Edifício de 1900 com alma.' },
+  { id:4, title:'T4 Foz do Douro', price:'€2.800.000', priceVal:2800000, type:'Venda', location:'Foz do Douro, Porto', area:265, rooms:4, bath:3, energy:'A', badge:'Premium', desc:'Moradia geminada com vista mar, jardim privado e piscina interior. Minutos da praia de Molhe.' },
+  { id:5, title:'Studio de Luxo no Bairro Alto', price:'€3.500/mês', priceVal:3500, type:'Arrendamento', location:'Bairro Alto, Lisboa', area:85, rooms:1, bath:1, energy:'B', badge:'Arrendamento', desc:'Studio sofisticado totalmente mobilado. Ideal para executivos. Condomínio com ginásio e concierge 24h.' },
+  { id:6, title:'T2 Boavista Premium', price:'€2.200/mês', priceVal:2200, type:'Arrendamento', location:'Boavista, Porto', area:120, rooms:2, bath:2, energy:'A+', badge:'Arrendamento', desc:'Apartamento moderno em edifício de luxo. Varanda espaçosa com vista cidade, garagem e arrecadação.' },
+];
+
+const team = [
+  { name:'Margarida Ferreira', role:'Diretora Comercial', initials:'MF', phone:'+351 910 000 001', ig:'@margarida_z' },
+  { name:'Ricardo Alves', role:'Consultor Sénior', initials:'RA', phone:'+351 910 000 002', ig:'@ricardo_z' },
+  { name:'Sofia Lopes', role:'Especialista em Luxo', initials:'SL', phone:'+351 910 000 003', ig:'@sofia_z' },
+  { name:'André Costa', role:'Consultor Premium', initials:'AC', phone:'+351 910 000 004', ig:'@andre_z' },
+];
+
+const testimonials = [
+  { text:'A Z Imobiliária superou todas as expectativas. Encontraram a nossa moradia de sonho em apenas duas semanas. Profissionalismo e atenção ao detalhe que raramente se encontra.', name:'Pedro & Ana Sousa', detail:'Adquiriram moradia em Cascais', stars:'★★★★★', initials:'PS' },
+  { text:'Investir através da Z foi a melhor decisão que tomei. O retorno superou as projeções e o acompanhamento durante todo o processo foi exemplar. Equipa de confiança total.', name:'Carlos Mendes', detail:'Investidor imobiliário', stars:'★★★★★', initials:'CM' },
+  { text:'Procurei durante meses e nenhuma agência chegou perto do que a Z me ofereceu. O apartamento no Chiado é simplesmente perfeito. Recomendo vivamente.', name:'Beatriz Tavares', detail:'Adquiriu penthouse no Chiado', stars:'★★★★★', initials:'BT' },
+  { text:'Extraordinária atenção ao cliente. A Margarida percebeu imediatamente o que procurávamos e apresentou opções que nem sabíamos que existiam. Resultado impecável.', name:'João & Isabel Rodrigues', detail:'Compraram T4 no Porto', stars:'★★★★★', initials:'JR' },
+];
+
+const blogPosts = [
+  { cat:'Mercado', title:'Lisboa entra no top 10 das cidades europeias com maior valorização imobiliária em 2025', date:'15 Jan 2025', author:'Margarida Ferreira' },
+  { cat:'Investimento', title:'Como maximizar o retorno do investimento imobiliário em Portugal', date:'8 Jan 2025', author:'Ricardo Alves' },
+  { cat:'Decoração', title:'Tendências de design de interiores para imóveis de luxo em 2025', date:'2 Jan 2025', author:'Sofia Lopes' },
+  { cat:'Dicas', title:'Golden Visa: o que muda em 2025 e como isso afeta o mercado premium', date:'28 Dez 2024', author:'André Costa' },
+];
+
+let carouselOffset = 0;
+let favorites = new Set();
+
+// RENDER PROPERTIES
+function renderProperties() {
+  const grid = document.getElementById('propertiesGrid');
+  grid.innerHTML = properties.map((p, i) => `
+    <div class="property-card reveal" style="transition-delay:${i*0.08}s" onclick="openProperty(${p.id})">
+      <div class="prop-img" style="background:linear-gradient(${145+i*15}deg,#${['2D2920','1E1B14','3C3428','252118','2A2216','1A1714'][i]},#${['1E1B14','2D2920','1A1714','3C3428','1A1714','2D2920'][i]});width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;">
+        <svg width="60" height="60" viewBox="0 0 80 80" fill="none" opacity="0.18">
+          <rect x="10" y="40" width="60" height="35" stroke="#B8935A" stroke-width="1.5"/>
+          <path d="M10 42L40 ${20+i*3}L70 42" stroke="#B8935A" stroke-width="1.5"/>
+          <rect x="30" y="55" width="20" height="20" stroke="#B8935A" stroke-width="1"/>
+          <rect x="14" y="47" width="12" height="10" stroke="#B8935A" stroke-width="0.8"/>
+          <rect x="54" y="47" width="12" height="10" stroke="#B8935A" stroke-width="0.8"/>
+        </svg>
+      </div>
+      <div class="prop-badge">${p.badge}</div>
+      <button class="prop-fav ${favorites.has(p.id)?'active':''}" onclick="toggleFav(event,${p.id})" title="Favorito">
+        ${favorites.has(p.id)?'♥':'♡'}
+      </button>
+      <div class="prop-info">
+        <div class="prop-price">${p.price} <span>${p.type==='Arrendamento'?'/mês':''}</span></div>
+        <div class="prop-title">${p.title}</div>
+        <div class="prop-meta">
+          <span class="prop-meta-item">📍 ${p.location}</span>
+          <span class="prop-meta-item">⊡ ${p.area}m²</span>
+          <span class="prop-meta-item">🛏 ${p.rooms}</span>
+        </div>
+      </div>
+      <div class="prop-actions">
+        <button class="prop-btn" onclick="openProperty(${p.id})">Ver detalhes</button>
+      </div>
+    </div>
+  `).join('');
+  observeReveal();
+}
+
+// RENDER TEAM
+function renderTeam() {
+  document.getElementById('teamGrid').innerHTML = team.map(m => `
+    <div class="team-card reveal">
+      <div class="team-photo">
+        <div class="team-photo-inner"><span>${m.initials}</span></div>
+        <div class="team-overlay">
+          <a href="https://wa.me/${m.phone.replace(/\s/g,'')}" target="_blank" class="team-social">W</a>
+          <a href="#" class="team-social">in</a>
+          <a href="#" class="team-social">ig</a>
+        </div>
+      </div>
+      <div class="team-info">
+        <div class="team-name">${m.name}</div>
+        <div class="team-role">${m.role}</div>
+        <a href="https://wa.me/${m.phone.replace(/\s/g,'')}" target="_blank" class="team-whatsapp">
+          💬 ${m.phone}
+        </a>
+      </div>
+    </div>
+  `).join('');
+}
+
+// RENDER TESTIMONIALS
+function renderTestimonials() {
+  document.getElementById('testimonialTrack').innerHTML = testimonials.map(t => `
+    <div class="testimonial-item">
+      <div class="stars">${t.stars}</div>
+      <p class="testimonial-text">"${t.text}"</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">${t.initials}</div>
+        <div>
+          <div class="author-name">${t.name}</div>
+          <div class="author-detail">${t.detail}</div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// RENDER BLOG
+function renderBlog() {
+  document.getElementById('blogGrid').innerHTML = blogPosts.map((p, i) => `
+    <div class="blog-card reveal" style="transition-delay:${i*0.1}s">
+      <div class="blog-img" style="background:linear-gradient(${140+i*20}deg,#${['2D2920','1E1B14','252118','1A1714'][i]},#1E1B14);">
+        <div class="blog-img-inner" style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;">
+          <svg width="50" height="50" viewBox="0 0 80 80" fill="none" opacity="0.15">
+            <rect x="15" y="20" width="50" height="60" stroke="#B8935A" stroke-width="1.5"/>
+            <rect x="25" y="32" width="30" height="2" fill="#B8935A"/>
+            <rect x="25" y="40" width="20" height="2" fill="#B8935A"/>
+            <rect x="25" y="48" width="25" height="2" fill="#B8935A"/>
+          </svg>
+        </div>
+      </div>
+      <div class="blog-cat">${p.cat}</div>
+      <div class="blog-title">${p.title}</div>
+      <div class="blog-meta">${p.date} · ${p.author}</div>
+    </div>
+  `).join('');
+}
+
+// NAV SCROLL
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('navbar');
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// CAROUSEL
+function moveCarousel(dir) {
+  const track = document.getElementById('testimonialTrack');
+  const items = track.children;
+  const itemW = items[0].offsetWidth + 24;
+  carouselOffset = Math.max(0, Math.min(carouselOffset + dir, items.length - 2));
+  track.style.transform = `translateX(-${carouselOffset * itemW}px)`;
+  track.style.transition = 'transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94)';
+}
+
+// PROPERTY MODAL
+function openProperty(id) {
+  const p = properties.find(x => x.id === id);
+  if (!p) return;
+  document.getElementById('modalBadge').textContent = p.badge;
+  document.getElementById('modalTitle').textContent = p.title;
+  document.getElementById('modalPrice').textContent = p.price;
+  document.getElementById('modalAddress').textContent = '📍 ' + p.location;
+  document.getElementById('modalSpecs').innerHTML = `
+    <div class="spec-item"><div class="spec-num">${p.rooms}</div><div class="spec-label">Quartos</div></div>
+    <div class="spec-item"><div class="spec-num">${p.bath}</div><div class="spec-label">WC</div></div>
+    <div class="spec-item"><div class="spec-num">${p.area}</div><div class="spec-label">m² Área</div></div>
+    <div class="spec-item"><div class="spec-num">${p.energy}</div><div class="spec-label">Energia</div></div>
+  `;
+  document.getElementById('modalDesc').textContent = p.desc;
+  document.getElementById('propertyModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('propertyModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('propertyModal').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeModal();
+});
+
+// FAVORITES
+function toggleFav(e, id) {
+  e.stopPropagation();
+  if (favorites.has(id)) {
+    favorites.delete(id);
+    showNotification('💔 Removido dos favoritos');
+  } else {
+    favorites.add(id);
+    showNotification('♥ Adicionado aos favoritos');
+  }
+  renderProperties();
+}
+
+// THEME
+function toggleTheme() {
+  const html = document.documentElement;
+  const isDark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  document.getElementById('theme-icon').textContent = isDark ? '◐' : '◑';
+  localStorage.setItem('z-theme', isDark ? 'light' : 'dark');
+}
+(function() {
+  const saved = localStorage.getItem('z-theme');
+  if (saved === 'dark') {
+    document.documentElement.setAttribute('data-theme','dark');
+    document.getElementById('theme-icon').textContent = '◑';
+  }
+})();
+
+// SEARCH
+function searchProperties() { showNotification('🔍 A pesquisar imóveis...'); }
+function setTab(el, type) {
+  document.querySelectorAll('.search-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// LOGIN
+function openLogin(e) {
+  e.preventDefault();
+  document.getElementById('loginModal').classList.add('open');
+}
+document.getElementById('loginModal').addEventListener('click', e => {
+  if (e.target === e.currentTarget) e.currentTarget.classList.remove('open');
+});
+function switchLoginTab(el, type) {
+  document.querySelectorAll('.login-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  if (type === 'admin') {
+    document.getElementById('loginFormContent').innerHTML = `
+      <div class="admin-note">🔐 Área restrita — Apenas para administradores autorizados da Z Imobiliária.</div>
+      <div class="form-group" style="margin-bottom:14px;"><label style="font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray-400);">Utilizador admin</label><input type="text" placeholder="admin@zimobiliaria.pt" style="width:100%;padding:14px 16px;border:1px solid var(--gray-200);background:var(--white);color:var(--black);font-family:'DM Sans',sans-serif;font-size:0.9rem;border-radius:2px;outline:none;transition:border-color 0.3s;margin-top:6px;"></div>
+      <div class="form-group" style="margin-bottom:24px;"><label style="font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray-400);">Password</label><input type="password" placeholder="••••••••" style="width:100%;padding:14px 16px;border:1px solid var(--gray-200);background:var(--white);color:var(--black);font-family:'DM Sans',sans-serif;font-size:0.9rem;border-radius:2px;outline:none;margin-top:6px;"></div>
+      <button class="btn-primary" style="width:100%;justify-content:center;background:var(--black);" onclick="doLogin()">Aceder ao painel</button>
+    `;
+  } else {
+    document.getElementById('loginFormContent').innerHTML = `
+      <div class="form-group" style="margin-bottom:14px;"><label style="font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray-400);">Email</label><input type="email" placeholder="email@exemplo.com" style="width:100%;padding:14px 16px;border:1px solid var(--gray-200);background:var(--white);color:var(--black);font-family:'DM Sans',sans-serif;font-size:0.9rem;border-radius:2px;outline:none;transition:border-color 0.3s;margin-top:6px;"></div>
+      <div class="form-group" style="margin-bottom:24px;"><label style="font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray-400);">Password</label><input type="password" placeholder="••••••••" style="width:100%;padding:14px 16px;border:1px solid var(--gray-200);background:var(--white);color:var(--black);font-family:'DM Sans',sans-serif;font-size:0.9rem;border-radius:2px;outline:none;transition:border-color 0.3s;margin-top:6px;"></div>
+      <button class="btn-primary" style="width:100%;justify-content:center;" onclick="doLogin()">Entrar</button>
+      <p style="text-align:center;margin-top:1.5rem;font-size:0.82rem;color:var(--gray-400);">Não tem conta? <a href="#" style="color:var(--gold);text-decoration:none;">Registar</a></p>
+    `;
+  }
+}
+function doLogin() {
+  document.getElementById('loginModal').classList.remove('open');
+  showNotification('✓ Bem-vindo à Z Imobiliária!');
+}
+
+// FORM
+function submitForm() { showNotification('✓ Mensagem enviada! Responderemos em breve.'); }
+function subscribeNewsletter() { showNotification('✓ Newsletter subscrita com sucesso!'); }
+function shareProperty() {
+  if (navigator.share) { navigator.share({ title: 'Z Imobiliária', url: window.location.href }); }
+  else { navigator.clipboard?.writeText(window.location.href); showNotification('🔗 Link copiado!'); }
+}
+
+// NOTIFICATION
+function showNotification(msg) {
+  const n = document.getElementById('notification');
+  document.getElementById('notifText').textContent = msg;
+  n.classList.add('show');
+  setTimeout(() => n.classList.remove('show'), 3500);
+}
+
+// MOBILE MENU
+document.getElementById('hamburger').addEventListener('click', () => {
+  const menu = document.getElementById('mobileMenu');
+  const open = menu.style.display === 'flex';
+  menu.style.display = open ? 'none' : 'flex';
+  document.body.style.overflow = open ? '' : 'hidden';
+  const spans = document.querySelectorAll('.hamburger span');
+  if (!open) {
+    spans[0].style.cssText = 'transform:rotate(45deg) translate(4px,4px)';
+    spans[1].style.cssText = 'opacity:0;width:0';
+    spans[2].style.cssText = 'transform:rotate(-45deg) translate(4px,-4px)';
+  } else {
+    spans.forEach(s => s.style.cssText = '');
+  }
+});
+function closeMobile() {
+  document.getElementById('mobileMenu').style.display = 'none';
+  document.body.style.overflow = '';
+  document.querySelectorAll('.hamburger span').forEach(s => s.style.cssText = '');
+}
+
+// TOUCH SWIPE for carousel
+(function() {
+  const track = document.getElementById('testimonialTrack');
+  let startX = 0;
+  track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchend', e => {
+    const diff = startX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) moveCarousel(diff > 0 ? 1 : -1);
+  }, { passive: true });
+})();
+
+// SCROLL REVEAL
+function observeReveal() {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+}
+
+// INIT
+renderProperties();
+renderTeam();
+renderTestimonials();
+renderBlog();
+observeReveal();
+
+// HERO PARALLAX
+window.addEventListener('scroll', () => {
+  const sy = window.scrollY;
+  const heroContent = document.querySelector('.hero-content');
+  if (heroContent && sy < window.innerHeight) {
+    heroContent.style.transform = `translateY(${sy * 0.25}px)`;
+    heroContent.style.opacity = 1 - sy / 500;
+  }
+  const heroVisual = document.querySelector('.hero-visual');
+  if (heroVisual && sy < window.innerHeight) {
+    heroVisual.style.transform = `translateY(${sy * 0.1}px)`;
+  }
+}, { passive: true });
+</script>
+</body>
+</html>
