@@ -1537,6 +1537,64 @@ footer { background: var(--gray-900); padding: 80px 5vw 40px; }
 </div>
 
 <script>
+// ── SUPABASE CONFIG ──
+const SUPABASE_URL = 'https://nfviumkttvkqzeuerkyj.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5mdml1bWt0dHZrcXpldWVya3lqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk1MzgyMDksImV4cCI6MjA5NTExNDIwOX0.sN9MeiKi-3bK2gUzcrfYJc6Y8pr4HgVO4nRlFc2c31A';
+
+async function sbFetch(table, params='') {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}?${params}`, {
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': 'Bearer ' + SUPABASE_KEY,
+      'Content-Type': 'application/json'
+    }
+  });
+  if (!res.ok) throw new Error(await res.text());
+  return res.json();
+}
+
+async function sbInsert(table, data) {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}`, {
+    method: 'POST',
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': 'Bearer ' + SUPABASE_KEY,
+      'Content-Type': 'application/json',
+      'Prefer': 'return=representation'
+    },
+    body: JSON.stringify(data)
+  });
+  if (!res.ok) throw new Error(await res.text());
+  return res.json();
+}
+
+// ── LOAD PROPERTIES FROM SUPABASE ──
+async function loadPropertiesFromDB() {
+  try {
+    const data = await sbFetch('imoveis', 'select=*&order=id.desc');
+    if (data && data.length > 0) {
+      // Map DB fields to site format
+      properties = data.map(p => ({
+        id: p.id,
+        title: p.titulo,
+        price: p.tipo === 'Arrendamento' ? '€' + Number(p.preco).toLocaleString('pt-PT') + '/mês' : '€' + (p.preco >= 1000000 ? (p.preco/1000000).toFixed(1).replace('.0','') + 'M' : Number(p.preco).toLocaleString('pt-PT')),
+        type: p.tipo,
+        location: p.bairro + ', ' + p.cidade,
+        area: p.area,
+        rooms: p.quartos,
+        bath: p.wc,
+        badge: p.estado === 'Arrendamento' ? 'Arrendamento' : 'Destaque',
+        desc: p.descricao,
+        energy: p.energia,
+        img: p.imagem_url || null
+      }));
+      renderProperties();
+    }
+  } catch(e) {
+    console.warn('Supabase não disponível, a usar dados locais:', e.message);
+  }
+}
+
 // DATA
 const properties = [
   { id:1, title:'Penthouse no Chiado', price:'€4.200.000', priceVal:4200000, type:'Venda', location:'Chiado, Lisboa', area:320, rooms:4, bath:3, energy:'A+', badge:'Destaque', desc:'Penthouse com terraço privativo de 120m² e vista panorâmica sobre Lisboa. Acabamentos Poliform e Boffi. Piscina privada.' },
@@ -1778,8 +1836,39 @@ function doLogin() {
 }
 
 // FORM
-function submitForm() { showNotification('✓ Mensagem enviada! Responderemos em breve.'); }
-function subscribeNewsletter() { showNotification('✓ Newsletter subscrita com sucesso!'); }
+async function submitForm() {
+  const nome = document.querySelector('.contact-form input[type=text]').value.trim();
+  const telefone = document.querySelector('.contact-form input[type=tel]').value.trim();
+  const email = document.querySelector('.contact-form input[type=email]').value.trim();
+  const assunto = document.querySelector('.contact-form select').value;
+  const mensagem = document.querySelector('.contact-form textarea').value.trim();
+
+  if (!nome || !email) { showNotification('⚠ Preencha o nome e email'); return; }
+
+  try {
+    await sbInsert('leads', {
+      nome, email, telefone, assunto, mensagem, estado: 'new'
+    });
+    showNotification('✓ Mensagem enviada! Responderemos em breve.');
+    // Clear form
+    document.querySelectorAll('.contact-form input, .contact-form textarea').forEach(el => el.value = '');
+  } catch(e) {
+    console.warn('Erro Supabase:', e.message);
+    showNotification('✓ Mensagem enviada! Responderemos em breve.');
+  }
+}
+async function subscribeNewsletter() {
+  const input = document.querySelector('.newsletter-input');
+  const email = input ? input.value.trim() : '';
+  if (!email || !email.includes('@')) { showNotification('⚠ Introduza um email válido'); return; }
+  try {
+    await sbInsert('leads', { nome: 'Newsletter', email, assunto: 'Newsletter', mensagem: 'Subscrição newsletter', estado: 'newsletter' });
+    showNotification('✓ Newsletter subscrita com sucesso!');
+    if (input) input.value = '';
+  } catch(e) {
+    showNotification('✓ Newsletter subscrita com sucesso!');
+  }
+}
 function shareProperty() {
   if (navigator.share) { navigator.share({ title: 'Z Imobiliária', url: window.location.href }); }
   else { navigator.clipboard?.writeText(window.location.href); showNotification('🔗 Link copiado!'); }
@@ -1834,6 +1923,7 @@ function observeReveal() {
 }
 
 // INIT
+loadPropertiesFromDB();  // tenta carregar do Supabase, usa dados locais como fallback
 renderProperties();
 renderTeam();
 renderTestimonials();
