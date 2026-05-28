@@ -1,3 +1,4 @@
+HTML
 <!DOCTYPE html>
 <html lang="pt-BR" data-theme="light">
 <head>
@@ -930,7 +931,7 @@ footer { background: var(--gray-900); padding: 90px 6vw 40px; }
 
   /* SEARCH */
   .search-grid { grid-template-columns: 1fr; }
-  .search-field:last-child { grid-column: auto; }
+  .search-field:last-child { grid-column: span 2; }
 
   /* TEAM */
   .team-grid { grid-template-columns: 1fr; }
@@ -1196,7 +1197,7 @@ footer { background: var(--gray-900); padding: 90px 6vw 40px; }
         <option>5+</option>
       </select>
     </div>
-    <div class="search-field">
+    <div class="search-grid">
       <label>&nbsp;</label>
       <button class="search-btn" onclick="searchProperties()">
         <span>🔍</span> Buscar imóveis
@@ -1588,8 +1589,8 @@ let properties = [
 ];
 
 let team = [
-  { name:'Zulmira João Ferreira', role:'Diretora Comercial', initials:'ZF', phone:'+351 910 000 001', ig:'@zulmira_z' },
-  { name:'Ricardo Coelho de Villela', role:'Consultor Sénior', initials:'RV', phone:'+351 910 000 002', ig:'@ricardo_v_z' }
+  { name:'Zulmira João Ferreira', role:'Partner', initials:'ZF', phone:'+351 910 000 001', ig:'@zulmira_z', photo: 'image_4.png' },
+  { name:'Ricardo Coelho de Villela', role:'Partner', initials:'RV', phone:'+351 910 000 002', ig:'@ricardo_v_z', photo: 'image_3.png' }
 ];
 
 const testimonials = [
@@ -1650,7 +1651,10 @@ function renderTeam() {
   document.getElementById('teamGrid').innerHTML = team.map(m => `
     <div class="team-card reveal">
       <div class="team-photo">
-        <div class="team-photo-inner"><span>${m.initials}</span></div>
+        ${m.photo 
+          ? `<img src="${m.photo}" alt="${m.name}" style="width:100%; height:100%; object-fit:cover;">`
+          : `<div class="team-photo-inner"><span>${m.initials}</span></div>`
+        }
         <div class="team-overlay">
           <a href="https://wa.me/${m.phone.replace(/\s/g,'')}" target="_blank" class="team-social">W</a>
           <a href="#" class="team-social">in</a>
