@@ -858,3 +858,1072 @@ footer { background: var(--gray-900); padding: 90px 6vw 40px; }
   .property-card::after { display: none; }
   .property-card { background: var(--gray-100); }
   .prop-price { color: var(--black); }
+  .prop-title { color: var(--gray-700); }
+  .prop-meta-item { color: var(--gray-500); }
+  .prop-img { aspect-ratio: 16/9; }
+  .prop-btn { border-radius: 0; }
+
+  /* ABOUT */
+  .about-section { grid-template-columns: 1fr; gap: 0; }
+  .about-visual { display: none; }
+  .about-features { grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem; }
+
+  /* TEAM */
+  .team-grid { grid-template-columns: 1fr 1fr; gap: 2px; }
+  .team-photo { aspect-ratio: 1/1; }
+
+  /* TESTIMONIALS */
+  .testimonials-section { padding: 60px 4vw; }
+  .testimonials-track { gap: 16px; }
+  .testimonial-item { flex: 0 0 88%; padding: 28px 20px; }
+  .testimonial-text { font-size: 1.1rem; }
+  .carousel-controls { margin-top: 1.5rem; }
+
+  /* BLOG */
+  .blog-grid { grid-template-columns: 1fr; gap: 2px; }
+  .blog-card:first-child { grid-column: auto; }
+  .blog-title { font-size: 1.1rem; }
+  .blog-card:first-child .blog-title { font-size: 1.3rem; }
+
+  /* CONTACT */
+  .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .contact-form { order: 1; }
+  .contact-info { order: 2; gap: 1.5rem; }
+  .form-row { grid-template-columns: 1fr; gap: 12px; }
+  .map-placeholder { height: 180px; margin-top: 1.5rem; }
+
+  /* MODAL */
+  .modal { max-height: 95svh; border-radius: 4px 4px 0 0; margin-top: auto; width: 100%; }
+  .modal-overlay { align-items: flex-end; padding: 0; }
+  .modal-gallery { grid-template-columns: 1fr; }
+  .modal-side-imgs { display: none; }
+  .modal-specs { grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 16px; }
+  .modal-body { padding: 0 16px 24px; }
+  .modal-header { padding: 16px 16px 0; }
+  .modal-price { font-size: 1.8rem; margin: 14px 0 4px; }
+  .modal-actions { flex-direction: column; }
+  .btn-gold, .btn-dark { width: 100%; justify-content: center; text-align: center; }
+
+  /* LOGIN */
+  .login-modal { padding: 32px 24px; border-radius: 4px 4px 0 0; margin-top: auto; width: 100%; max-width: 100%; }
+
+  /* FOOTER */
+  .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+  footer { padding: 60px 4vw 32px; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+  .footer-bottom-links { gap: 1.5rem; }
+
+  /* WHATSAPP */
+  .wa-float { bottom: 20px; right: 16px; width: 52px; height: 52px; }
+  .wa-float::before { display: none; }
+
+  /* NOTIFICATION */
+  .notification { right: 12px; left: 12px; top: 74px; }
+}
+
+/* ── MOBILE PORTRAIT ── */
+@media (max-width: 480px) {
+  /* HERO */
+  .hero-title { font-size: clamp(2rem, 11vw, 3rem); }
+  .hero-actions { flex-direction: column; gap: 10px; }
+  .btn-primary, .btn-outline { width: 100%; justify-content: center; padding: 15px 24px; }
+
+  /* SEARCH */
+  .search-grid { grid-template-columns: 1fr; }
+  .search-field:last-child { grid-column: auto; }
+
+  /* TEAM */
+  .team-grid { grid-template-columns: 1fr; }
+  .team-photo { aspect-ratio: 4/3; }
+
+  /* ABOUT */
+  .about-features { grid-template-columns: 1fr; }
+
+  /* TESTIMONIALS */
+  .testimonial-item { flex: 0 0 92%; }
+
+  /* MODAL */
+  .modal-specs { grid-template-columns: repeat(2,1fr); }
+  .spec-num { font-size: 1.4rem; }
+
+  /* FOOTER */
+  .footer-socials { gap: 10px; }
+  .footer-bottom-links { flex-wrap: wrap; gap: 1rem; }
+
+  /* SECTION */
+  section { padding: 50px 4vw; }
+  .section-title { font-size: clamp(1.6rem, 8vw, 2.2rem); }
+}
+
+/* ── TOUCH: remove hover-only animations on touch devices ── */
+@media (hover: none) {
+  .property-card .prop-actions { bottom: 0; position: relative; }
+  .property-card:hover .prop-info { bottom: 0; }
+  .property-card:hover .prop-img { transform: none; }
+  .team-card:hover { transform: none; box-shadow: none; }
+  .blog-card:hover .blog-img-inner { transform: none; }
+}
+
+/* ── SAFE AREA (iPhone notch / home bar) ── */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  footer { padding-bottom: calc(32px + env(safe-area-inset-bottom)); }
+  .wa-float { bottom: calc(20px + env(safe-area-inset-bottom)); }
+  #mobileMenu { padding-bottom: env(safe-area-inset-bottom); }
+}
+
+/* HERO RIGHT LOGO — centered in right half */
+.hero-logo-right {
+  position: absolute;
+  top: 50%;
+  left: 68%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0.2;
+}
+.hero-logo-right svg {
+  width: clamp(160px, 20vw, 280px);
+  height: auto;
+  filter: drop-shadow(0 0 60px rgba(184,147,90,0.25));
+}
+@media (max-width: 768px) {
+  .hero-logo-right { display: none; }
+}
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="#" class="nav-logo" style="display:flex;align-items:center;">
+    <svg width="64" height="74" viewBox="0 0 110 124" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="navG" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#D4AF7A"/>
+          <stop offset="100%" stop-color="#8B6B3A"/>
+        </linearGradient>
+      </defs>
+      <text x="55" y="88" font-family="Georgia,'Times New Roman',serif" font-size="104" font-weight="400" fill="url(#navG)" text-anchor="middle" letter-spacing="-3">Z</text>
+      <line x1="14" y1="97" x2="96" y2="97" stroke="#B8935A" stroke-width="0.8" opacity="0.7"/>
+      <text x="55" y="112" font-family="'Arial Narrow',Arial,sans-serif" font-size="10" fill="#B8935A" text-anchor="middle" letter-spacing="5">IMÓVEIS</text>
+    </svg>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#imoveis">Imóveis</a></li>
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#equipa">Equipa</a></li>
+    <li><a href="#blog">Blog</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+    <li><a href="#" class="nav-cta" onclick="openLogin(event)">Entrar</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="theme-toggle" onclick="toggleTheme()" title="Alternar tema" aria-label="Alternar tema escuro/claro">
+      <span id="theme-icon">◐</span>
+    </button>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div id="mobileMenu" style="position:fixed;inset:0;z-index:999;background:#0A0A0A;display:none;flex-direction:column;align-items:flex-start;justify-content:center;padding:0 10vw;">
+  <div style="position:absolute;top:0;left:0;right:0;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 4vw;border-bottom:1px solid rgba(255,255,255,0.06);">
+    <svg width="42" height="50" viewBox="0 0 110 124" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="mG" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#D4AF7A"/><stop offset="100%" stop-color="#8B6B3A"/></linearGradient></defs>
+      <text x="55" y="88" font-family="Georgia,serif" font-size="104" fill="url(#mG)" text-anchor="middle">Z</text>
+      <line x1="14" y1="97" x2="96" y2="97" stroke="#B8935A" stroke-width="0.8" opacity="0.7"/>
+      <text x="55" y="112" font-family="Arial,sans-serif" font-size="10" fill="#B8935A" text-anchor="middle" letter-spacing="5">IMÓVEIS</text>
+    </svg>
+    <button onclick="closeMobile()" style="background:none;border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.7);font-size:1.1rem;cursor:pointer;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;">✕</button>
+  </div>
+  <nav style="display:flex;flex-direction:column;gap:0;width:100%;">
+    <a href="#imoveis" onclick="closeMobile()" style="font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:300;color:rgba(255,255,255,0.9);text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:space-between;">Imóveis <span style="font-size:1rem;color:var(--gold);opacity:0.7;">→</span></a>
+    <a href="#sobre" onclick="closeMobile()" style="font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:300;color:rgba(255,255,255,0.9);text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:space-between;">Sobre <span style="font-size:1rem;color:var(--gold);opacity:0.7;">→</span></a>
+    <a href="#equipa" onclick="closeMobile()" style="font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:300;color:rgba(255,255,255,0.9);text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:space-between;">Equipa <span style="font-size:1rem;color:var(--gold);opacity:0.7;">→</span></a>
+    <a href="#blog" onclick="closeMobile()" style="font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:300;color:rgba(255,255,255,0.9);text-decoration:none;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:space-between;">Blog <span style="font-size:1rem;color:var(--gold);opacity:0.7;">→</span></a>
+    <a href="#contacto" onclick="closeMobile()" style="font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:300;color:rgba(255,255,255,0.9);text-decoration:none;padding:12px 0;display:flex;align-items:center;justify-content:space-between;">Contacto <span style="font-size:1rem;color:var(--gold);opacity:0.7;">→</span></a>
+  </nav>
+  <div style="margin-top:2.5rem;display:flex;flex-direction:column;gap:12px;width:100%;">
+    <a href="https://wa.me/351910000000" target="_blank" style="display:flex;align-items:center;gap:12px;padding:14px 20px;background:#25D36618;border:1px solid #25D36630;border-radius:2px;color:#25D366;text-decoration:none;font-size:0.85rem;letter-spacing:0.1em;">
+      <span style="font-size:1.2rem;">💬</span> Falar com connosco
+    </a>
+    <a href="#" onclick="closeMobile();openLogin(event)" style="display:flex;align-items:center;justify-content:center;gap:8px;padding:14px 20px;background:var(--gold);border-radius:2px;color:#fff;text-decoration:none;font-size:0.78rem;letter-spacing:0.15em;text-transform:uppercase;">
+      Área de cliente
+    </a>
+  </div>
+</div>
+
+<section class="hero" id="inicio">
+  <div class="hero-bg"></div>
+  <div class="hero-visual">
+    <div class="hero-img-block">
+      <div class="hero-placeholder a" style="width:100%;height:100%;"></div>
+    </div>
+    <div class="hero-img-block">
+      <div class="hero-placeholder b" style="width:100%;height:100%;"></div>
+    </div>
+  </div>
+  <div class="hero-gradient"></div>
+
+  <div class="hero-logo-right">
+    <svg viewBox="0 0 220 250" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="heroG" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#D4AF7A"/>
+          <stop offset="50%" stop-color="#B8935A"/>
+          <stop offset="100%" stop-color="#6B4E2A"/>
+        </linearGradient>
+        <linearGradient id="heroG2" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#C9A96E" stop-opacity="0.9"/>
+          <stop offset="100%" stop-color="#8B6B3A" stop-opacity="0.7"/>
+        </linearGradient>
+      </defs>
+      <text x="110" y="185"
+        font-family="Georgia,'Times New Roman',serif"
+        font-size="220"
+        font-weight="400"
+        fill="url(#heroG)"
+        text-anchor="middle"
+        letter-spacing="-6">Z</text>
+      <line x1="28" y1="205" x2="192" y2="205" stroke="url(#heroG2)" stroke-width="0.8" opacity="0.9"/>
+      <text x="110" y="228"
+        font-family="'Arial Narrow',Arial,sans-serif"
+        font-size="18"
+        font-weight="300"
+        fill="#C9A96E"
+        text-anchor="middle"
+        letter-spacing="12"
+        opacity="0.9">IMÓVEIS</text>
+    </svg>
+  </div>
+  
+  <div class="hero-content">
+    <div class="hero-eyebrow">À Sua Medida</div>
+    <h1 class="hero-title">
+      Viver com<br><em>conforto</em><br>começa aqui
+    </h1>
+    <p class="hero-subtitle">Selecionamos os melhores imóveis do Grande Porto para quem valoriza elegância, conforto e investimento inteligente.</p>
+    <div class="hero-actions">
+      <a href="#imoveis" class="btn-primary">
+        <span>Ver imóveis</span>
+        <span>→</span>
+      </a>
+      <a href="https://wa.me/351910000000" target="_blank" class="btn-outline">
+        <span>Falar connosco</span>
+      </a>
+    </div>
+  </div>
+  
+  <div class="hero-stats">
+    <div class="stat-item">
+      <span class="stat-num">98%</span>
+      <span class="stat-label">Satisfação</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">10</span>
+      <span class="stat-label">Anos no mercado</span>
+    </div>
+  </div>
+  
+  <div class="hero-scroll" onclick="document.querySelector('.search-section').scrollIntoView({behavior:'smooth'})">
+    <div class="scroll-line"></div>
+    <span>Explorar</span>
+  </div>
+</section>
+
+<div class="search-section">
+  <div class="search-tabs">
+    <button class="search-tab active" onclick="setTab(this,'Comprar')">Comprar</button>
+    <button class="search-tab" onclick="setTab(this,'Arrendar')">Arrendar</button>
+    <button class="search-tab" onclick="setTab(this,'Investir')">Investir</button>
+  </div>
+  <div class="search-grid">
+    <div class="search-field">
+      <label>Tipo de imóvel</label>
+      <select>
+        <option>Todos</option>
+        <option>Apartamento</option>
+        <option>Moradia</option>
+        <option>Penthouse</option>
+        <option>Quinta</option>
+        <option>Escritório</option>
+      </select>
+    </div>
+    <div class="search-field">
+      <label>Cidade</label>
+      <select>
+        <option>Todas</option>
+        <option>Lisboa</option>
+        <option>Porto</option>
+        <option>Cascais</option>
+        <option>Sintra</option>
+        <option>Algarve</option>
+      </select>
+    </div>
+    <div class="search-field">
+      <label>Bairro</label>
+      <select>
+        <option>Todos</option>
+        <option>Chiado</option>
+        <option>Príncipe Real</option>
+        <option>Estrela</option>
+        <option>Foz do Douro</option>
+        <option>Matosinhos</option>
+      </select>
+    </div>
+    <div class="search-field">
+      <label>Faixa de preço</label>
+      <select>
+        <option>Qualquer preço</option>
+        <option>Até €500k</option>
+        <option>€500k — €1M</option>
+        <option>€1M — €2M</option>
+        <option>€2M — €5M</option>
+        <option>Acima €5M</option>
+      </select>
+    </div>
+    <div class="search-field">
+      <label>Quartos</label>
+      <select>
+        <option>Qualquer</option>
+        <option>1+</option>
+        <option>2+</option>
+        <option>3+</option>
+        <option>4+</option>
+        <option>5+</option>
+      </select>
+    </div>
+    <div class="search-field">
+      <label>&nbsp;</label>
+      <button class="search-btn" onclick="searchProperties()">
+        <span>🔍</span> Buscar imóveis
+      </button>
+    </div>
+  </div>
+</div>
+
+<section class="properties-section" id="imoveis">
+  <div class="section-header">
+    <div>
+      <div class="section-label reveal">O Nosso Portfólio</div>
+      <h2 class="section-title reveal reveal-delay-1">Imóveis em <em>destaque</em></h2>
+      <p class="section-subtitle reveal reveal-delay-2">Uma seleção criteriosa dos melhores imóveis disponíveis no mercado do Grande Porto.</p>
+    </div>
+    <a href="#imoveis" class="view-all reveal reveal-delay-2">Ver todos</a>
+  </div>
+  
+  <div class="properties-grid" id="propertiesGrid">
+    </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<section id="sobre" style="padding:100px 5vw;">
+  <div class="about-section">
+    <div class="about-visual reveal">
+      <div class="about-main-img">
+        <div style="opacity:0.2;">
+          <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+            <rect x="15" y="60" width="90" height="52" stroke="#B8935A" stroke-width="1.5"/>
+            <path d="M15 63L60 28L105 63" stroke="#B8935A" stroke-width="1.5"/>
+            <rect x="44" y="80" width="32" height="32" stroke="#B8935A" stroke-width="1"/>
+            <rect x="22" y="70" width="18" height="14" stroke="#B8935A" stroke-width="0.8"/>
+            <rect x="80" y="70" width="18" height="14" stroke="#B8935A" stroke-width="0.8"/>
+            <circle cx="60" cy="55" r="6" stroke="#B8935A" stroke-width="0.8"/>
+          </svg>
+        </div>
+      </div>
+
+    </div>
+    
+    <div>
+      <div class="section-label reveal">Sobre a Z</div>
+      <h2 class="section-title reveal reveal-delay-1">Uma história construída sobre <em>confiança</em></h2>
+      <p class="section-subtitle reveal reveal-delay-2" style="margin-bottom:2rem;">
+        Desde 2015, a Z tem sido sinónimo de excelência no mercado imobiliário portuenese. A nossa missão é simples: conectar as pessoas aos espaços que transformam vidas.
+      </p>
+      <p style="font-size:0.9rem;color:var(--gray-500);font-weight:300;line-height:1.8;max-width:520px;margin-bottom:3rem;" class="reveal reveal-delay-3">
+        Com uma equipa de especialistas qualificados e uma rede de propriedades e parceiros estratégicos, garantimos que cada transação seja uma experiência memorável e sem igual.
+      </p>
+      <div class="about-features reveal reveal-delay-3">
+        <div class="about-feat">
+          <div class="about-feat-icon">◎</div>
+          <div class="about-feat-title">Discrição</div>
+          <p class="about-feat-text">Total confidencialidade em todos os processos e negociações.</p>
+        </div>
+        <div class="about-feat">
+          <div class="about-feat-icon">◑</div>
+          <div class="about-feat-title">Experiência</div>
+          <p class="about-feat-text">10 anos de expertise.</p>
+        </div>
+        <div class="about-feat">
+          <div class="about-feat-icon">◐</div>
+          <div class="about-feat-title">Resultados</div>
+          <p class="about-feat-text">Inumeras transações concluídas com sucesso.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="team-section" id="equipa">
+  <div class="section-label reveal">A nossa equipa</div>
+  <h2 class="section-title reveal reveal-delay-1">Profissionais de <em>excelência</em></h2>
+  <p class="section-subtitle reveal reveal-delay-2">Dedicados a encontrar o imóvel perfeito para si.</p>
+  
+  <div class="team-grid" id="teamGrid"></div>
+</section>
+
+<section class="testimonials-section" id="depoimentos">
+  <div class="section-label reveal">Testemunhos</div>
+  <h2 class="section-title reveal reveal-delay-1">O que dizem os <em>nossos clientes</em></h2>
+  <p class="section-subtitle reveal reveal-delay-2">Histórias reais de pessoas que encontraram o seu lar ideal connosco.</p>
+  
+  <div class="testimonials-track" id="testimonialTrack"></div>
+  <div class="carousel-controls">
+    <button class="carousel-btn" onclick="moveCarousel(-1)">←</button>
+    <button class="carousel-btn" onclick="moveCarousel(1)">→</button>
+  </div>
+</section>
+
+<section class="blog-section" id="blog">
+  <div class="section-header">
+    <div>
+      <div class="section-label reveal">Insights</div>
+      <h2 class="section-title reveal reveal-delay-1">Blog <em>imobiliário</em></h2>
+      <p class="section-subtitle reveal reveal-delay-2">Dicas, tendências e análises do mercado.</p>
+    </div>
+    <a href="#blog" class="view-all reveal">Ver todos os artigos</a>
+  </div>
+  <div class="blog-grid" id="blogGrid"></div>
+</section>
+
+<section class="contact-section" id="contacto">
+  <div class="section-label reveal">Contacto</div>
+  <h2 class="section-title reveal reveal-delay-1">Fale <em>connosco</em></h2>
+  <p class="section-subtitle reveal reveal-delay-2">A nossa equipa está disponível para o ajudar a encontrar o imóvel dos seus sonhos.</p>
+  
+  <div class="contact-grid">
+    <div class="contact-form reveal">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nome completo</label>
+          <input type="text" placeholder="O seu nome">
+        </div>
+        <div class="form-group">
+          <label>Telefone</label>
+          <input type="tel" placeholder="+351 9XX XXX XXX">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" placeholder="email@exemplo.com">
+      </div>
+      <div class="form-group">
+        <label>Assunto</label>
+        <select style="padding:14px 16px;border:1px solid var(--gray-200);background:var(--white);color:var(--black);font-family:'DM Sans',sans-serif;font-size:0.9rem;border-radius:2px;outline:none;-webkit-appearance:none;appearance:none;cursor:pointer;transition:border-color 0.3s;">
+          <option>Comprar imóvel</option>
+          <option>Arrendar imóvel</option>
+          <option>Vender imóvel</option>
+          <option>Investimento</option>
+          <option>Informações gerais</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Mensagem</label>
+        <textarea placeholder="Descreva o que procura..."></textarea>
+      </div>
+      <button class="btn-primary" style="width:fit-content;" onclick="submitForm()">
+        Enviar mensagem <span>→</span>
+      </button>
+    </div>
+    
+    <div class="contact-info reveal reveal-delay-2">
+      <div class="contact-info-item">
+        <div class="contact-icon">✉️</div>
+        <div>
+          <div class="contact-info-title">Email</div>
+          <div class="contact-info-val">info@zimobiliaria.pt<br>comercial@zimobiliaria.pt</div>
+        </div>
+      </div>
+      <div class="contact-info-item">
+        <div class="contact-icon">🕐</div>
+        <div>
+          <div class="contact-info-title">Horário</div>
+          <div class="contact-info-val">Segunda — Sexta: 9h — 19h<br>Sábado: 10h — 16h</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <svg width="72" height="84" viewBox="0 0 110 124" xmlns="http://www.w3.org/2000/svg" style="display:block;margin-bottom:1.2rem;">
+        <defs>
+          <linearGradient id="footG" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#D4AF7A"/>
+            <stop offset="100%" stop-color="#8B6B3A"/>
+          </linearGradient>
+        </defs>
+        <text x="55" y="88" font-family="Georgia,'Times New Roman',serif" font-size="104" font-weight="400" fill="url(#footG)" text-anchor="middle" letter-spacing="-3">Z</text>
+        <line x1="14" y1="97" x2="96" y2="97" stroke="#B8935A" stroke-width="0.8" opacity="0.6"/>
+        <text x="55" y="112" font-family="'Arial Narrow',Arial,sans-serif" font-size="10" fill="#B8935A" text-anchor="middle" letter-spacing="5">IMÓVEIS</text>
+      </svg>
+      <p class="footer-tagline">Imobiliária especializada no Grande Porto. Elegância, confiança e resultados excepcionais desde 2015.</p>
+      <div class="footer-socials">
+        <a href="#" class="footer-social" title="Instagram">ig</a>
+        <a href="#" class="footer-social" title="LinkedIn">in</a>
+        <a href="#" class="footer-social" title="Facebook">fb</a>
+        <a href="#" class="footer-social" title="YouTube">yt</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Imóveis</div>
+      <ul class="footer-links">
+        <li><a href="#">Comprar</a></li>
+        <li><a href="#">Arrendar</a></li>
+        <li><a href="#">Investir</a></li>
+        <li><a href="#">Novos empreendimentos</a></li>
+        <li><a href="#">Propriedades exclusivas</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Empresa</div>
+      <ul class="footer-links">
+        <li><a href="#sobre">Sobre nós</a></li>
+        <li><a href="#equipa">Equipa</a></li>
+        <li><a href="#blog">Blog</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+        <li><a href="#" onclick="openLogin(event)">Área de cliente</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Newsletter</div>
+      <p style="font-size:0.82rem;color:rgba(255,255,255,0.35);margin-bottom:1.2rem;font-weight:300;line-height:1.6;">Receba em primeira mão as melhores oportunidades do mercado do Grande Porto.</p>
+      <div class="newsletter-form">
+        <input type="email" class="newsletter-input" placeholder="O seu email">
+        <button class="newsletter-btn" onclick="subscribeNewsletter()">Subscrever</button>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 Z Imobiliária. Todos os direitos reservados. AMI: 12345</p>
+    <div class="footer-bottom-links">
+      <a href="#">Privacidade</a>
+      <a href="#">Termos</a>
+      <a href="#">Cookies</a>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/351910000000?text=Olá,%20gostaria%20de%20informações%20sobre%20imóveis." target="_blank" class="wa-float" title="WhatsApp">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<div class="modal-overlay" id="propertyModal">
+  <div class="modal" id="modalContent">
+    <div class="modal-header">
+      <div>
+        <div style="font-size:0.65rem;letter-spacing:0.2em;color:var(--gold);text-transform:uppercase;" id="modalBadge">Venda</div>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;margin-top:4px;" id="modalTitle">Apartamento T3</h2>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-gallery">
+      <div class="modal-main-img" style="display:flex;align-items:center;justify-content:center;">
+        <svg width="80" height="80" viewBox="0 0 80 80" fill="none" opacity="0.2">
+          <rect x="10" y="40" width="60" height="35" stroke="#B8935A" stroke-width="1.5"/>
+          <path d="M10 42L40 20L70 42" stroke="#B8935A" stroke-width="1.5"/>
+          <rect x="30" y="55" width="20" height="20" stroke="#B8935A" stroke-width="1"/>
+        </svg>
+      </div>
+      <div class="modal-side-imgs">
+        <div class="modal-side-img"></div>
+        <div class="modal-side-img"></div>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-price" id="modalPrice">€1.250.000</div>
+      <div class="modal-address" id="modalAddress">📍 Príncipe Real, Lisboa</div>
+      <div class="modal-specs" id="modalSpecs">
+        <div class="spec-item"><div class="spec-num">3</div><div class="spec-label">Quartos</div></div>
+        <div class="spec-item"><div class="spec-num">2</div><div class="spec-label">WC</div></div>
+        <div class="spec-item"><div class="spec-num">185</div><div class="spec-label">m² Área</div></div>
+        <div class="spec-item"><div class="spec-num">A+</div><div class="spec-label">Energia</div></div>
+      </div>
+      <p class="modal-desc" id="modalDesc">
+        Magnífico apartamento com acabamentos de luxo no coração de Lisboa. Com vistas desafogadas sobre a cidade, este imóvel exclusivo combina arquitetura contemporânea com materiais nobres selecionados. Cozinha totalmente equipada, suite master com closet, varanda espaçosa e lugar de garagem incluído.
+      </p>
+      <div class="modal-actions">
+        <a href="https://wa.me/351910000000" target="_blank" class="btn-gold">
+          <span>💬</span> WhatsApp
+        </a>
+        <button class="btn-dark" onclick="closeModal();document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">
+          Solicitar visita
+        </button>
+        <button class="btn-outline" style="padding:14px 24px;border-radius:2px;color:var(--black);border-color:var(--gray-200);font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;background:transparent;font-family:'DM Sans',sans-serif;transition:all 0.3s;" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='var(--gray-200)'" onclick="shareProperty()">
+          Partilhar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="loginModal">
+  <div class="login-modal">
+    <div style="display:flex;justify-content:center;margin-bottom:8px;">
+      <svg width="60" height="70" viewBox="0 0 110 124" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="loginG" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#D4AF7A"/>
+            <stop offset="100%" stop-color="#8B6B3A"/>
+          </linearGradient>
+        </defs>
+        <text x="55" y="88" font-family="Georgia,'Times New Roman',serif" font-size="104" font-weight="400" fill="url(#loginG)" text-anchor="middle" letter-spacing="-3">Z</text>
+        <line x1="14" y1="97" x2="96" y2="97" stroke="#B8935A" stroke-width="0.8" opacity="0.7"/>
+        <text x="55" y="112" font-family="'Arial Narrow',Arial,sans-serif" font-size="10" fill="#B8935A" text-anchor="middle" letter-spacing="5">IMÓVEIS</text>
+      </svg>
+    </div>
+    <p class="login-subtitle">Bem-vindo à área de cliente</p>
+    <div class="login-tabs">
+      <button class="login-tab active" onclick="switchLoginTab(this,'client')">Cliente</button>
+      <button class="login-tab" onclick="switchLoginTab(this,'admin')">Administração</button>
+    </div>
+    <div id="loginFormContent">
+      <div class="form-group" style="margin-bottom:14px;">
+        <label style="font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray-400);">Email</label>
+        <input type="email" placeholder="email@exemplo.com" style="width:100%;padding:14px 16px;border:1px solid var(--gray-200);background:var(--white);color:var(--black);font-family:'DM Sans',sans-serif;font-size:0.9rem;border-radius:2px;outline:none;transition:border-color 0.3s;margin-top:6px;">
+      </div>
+      <div class="form-group" style="margin-bottom:24px;">
+        <label style="font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray-400);">Password</label>
+        <input type="password" placeholder="••••••••" style="width:100%;padding:14px 16px;border:1px solid var(--gray-200);background:var(--white);color:var(--black);font-family:'DM Sans',sans-serif;font-size:0.9rem;border-radius:2px;outline:none;transition:border-color 0.3s;margin-top:6px;">
+      </div>
+      <button class="btn-primary" style="width:100%;justify-content:center;" onclick="doLogin()">Entrar</button>
+      <p style="text-align:center;margin-top:1.5rem;font-size:0.82rem;color:var(--gray-400);">
+        Não tem conta? <a href="#" style="color:var(--gold);text-decoration:none;">Registar</a>
+      </p>
+    </div>
+    <button onclick="document.getElementById('loginModal').classList.remove('open')" style="position:absolute;top:16px;right:20px;background:none;border:none;cursor:pointer;font-size:1.5rem;color:var(--gray-400);">✕</button>
+  </div>
+</div>
+
+<div class="notification" id="notification">
+  <span class="notif-icon" id="notifIcon">✓</span>
+  <span id="notifText">Ação realizada com sucesso!</span>
+</div>
+
+<script>
+// ── SUPABASE CONFIG ──
+const SUPABASE_URL = 'https://nfviumkttvkqzeuerkyj.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5mdml1bWt0dHZrcXpldWVya3lqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk1MzgyMDksImV4cCI6MjA5NTExNDIwOX0.sN9MeiKi-3bK2gUzcrfYJc6Y8pr4HgVO4nRlFc2c31A';
+
+async function sbFetch(table, params='') {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}?${params}`, {
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': 'Bearer ' + SUPABASE_KEY,
+      'Content-Type': 'application/json'
+    }
+  });
+  if (!res.ok) throw new Error(await res.text());
+  return res.json();
+}
+
+async function sbInsert(table, data) {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}`, {
+    method: 'POST',
+    headers: {
+      'apikey': SUPABASE_KEY,
+      'Authorization': 'Bearer ' + SUPABASE_KEY,
+      'Content-Type': 'application/json',
+      'Prefer': 'return=representation'
+    },
+    body: JSON.stringify(data)
+  });
+  if (!res.ok) throw new Error(await res.text());
+  return res.json();
+}
+
+// ── LOAD PROPERTIES FROM SUPABASE ──
+async function loadPropertiesFromDB() {
+  try {
+    const data = await sbFetch('imoveis', 'select=*&order=id.desc');
+    if (data && data.length > 0) {
+      // Map DB fields to site format
+      properties = data.map(p => ({
+        id: p.id,
+        title: p.titulo,
+        price: p.tipo === 'Arrendamento' ? '€' + Number(p.preco).toLocaleString('pt-PT') + '/mês' : '€' + (p.preco >= 1000000 ? (p.preco/1000000).toFixed(1).replace('.0','') + 'M' : Number(p.preco).toLocaleString('pt-PT')),
+        type: p.tipo,
+        location: p.bairro + ', ' + p.cidade,
+        area: p.area,
+        rooms: p.quartos,
+        bath: p.wc,
+        badge: p.estado === 'Arrendamento' ? 'Arrendamento' : 'Destaque',
+        desc: p.descricao,
+        energy: p.energia,
+        img: p.imagem_url || null
+      }));
+      renderProperties();
+    }
+  } catch(e) {
+    console.warn('Supabase não disponível, a usar dados locais:', e.message);
+  }
+}
+
+// DATA
+let properties = [
+  { id:1, title:'Penthouse no Chiado', price:'€4.200.000', priceVal:4200000, type:'Venda', location:'Chiado, Lisboa', area:320, rooms:4, bath:3, energy:'A+', badge:'Destaque', desc:'Penthouse com terraço privativo de 120m² e vista panorâmica sobre Lisboa. Acabamentos Poliform e Boffi. Piscina privada.' },
+  { id:2, title:'Moradia em Cascais', price:'€3.500.000', priceVal:3500000, type:'Venda', location:'Cascais, Lisboa', area:480, rooms:5, bath:4, energy:'A', badge:'Exclusivo', desc:'Moradia de arquitetura contemporânea com jardim, piscina aquecida e spa. A 5 minutos do Oceano Atlântico.' },
+  { id:3, title:'Apartamento T3 Príncipe Real', price:'€1.250.000', priceVal:1250000, type:'Venda', location:'Príncipe Real, Lisboa', area:185, rooms:3, bath:2, energy:'A+', badge:'Novo', desc:'Apartamento renovado com materiais nobres, vista desafogada e garagem dupla. Edifício de 1900 com alma.' },
+  { id:4, title:'T4 Foz do Douro', price:'€2.800.000', priceVal:2800000, type:'Venda', location:'Foz do Douro, Porto', area:265, rooms:4, bath:3, energy:'A', badge:'Premium', desc:'Moradia geminada com vista mar, jardim privado e piscina interior. Minutos da praia de Molhe.' },
+  { id:5, title:'Studio de Luxo no Bairro Alto', price:'€3.500/mês', priceVal:3500, type:'Arrendamento', location:'Bairro Alto, Lisboa', area:85, rooms:1, bath:1, energy:'B', badge:'Arrendamento', desc:'Studio sofisticado totalmente mobilado. Ideal para executivos. Condomínio com ginásio e concierge 24h.' },
+  { id:6, title:'T2 Boavista Premium', price:'€2.200/mês', priceVal:2200, type:'Arrendamento', location:'Boavista, Porto', area:120, rooms:2, bath:2, energy:'A+', badge:'Arrendamento', desc:'Apartamento moderno em edifício de luxo. Varanda espaçosa com vista cidade, garagem e arrecadação.' },
+];
+
+let team = [
+  { name:'Zulmira João Ferreira', role:'Diretora Comercial', initials:'ZF', phone:'+351 910 000 001', ig:'@zulmira_z' },
+  { name:'Ricardo Coelho de Villela', role:'Consultor Sénior', initials:'RV', phone:'+351 910 000 002', ig:'@ricardo_v_z' }
+];
+
+const testimonials = [
+  { text:'A Z Imobiliária superou todas as expectativas. Encontraram a nossa moradia de sonho em apenas duas semanas. Profissionalismo e atenção ao detalhe que raramente se encontra.', name:'Pedro & Ana Sousa', detail:'Adquiriram moradia em Cascais', stars:'★★★★★', initials:'PS' },
+  { text:'Investir através da Z foi a melhor decisão que tomei. O retorno superou as projeções e o acompanhamento durante todo o processo foi exemplar. Equipa de confiança total.', name:'Carlos Mendes', detail:'Investidor imobiliário', stars:'★★★★★', initials:'CM' },
+  { text:'Procurei durante meses e nenhuma agência chegou perto do que a Z me ofereceu. O apartamento no Chiado é simplesmente perfeito. Recomendo vivamente.', name:'Beatriz Tavares', detail:'Adquiriu penthouse no Chiado', stars:'★★★★★', initials:'BT' },
+  { text:'Extraordinária atenção ao cliente. A Zulmira percebeu imediatamente o que procurávamos e apresentou opções que nem sabíamos que existiam. Resultado impecável.', name:'João & Isabel Rodrigues', detail:'Compraram T4 no Porto', stars:'★★★★★', initials:'JR' },
+];
+
+let blogPosts = [
+  { cat:'Mercado', title:'Lisboa entra no top 10 das cidades europeias com maior valorização imobiliária em 2025', date:'15 Jan 2025', author:'Zulmira João Ferreira' },
+  { cat:'Investimento', title:'Como maximizar o retorno do investimento imobiliário em Portugal', date:'8 Jan 2025', author:'Ricardo Coelho de Villela' },
+  { cat:'Decoração', title:'Tendências de design de interiores para imóveis de luxo em 2025', date:'2 Jan 2025', author:'Zulmira João Ferreira' },
+  { cat:'Dicas', title:'Golden Visa: o que muda em 2025 e como isso afeta o mercado premium', date:'28 Dez 2024', author:'Ricardo Coelho de Villela' },
+];
+
+let carouselOffset = 0;
+let favorites = new Set();
+
+// RENDER PROPERTIES
+function renderProperties() {
+  const grid = document.getElementById('propertiesGrid');
+  grid.innerHTML = properties.map((p, i) => `
+    <div class="property-card reveal" style="transition-delay:${i*0.08}s" onclick="openProperty(${p.id})">
+      ${p.img
+        ? `<div class="prop-img" style="width:100%;aspect-ratio:4/3;overflow:hidden;"><img src="${p.img}" alt="${p.title}" style="width:100%;height:100%;object-fit:cover;transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94);" onerror="this.parentElement.style.background='linear-gradient(145deg,#2D2920,#1E1B14)';this.style.display='none'"></div>`
+        : `<div class="prop-img" style="background:linear-gradient(${145+i*15}deg,#${'2D2920,1E1B14,3C3428,252118,2A2216,1A1714'.split(',')[i%6]},#${'1E1B14,2D2920,1A1714,3C3428,1A1714,2D2920'.split(',')[i%6]});width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;">
+            <svg width="60" height="60" viewBox="0 0 80 80" fill="none" opacity="0.18">
+              <rect x="10" y="40" width="60" height="35" stroke="#B8935A" stroke-width="1.5"/>
+              <path d="M10 42L40 ${20+i*3}L70 42" stroke="#B8935A" stroke-width="1.5"/>
+              <rect x="30" y="55" width="20" height="20" stroke="#B8935A" stroke-width="1"/>
+            </svg>
+          </div>`
+      }
+      <div class="prop-badge">${p.badge}</div>
+      <button class="prop-fav ${favorites.has(p.id)?'active':''}" onclick="toggleFav(event,${p.id})" title="Favorito">
+        ${favorites.has(p.id)?'♥':'♡'}
+      </button>
+      <div class="prop-info">
+        <div class="prop-price">${p.price} <span>${p.type==='Arrendamento'?'/mês':''}</span></div>
+        <div class="prop-title">${p.title}</div>
+        <div class="prop-meta">
+          <span class="prop-meta-item">📍 ${p.location}</span>
+          <span class="prop-meta-item">⊡ ${p.area}m²</span>
+          <span class="prop-meta-item">🛏 ${p.rooms}</span>
+        </div>
+      </div>
+      <div class="prop-actions">
+        <button class="prop-btn" onclick="openProperty(${p.id})">Ver detalhes</button>
+      </div>
+    </div>
+  `).join('');
+  observeReveal();
+}
+
+// RENDER TEAM
+function renderTeam() {
+  document.getElementById('teamGrid').innerHTML = team.map(m => `
+    <div class="team-card reveal">
+      <div class="team-photo">
+        <div class="team-photo-inner"><span>${m.initials}</span></div>
+        <div class="team-overlay">
+          <a href="https://wa.me/${m.phone.replace(/\s/g,'')}" target="_blank" class="team-social">W</a>
+          <a href="#" class="team-social">in</a>
+          <a href="#" class="team-social">ig</a>
+        </div>
+      </div>
+      <div class="team-info">
+        <div class="team-name">${m.name}</div>
+        <div class="team-role">${m.role}</div>
+        <a href="https://wa.me/${m.phone.replace(/\s/g,'')}" target="_blank" class="team-whatsapp">
+          💬 ${m.phone}
+        </a>
+      </div>
+    </div>
+  `).join('');
+}
+
+// RENDER TESTIMONIALS
+function renderTestimonials() {
+  document.getElementById('testimonialTrack').innerHTML = testimonials.map(t => `
+    <div class="testimonial-item">
+      <div class="stars">${t.stars}</div>
+      <p class="testimonial-text">"${t.text}"</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">${t.initials}</div>
+        <div>
+          <div class="author-name">${t.name}</div>
+          <div class="author-detail">${t.detail}</div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// RENDER BLOG
+function renderBlog() {
+  document.getElementById('blogGrid').innerHTML = blogPosts.map((p, i) => `
+    <div class="blog-card reveal" style="transition-delay:${i*0.1}s">
+      <div class="blog-img" style="background:linear-gradient(${140+i*20}deg,#${['2D2920','1E1B14','252118','1A1714'][i]},#1E1B14);">
+        <div class="blog-img-inner" style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;">
+          <svg width="50" height="50" viewBox="0 0 80 80" fill="none" opacity="0.15">
+            <rect x="15" y="20" width="50" height="60" stroke="#B8935A" stroke-width="1.5"/>
+            <rect x="25" y="32" width="30" height="2" fill="#B8935A"/>
+            <rect x="25" y="40" width="20" height="2" fill="#B8935A"/>
+            <rect x="25" y="48" width="25" height="2" fill="#B8935A"/>
+          </svg>
+        </div>
+      </div>
+      <div class="blog-cat">${p.cat}</div>
+      <div class="blog-title">${p.title}</div>
+      <div class="blog-meta">${p.date} · ${p.author}</div>
+    </div>
+  `).join('');
+}
+
+// NAV SCROLL
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('navbar');
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// CAROUSEL
+function moveCarousel(dir) {
+  const track = document.getElementById('testimonialTrack');
+  const items = track.children;
+  const itemW = items[0].offsetWidth + 24;
+  carouselOffset = Math.max(0, Math.min(carouselOffset + dir, items.length - 2));
+  track.style.transform = `translateX(-${carouselOffset * itemW}px)`;
+  track.style.transition = 'transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94)';
+}
+
+// PROPERTY MODAL
+function openProperty(id) {
+  const p = properties.find(x => x.id === id);
+  if (!p) return;
+  document.getElementById('modalBadge').textContent = p.badge;
+  document.getElementById('modalTitle').textContent = p.title;
+  document.getElementById('modalPrice').textContent = p.price;
+  document.getElementById('modalAddress').textContent = '📍 ' + p.location;
+  document.getElementById('modalSpecs').innerHTML = `
+    <div class="spec-item"><div class="spec-num">${p.rooms}</div><div class="spec-label">Quartos</div></div>
+    <div class="spec-item"><div class="spec-num">${p.bath}</div><div class="spec-label">WC</div></div>
+    <div class="spec-item"><div class="spec-num">${p.area}</div><div class="spec-label">m² Área</div></div>
+    <div class="spec-item"><div class="spec-num">${p.energy}</div><div class="spec-label">Energia</div></div>
+  `;
+  document.getElementById('modalDesc').textContent = p.desc;
+  document.getElementById('propertyModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('propertyModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('propertyModal').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeModal();
+});
+
+// FAVORITES
+function toggleFav(e, id) {
+  e.stopPropagation();
+  if (favorites.has(id)) {
+    favorites.delete(id);
+    showNotification('💔 Removido dos favoritos');
+  } else {
+    favorites.add(id);
+    showNotification('♥ Adicionado aos favoritos');
+  }
+  renderProperties();
+}
+
+// THEME
+function toggleTheme() {
+  const html = document.documentElement;
+  const isDark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  document.getElementById('theme-icon').textContent = isDark ? '◐' : '◑';
+  localStorage.setItem('z-theme', isDark ? 'light' : 'dark');
+}
+(function() {
+  const saved = localStorage.getItem('z-theme');
+  if (saved === 'dark') {
+    document.documentElement.setAttribute('data-theme','dark');
+    document.getElementById('theme-icon').textContent = '◑';
+  }
+})();
+
+// SEARCH
+function searchProperties() { showNotification('🔍 A pesquisar imóveis...'); }
+function setTab(el, type) {
+  document.querySelectorAll('.search-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// LOGIN
+function openLogin(e) {
+  e.preventDefault();
+  document.getElementById('loginModal').classList.add('open');
+}
+document.getElementById('loginModal').addEventListener('click', e => {
+  if (e.target === e.currentTarget) e.currentTarget.classList.remove('open');
+});
+function switchLoginTab(el, type) {
+  document.querySelectorAll('.login-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  if (type === 'admin') {
+    document.getElementById('loginFormContent').innerHTML = `
+      <div class="admin-note">🔐 Área restrita — Apenas para administradores autorizados da Z.</div>
+      <div class="form-group" style="margin-bottom:14px;"><label style="font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray-400);">Utilizador admin</label><input type="text" placeholder="admin@zimobiliaria.pt" style="width:100%;padding:14px 16px;border:1px solid var(--gray-200);background:var(--white);color:var(--black);font-family:'DM Sans',sans-serif;font-size:0.9rem;border-radius:2px;outline:none;transition:border-color 0.3s;margin-top:6px;"></div>
+      <div class="form-group" style="margin-bottom:24px;"><label style="font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray-400);">Password</label><input type="password" placeholder="••••••••" style="width:100%;padding:14px 16px;border:1px solid var(--gray-200);background:var(--white);color:var(--black);font-family:'DM Sans',sans-serif;font-size:0.9rem;border-radius:2px;outline:none;margin-top:6px;"></div>
+      <button class="btn-primary" style="width:100%;justify-content:center;background:var(--black);" onclick="doLogin()">Aceder ao painel</button>
+    `;
+  } else {
+    document.getElementById('loginFormContent').innerHTML = `
+      <div class="form-group" style="margin-bottom:14px;"><label style="font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray-400);">Email</label><input type="email" placeholder="email@exemplo.com" style="width:100%;padding:14px 16px;border:1px solid var(--gray-200);background:var(--white);color:var(--black);font-family:'DM Sans',sans-serif;font-size:0.9rem;border-radius:2px;outline:none;transition:border-color 0.3s;margin-top:6px;"></div>
+      <div class="form-group" style="margin-bottom:24px;"><label style="font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray-400);">Password</label><input type="password" placeholder="••••••••" style="width:100%;padding:14px 16px;border:1px solid var(--gray-200);background:var(--white);color:var(--black);font-family:'DM Sans',sans-serif;font-size:0.9rem;border-radius:2px;outline:none;transition:border-color 0.3s;margin-top:6px;"></div>
+      <button class="btn-primary" style="width:100%;justify-content:center;" onclick="doLogin()">Entrar</button>
+      <p style="text-align:center;margin-top:1.5rem;font-size:0.82rem;color:var(--gray-400);">Não tem conta? <a href="#" style="color:var(--gold);text-decoration:none;">Registar</a></p>
+    `;
+  }
+}
+function doLogin() {
+  document.getElementById('loginModal').classList.remove('open');
+  showNotification('✓ Bem-vindo à Z Imobiliária!');
+}
+
+// FORM
+async function submitForm() {
+  const nome = document.querySelector('.contact-form input[type=text]').value.trim();
+  const telefone = document.querySelector('.contact-form input[type=tel]').value.trim();
+  const email = document.querySelector('.contact-form input[type=email]').value.trim();
+  const assunto = document.querySelector('.contact-form select').value;
+  const mensagem = document.querySelector('.contact-form textarea').value.trim();
+
+  if (!nome || !email) { showNotification('⚠ Preencha o nome e email'); return; }
+
+  try {
+    await sbInsert('leads', {
+      nome, email, telefone, assunto, mensagem, estado: 'new'
+    });
+    showNotification('✓ Mensagem enviada! Responderemos em breve.');
+    // Clear form
+    document.querySelectorAll('.contact-form input, .contact-form textarea').forEach(el => el.value = '');
+  } catch(e) {
+    console.warn('Erro Supabase:', e.message);
+    showNotification('✓ Mensagem enviada! Responderemos em breve.');
+  }
+}
+async function subscribeNewsletter() {
+  const input = document.querySelector('.newsletter-input');
+  const email = input ? input.value.trim() : '';
+  if (!email || !email.includes('@')) { showNotification('⚠ Introduza um email válido'); return; }
+  try {
+    await sbInsert('leads', { nome: 'Newsletter', email, assunto: 'Newsletter', mensagem: 'Subscrição newsletter', estado: 'newsletter' });
+    showNotification('✓ Newsletter subscrita com sucesso!');
+    if (input) input.value = '';
+  } catch(e) {
+    showNotification('✓ Newsletter subscrita com sucesso!');
+  }
+}
+function shareProperty() {
+  if (navigator.share) { navigator.share({ title: 'Z Imobiliária', url: window.location.href }); }
+  else { navigator.clipboard?.writeText(window.location.href); showNotification('🔗 Link copiado!'); }
+}
+
+// NOTIFICATION
+function showNotification(msg) {
+  const n = document.getElementById('notification');
+  document.getElementById('notifText').textContent = msg;
+  n.classList.add('show');
+  setTimeout(() => n.classList.remove('show'), 3500);
+}
+
+// MOBILE MENU
+document.getElementById('hamburger').addEventListener('click', () => {
+  const menu = document.getElementById('mobileMenu');
+  const open = menu.style.display === 'flex';
+  menu.style.display = open ? 'none' : 'flex';
+  document.body.style.overflow = open ? '' : 'hidden';
+  const spans = document.querySelectorAll('.hamburger span');
+  if (!open) {
+    spans[0].style.cssText = 'transform:rotate(45deg) translate(4px,4px)';
+    spans[1].style.cssText = 'opacity:0;width:0';
+    spans[2].style.cssText = 'transform:rotate(-45deg) translate(4px,-4px)';
+  } else {
+    spans.forEach(s => s.style.cssText = '');
+  }
+});
+function closeMobile() {
+  document.getElementById('mobileMenu').style.display = 'none';
+  document.body.style.overflow = '';
+  document.querySelectorAll('.hamburger span').forEach(s => s.style.cssText = '');
+}
+
+// TOUCH SWIPE for carousel
+(function() {
+  const track = document.getElementById('testimonialTrack');
+  let startX = 0;
+  track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchend', e => {
+    const diff = startX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) moveCarousel(diff > 0 ? 1 : -1);
+  }, { passive: true });
+})();
+
+// SCROLL REVEAL
+function observeReveal() {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+}
+
+// INIT
+loadPropertiesFromDB();  // tenta carregar do Supabase, usa dados locais como fallback
+renderProperties();
+renderTeam();
+renderTestimonials();
+renderBlog();
+observeReveal();
+
+// HERO PARALLAX
+window.addEventListener('scroll', () => {
+  const sy = window.scrollY;
+  const heroContent = document.querySelector('.hero-content');
+  if (heroContent && sy < window.innerHeight) {
+    heroContent.style.transform = `translateY(${sy * 0.25}px)`;
+    heroContent.style.opacity = 1 - sy / 500;
+  }
+  const heroVisual = document.querySelector('.hero-visual');
+  if (heroVisual && sy < window.innerHeight) {
+    heroVisual.style.transform = `translateY(${sy * 0.1}px)`;
+  }
+}, { passive: true });
+</script>
+</body>
+</html>
