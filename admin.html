@@ -336,6 +336,35 @@ textarea.form-input { resize: vertical; min-height: 90px; }
 </head>
 <body>
 
+<!-- ECRA DE LOGIN -->
+<div id="loginScreen" style="display:none; position:fixed; inset:0; background:var(--bg); z-index:9999; align-items:center; justify-content:center; flex-direction:column;">
+  <div style="background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:40px; width:100%; max-width:400px; box-shadow:var(--shadow);">
+    <div style="font-family:Cormorant Garamond,serif; font-size:2rem; font-weight:300; text-align:center; margin-bottom:8px;">Z Imobiliaria</div>
+    <div style="text-align:center; color:var(--text3); font-size:0.85rem; margin-bottom:32px;">Painel de Administracao</div>
+    <div id="loginForm">
+      <div style="margin-bottom:16px;"><label style="font-size:0.78rem; color:var(--text2); display:block; margin-bottom:6px;">Email</label>
+        <input id="loginEmail" type="email" class="form-input" placeholder="email@exemplo.com" style="width:100%;"></div>
+      <div style="margin-bottom:24px;"><label style="font-size:0.78rem; color:var(--text2); display:block; margin-bottom:6px;">Password</label>
+        <input id="loginPassword" type="password" class="form-input" placeholder="" style="width:100%;" onkeydown="if(event.key==='Enter')doLogin()"></div>
+      <button id="loginBtn" onclick="doLogin()" style="width:100%; padding:12px; background:var(--gold); color:#fff; border:none; border-radius:var(--radius); font-size:0.9rem; cursor:pointer;">Entrar</button>
+      <div style="text-align:center; margin-top:16px; font-size:0.82rem; color:var(--text3);">Nao tens conta? <span onclick="document.getElementById('loginForm').style.display='none';document.getElementById('registerForm').style.display='block';" style="color:var(--gold); cursor:pointer;">Registar</span></div>
+    </div>
+    <div id="registerForm" style="display:none;">
+      <div style="margin-bottom:16px;"><label style="font-size:0.78rem; color:var(--text2); display:block; margin-bottom:6px;">Nome</label>
+        <input id="regName" type="text" class="form-input" placeholder="O teu nome" style="width:100%;"></div>
+      <div style="margin-bottom:16px;"><label style="font-size:0.78rem; color:var(--text2); display:block; margin-bottom:6px;">Email</label>
+        <input id="regEmail" type="email" class="form-input" placeholder="email@exemplo.com" style="width:100%;"></div>
+      <div style="margin-bottom:24px;"><label style="font-size:0.78rem; color:var(--text2); display:block; margin-bottom:6px;">Password</label>
+        <input id="regPassword" type="password" class="form-input" placeholder="" style="width:100%;"></div>
+      <button onclick="doRegister()" style="width:100%; padding:12px; background:var(--gold); color:#fff; border:none; border-radius:var(--radius); font-size:0.9rem; cursor:pointer;">Criar Conta</button>
+      <div style="text-align:center; margin-top:16px; font-size:0.82rem; color:var(--text3);">Ja tens conta? <span onclick="document.getElementById('registerForm').style.display='none';document.getElementById('loginForm').style.display='block';" style="color:var(--gold); cursor:pointer;">Entrar</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- APP PRINCIPAL -->
+<div id="appShell" style="display:none; width:100%;">
+
 <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
 
 <aside class="sidebar" id="sidebar">
@@ -812,10 +841,93 @@ textarea.form-input { resize: vertical; min-height: 90px; }
     }, 3000);
   }
 
-  // FUNÇÕES DE LOGOUT E PESQUISA MOCKADAS
+  // LOGIN / LOGOUT
   function doLogout() {
-    alert('A efetuar logout...');
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('currentUser');
+    document.getElementById('loginScreen').style.display = 'flex';
+    document.getElementById('appShell').style.display = 'none';
+    showToast('Sessão terminada.');
   }
+
+  async function doLogin() {
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+    const btn = document.getElementById('loginBtn');
+
+    if (!email || !password) { showToast('Preenche email e password'); return; }
+
+    btn.textContent = 'A entrar...';
+    btn.disabled = true;
+
+    try {
+      const res = await fetch(`${API_BASE_URL}/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        localStorage.setItem('authToken', data.token);
+        localStorage.setItem('currentUser', JSON.stringify(data.user));
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('appShell').style.display = 'flex';
+        const nameEl = document.querySelector('.admin-name');
+        if (nameEl) nameEl.textContent = data.user.name;
+        showToast('Bem-vindo, ' + data.user.name + '!');
+      } else {
+        showToast('Erro: ' + (data.error || 'Credenciais inválidas'));
+      }
+    } catch(e) {
+      showToast('Erro de ligação ao servidor');
+    }
+    btn.textContent = 'Entrar';
+    btn.disabled = false;
+  }
+
+  async function doRegister() {
+    const name = document.getElementById('regName').value;
+    const email = document.getElementById('regEmail').value;
+    const password = document.getElementById('regPassword').value;
+
+    if (!name || !email || !password) { showToast('Preenche todos os campos'); return; }
+
+    try {
+      const res = await fetch(`${API_BASE_URL}/auth/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        localStorage.setItem('authToken', data.token);
+        localStorage.setItem('currentUser', JSON.stringify(data.user));
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('appShell').style.display = 'flex';
+        showToast('Conta criada com sucesso!');
+      } else {
+        showToast('Erro: ' + (data.error || 'Não foi possível registar'));
+      }
+    } catch(e) {
+      showToast('Erro de ligação ao servidor');
+    }
+  }
+
+  // Verificar sessão ao carregar
+  window.addEventListener('DOMContentLoaded', () => {
+    const token = localStorage.getItem('authToken');
+    const user = localStorage.getItem('currentUser');
+    if (token && user) {
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('appShell').style.display = 'flex';
+      const parsed = JSON.parse(user);
+      const nameEl = document.querySelector('.admin-name');
+      if (nameEl) nameEl.textContent = parsed.name;
+    } else {
+      document.getElementById('loginScreen').style.display = 'flex';
+      document.getElementById('appShell').style.display = 'none';
+    }
+  });
   function globalSearch(val) {
     console.log("A pesquisar por: " + val);
   }
@@ -850,5 +962,6 @@ textarea.form-input { resize: vertical; min-height: 90px; }
     `;
   }
 </script>
+</div><!-- /appShell -->
 </body>
 </html>
