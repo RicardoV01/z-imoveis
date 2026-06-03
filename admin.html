@@ -654,21 +654,46 @@ textarea.form-input { resize: vertical; min-height: 90px; }
       <div class="form-grid">
         <div class="form-field full">
           <label class="form-label">Título do Imóvel</label>
-          <input type="text" class="form-input" placeholder="Ex: Moradia T4 com Piscina">
+          <input type="text" id="newPropTitle" class="form-input" placeholder="Ex: Moradia T4 com Piscina">
         </div>
         <div class="form-field">
           <label class="form-label">Preço (€)</label>
-          <input type="number" class="form-input" placeholder="0.00">
+          <input type="number" id="newPropPrice" class="form-input" placeholder="0">
         </div>
         <div class="form-field">
           <label class="form-label">Localização</label>
-          <input type="text" class="form-input" placeholder="Cidade, País">
+          <input type="text" id="newPropLocation" class="form-input" placeholder="Cidade, País">
+        </div>
+        <div class="form-field">
+          <label class="form-label">Tipo</label>
+          <select id="newPropType" class="form-input">
+            <option value="apartment">Apartamento</option>
+            <option value="house">Moradia</option>
+            <option value="penthouse">Penthouse</option>
+            <option value="villa">Villa</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label class="form-label">Quartos</label>
+          <input type="number" id="newPropBedrooms" class="form-input" placeholder="0">
+        </div>
+        <div class="form-field">
+          <label class="form-label">Área (m²)</label>
+          <input type="number" id="newPropArea" class="form-input" placeholder="0">
+        </div>
+        <div class="form-field full">
+          <label class="form-label">Descrição</label>
+          <textarea id="newPropDescription" class="form-input" placeholder="Descrição do imóvel..."></textarea>
+        </div>
+        <div class="form-field full">
+          <label class="form-label">URL da Imagem</label>
+          <input type="text" id="newPropImage" class="form-input" placeholder="https://...">
         </div>
       </div>
     </div>
     <div class="modal-footer">
       <button class="btn-sm outline" onclick="closeAddModal()">Cancelar</button>
-      <button class="btn-sm gold" onclick="closeAddModal(); showToast('Imóvel adicionado!')">Salvar</button>
+      <button class="btn-sm gold" onclick="saveNewProperty()">Salvar</button>
     </div>
   </div>
 </div>
@@ -724,11 +749,57 @@ textarea.form-input { resize: vertical; min-height: 90px; }
   }
 
   // MODAL DE ADICIONAR IMÓVEL
+  const API_BASE_URL = 'https://z-imoveis.onrender.com/api';
+
   function openAddModal() {
     document.getElementById('addModal').classList.add('open');
   }
   function closeAddModal() {
     document.getElementById('addModal').classList.remove('open');
+  }
+
+  async function saveNewProperty() {
+    const title = document.getElementById('newPropTitle').value;
+    const price = document.getElementById('newPropPrice').value;
+    const location = document.getElementById('newPropLocation').value;
+    const type = document.getElementById('newPropType').value;
+    const bedrooms = document.getElementById('newPropBedrooms').value;
+    const area = document.getElementById('newPropArea').value;
+    const description = document.getElementById('newPropDescription').value;
+    const imageUrl = document.getElementById('newPropImage').value;
+
+    if (!title || !price || !location || !type) {
+      showToast('Preenche os campos obrigatórios: Título, Preço, Localização e Tipo');
+      return;
+    }
+
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+      showToast('Sessão expirada. Por favor faz login novamente.');
+      return;
+    }
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/properties`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ title, price: Number(price), location, type, bedrooms: Number(bedrooms), area: Number(area), description, imageUrl })
+      });
+
+      if (response.ok) {
+        closeAddModal();
+        showToast('Imóvel adicionado com sucesso!');
+        setTimeout(() => location.reload(), 1500);
+      } else {
+        const err = await response.json();
+        showToast('Erro: ' + (err.error || 'Não foi possível guardar'));
+      }
+    } catch (e) {
+      showToast('Erro de ligação ao servidor');
+    }
   }
 
   // FEEDBACK DE TOAST
