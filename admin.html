@@ -415,7 +415,7 @@ textarea.form-input { resize: vertical; min-height: 90px; }
     <div class="admin-profile">
       <div class="admin-avatar">MF</div>
       <div>
-        <div class="admin-name">Margarida F.</div>
+        <div class="admin-name" id="sidebarName">—</div>
         <div class="admin-role">Administradora</div>
       </div>
       <div class="admin-actions">
@@ -626,11 +626,11 @@ textarea.form-input { resize: vertical; min-height: 90px; }
         <div class="card-body" style="display: flex; flex-direction: column; gap: 16px;">
           <div class="form-field">
             <label class="form-label">Email</label>
-            <input type="email" class="form-input" value="margarida@z-imoveis.pt" disabled>
+            <input type="email" class="form-input" id="settingsEmail" value="" disabled>
           </div>
           <div class="form-field">
             <label class="form-label">Nome</label>
-            <input type="text" class="form-input" value="Margarida Ferreira">
+            <input type="text" class="form-input" id="settingsName" value="">
           </div>
           <button class="btn-sm gold" onclick="showToast('Alterações guardadas com sucesso!')">Guardar Alterações</button>
         </div>
@@ -848,6 +848,7 @@ textarea.form-input { resize: vertical; min-height: 90px; }
         loadStats();
         loadProperties();
         loadLeads();
+        loadUserProfile();
       } else {
         showToast('Erro: ' + (data.error || 'Credenciais inválidas'));
       }
@@ -966,6 +967,18 @@ textarea.form-input { resize: vertical; min-height: 90px; }
   }
 
   // CARREGAR ESTATÍSTICAS DO DASHBOARD
+  function loadUserProfile() {
+    const user = localStorage.getItem('currentUser');
+    if (!user) return;
+    const u = JSON.parse(user);
+    const sidebarName = document.getElementById('sidebarName');
+    if (sidebarName) sidebarName.textContent = u.name;
+    const settingsEmail = document.getElementById('settingsEmail');
+    if (settingsEmail) settingsEmail.value = u.email || '';
+    const settingsName = document.getElementById('settingsName');
+    if (settingsName) settingsName.value = u.name || '';
+  }
+
   async function loadStats() {
     const token = localStorage.getItem('authToken');
     if (!token) return;
@@ -1053,7 +1066,7 @@ textarea.form-input { resize: vertical; min-height: 90px; }
       const parsed = JSON.parse(user);
       const nameEl = document.querySelector('.admin-name');
       if (nameEl) nameEl.textContent = parsed.name;
-      setTimeout(() => { loadStats(); loadProperties(); loadLeads(); }, 300);
+      setTimeout(() => { loadStats(); loadProperties(); loadLeads(); loadUserProfile(); }, 300);
     } else {
       document.getElementById('loginScreen').style.display = 'flex';
       document.getElementById('appShell').style.display = 'none';
