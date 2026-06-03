@@ -277,6 +277,7 @@ tbody tr:hover .row-actions { opacity: 1; }
 .modal-body { padding: 24px; display: flex; flex-direction: column; gap: 16px; }
 .modal-footer { padding: 16px 24px; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; gap: 10px; }
 .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .form-field { display: flex; flex-direction: column; gap: 5px; }
 .form-field.full { grid-column: span 2; }
 .form-label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text3); }
@@ -336,10 +337,8 @@ textarea.form-input { resize: vertical; min-height: 90px; }
 </head>
 <body>
 
-<!-- SIDEBAR OVERLAY -->
 <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
 
-<!-- SIDEBAR -->
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-header">
     <a href="index.html" class="sidebar-logo">
@@ -399,10 +398,8 @@ textarea.form-input { resize: vertical; min-height: 90px; }
   </div>
 </aside>
 
-<!-- MAIN -->
 <div class="main">
 
-  <!-- HEADER -->
   <header class="header">
     <div class="header-left">
       <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
@@ -425,10 +422,8 @@ textarea.form-input { resize: vertical; min-height: 90px; }
     </div>
   </header>
 
-  <!-- CONTENT -->
   <div class="content">
 
-    <!-- ═══ DASHBOARD ═══ -->
     <div class="page active" id="page-dashboard">
       <div class="page-title">Dashboard</div>
       <div class="page-subtitle">Resumo de atividade — Maio 2025</div>
@@ -469,7 +464,6 @@ textarea.form-input { resize: vertical; min-height: 90px; }
       </div>
 
       <div class="charts-row">
-        <!-- Bar chart -->
         <div class="card">
           <div class="card-header">
             <div>
@@ -486,7 +480,6 @@ textarea.form-input { resize: vertical; min-height: 90px; }
           </div>
         </div>
 
-        <!-- Donut -->
         <div class="card">
           <div class="card-header">
             <div>
@@ -516,7 +509,6 @@ textarea.form-input { resize: vertical; min-height: 90px; }
         </div>
       </div>
 
-      <!-- Recent leads -->
       <div class="card">
         <div class="card-header">
           <div>
@@ -538,7 +530,6 @@ textarea.form-input { resize: vertical; min-height: 90px; }
       </div>
     </div>
 
-    <!-- ═══ IMÓVEIS ═══ -->
     <div class="page" id="page-imoveis">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:6px;">
         <div>
@@ -587,7 +578,6 @@ textarea.form-input { resize: vertical; min-height: 90px; }
       </div>
     </div>
 
-    <!-- ═══ LEADS ═══ -->
     <div class="page" id="page-leads">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:6px;">
         <div>
@@ -615,14 +605,12 @@ textarea.form-input { resize: vertical; min-height: 90px; }
       </div>
     </div>
 
-    <!-- ═══ EQUIPA ═══ -->
     <div class="page" id="page-equipa">
       <div class="page-title">Equipa</div>
       <div class="page-subtitle">Gestão dos consultores imobiliários</div>
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-top:8px;" id="teamCards"></div>
     </div>
 
-    <!-- ═══ DEFINIÇÕES ═══ -->
     <div class="page" id="page-definicoes">
       <div class="page-title">Definições</div>
       <div class="page-subtitle">Configurações do site e da conta</div>
@@ -671,7 +659,6 @@ textarea.form-input { resize: vertical; min-height: 90px; }
   </div>
 </div>
 
-<!-- ═══ MODAL: ADICIONAR/EDITAR IMÓVEL ═══ -->
 <div class="modal-overlay" id="propModal">
   <div class="modal-box">
     <div class="modal-head">
@@ -766,7 +753,6 @@ textarea.form-input { resize: vertical; min-height: 90px; }
   </div>
 </div>
 
-<!-- TOAST -->
 <div class="toast" id="toast">
   <span id="toastIcon">✓</span>
   <span id="toastText"></span>
@@ -1141,9 +1127,16 @@ renderDashLeads();
 // Close modal on overlay click
 document.getElementById('propModal').addEventListener('click', e => { if (e.target===e.currentTarget) closePropModal(); });
 </script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-  // Exemplo de função para ler os imóveis direto do Supabase no Admin
+// Variáveis globais do Supabase
+const SUPABASE_URL = 'https://nfviumkttvkqzeuerkyj.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5mdml1bWt0dHZrcXpldWVya3lqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk1MzgyMDksImV4cCI6MjA5NTExNDIwOX0.sN9MeiKi-3bK2gUzcrfYJc6Y8pr4HgVO4nRlFc2c31A';
+
+// Inicialização do cliente Supabase para o Admin
+const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// Exemplo de função para ler os imóveis direto do Supabase no Admin
 async function loadPropertiesFromDB() {
   try {
     const response = await fetch(`${SUPABASE_URL}/rest/v1/imoveis?select=*&order=id.desc`, {
@@ -1163,7 +1156,7 @@ async function loadPropertiesFromDB() {
         title: p.titulo,
         price: p.preco,
         type: p.tipo,
-        category: p.category, // Mapeie aqui de acordo com as colunas da sua tabela
+        category: p.category, 
         area: p.area,
         rooms: p.quartos,
         bath: p.wc,
@@ -1180,15 +1173,8 @@ async function loadPropertiesFromDB() {
   }
 }
 
-  // Variáveis globais do Supabase (as mesmas que funcionam no index.html)
-  const SUPABASE_URL = 'https://nfviumkttvkqzeuerkyj.supabase.co';
-  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5mdml1bWt0dHZrcXpldWVya3lqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk1MzgyMDksImV4cCI6MjA5NTExNDIwOX0.sN9MeiKi-3bK2gUzcrfYJc6Y8pr4HgVO4nRlFc2c31A';
-
-  // Inicialização do cliente Supabase para o Admin
-  const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-  // Chame esta função no carregamento da página (Init)
-  loadPropertiesFromDB();
+// Chame esta função no carregamento da página (Init)
+loadPropertiesFromDB();
 </script>
 </body>
 </html>
