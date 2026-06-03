@@ -406,7 +406,7 @@ async function loadLeads() {
 
     const leadsContainer = document.querySelector('.leads-grid') || createLeadsContainer();
     const leadsListHtml = leads.map(lead => `
-      <div class="lead-card" onclick="selectLead('${lead._id}')">
+      <div class="lead-card" onclick="selectLead('${lead._id}', this)">
         <div class="lead-card-top">
           <div class="lead-name">${lead.name}</div>
           <div class="lead-time">${new Date(lead.createdAt).toLocaleDateString()}</div>
