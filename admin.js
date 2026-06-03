@@ -480,7 +480,7 @@ async function selectLead(leadId, el) {
     `;
 
     document.querySelectorAll('.lead-card').forEach(card => card.classList.remove('selected'));
-    event.target.closest('.lead-card')?.classList.add('selected');
+    el?.classList.add('selected');
   } catch (error) {
     console.error('Error loading lead:', error);
   }
