@@ -390,11 +390,11 @@ textarea.form-input { resize: vertical; min-height: 90px; }
     </a>
     <a class="nav-item" onclick="showPage('imoveis',this)">
       <span class="nav-icon">⌂</span> Imóveis
-      <span class="nav-badge">6</span>
+      <span class="nav-badge" id="badgeImoveis">—</span>
     </a>
     <a class="nav-item" onclick="showPage('leads',this)">
       <span class="nav-icon">✉</span> Leads
-      <span class="nav-badge red">4</span>
+      <span class="nav-badge red" id="badgeLeads">—</span>
     </a>
 
     <div class="nav-section-label">Gestão</div>
@@ -594,18 +594,8 @@ textarea.form-input { resize: vertical; min-height: 90px; }
       <div class="page-subtitle">Gerencie seus contactos e oportunidades</div>
 
       <div class="leads-grid">
-        <div class="lead-cards-list">
-          <div class="lead-card" onclick="selectLead(this)">
-            <div class="lead-card-top">
-              <div class="lead-name">João Silva</div>
-              <div class="lead-time">30 mai</div>
-            </div>
-            <div class="lead-subject">Interesse em penthouse</div>
-            <div class="lead-preview">Olá, gostaria de informações sobre o penthouse no Porto...</div>
-            <div class="lead-footer">
-              <span class="badge new">Novo</span>
-            </div>
-          </div>
+        <div class="lead-cards-list" id="leadCardsList">
+          <div style="text-align:center;padding:40px;color:var(--text3);">A carregar leads...</div>
         </div>
         <div class="lead-detail" id="leadDetailBox">
           <div class="empty-state">
@@ -723,6 +713,7 @@ textarea.form-input { resize: vertical; min-height: 90px; }
     }
     if (pageId === 'imoveis') loadProperties();
     if (pageId === 'dashboard') loadStats();
+    if (pageId === 'leads') loadLeads();
 
     // Atualiza o Breadcrumb superior
     const breadcrumbSpan = document.querySelector('#breadcrumb span');
@@ -856,6 +847,7 @@ textarea.form-input { resize: vertical; min-height: 90px; }
         showToast('Bem-vindo, ' + data.user.name + '!');
         loadStats();
         loadProperties();
+        loadLeads();
       } else {
         showToast('Erro: ' + (data.error || 'Credenciais inválidas'));
       }
@@ -894,6 +886,85 @@ textarea.form-input { resize: vertical; min-height: 90px; }
     }
   }
 
+  // CARREGAR LEADS DA API
+  async function loadLeads() {
+    const token = localStorage.getItem('authToken');
+    if (!token) return;
+    try {
+      const res = await fetch(API_BASE_URL + '/leads', {
+        headers: { 'Authorization': 'Bearer ' + token }
+      });
+      const leads = await res.json();
+      const list = document.getElementById('leadCardsList');
+      if (!list) return;
+
+      // Atualizar badge
+      const badge = document.getElementById('badgeLeads');
+      if (badge) badge.textContent = leads.filter(l => l.status === 'new').length || 0;
+
+      if (!leads.length) {
+        list.innerHTML = '<div style="text-align:center;padding:40px;color:var(--text3);">Nenhum lead encontrado.</div>';
+        return;
+      }
+      list.innerHTML = leads.map(l => `
+        <div class="lead-card" onclick="selectLeadById('${l._id}', this)">
+          <div class="lead-card-top">
+            <div class="lead-name">${l.name}</div>
+            <div class="lead-time">${new Date(l.createdAt).toLocaleDateString('pt-PT')}</div>
+          </div>
+          <div class="lead-subject">${l.subject || 'Sem assunto'}</div>
+          <div class="lead-preview">${l.message.substring(0, 80)}...</div>
+          <div class="lead-footer">
+            <span class="badge ${l.status}">${l.status === 'new' ? 'Novo' : l.status === 'contacted' ? 'Contactado' : l.status === 'qualified' ? 'Qualificado' : 'Fechado'}</span>
+          </div>
+        </div>`).join('');
+    } catch(e) {
+      console.error('Erro ao carregar leads:', e);
+    }
+  }
+
+  async function selectLeadById(id, el) {
+    const token = localStorage.getItem('authToken');
+    try {
+      const res = await fetch(API_BASE_URL + '/leads/' + id, {
+        headers: { 'Authorization': 'Bearer ' + token }
+      });
+      const lead = await res.json();
+      const box = document.getElementById('leadDetailBox');
+      box.innerHTML = `
+        <div class="lead-detail-header">
+          <div class="lead-detail-avatar">${lead.name[0].toUpperCase()}</div>
+          <div class="lead-detail-name">${lead.name}</div>
+          <div class="lead-detail-contact">${lead.email}<br>${lead.phone || ''}</div>
+        </div>
+        <div class="lead-detail-body">
+          <div class="detail-section-title">Mensagem</div>
+          <div class="lead-message-box">${lead.message}</div>
+          <div class="detail-section-title" style="margin-top:16px;">Status</div>
+          <select class="form-input" onchange="updateLeadStatus('${lead._id}', this.value)" style="width:100%;margin-top:8px;">
+            <option value="new" ${lead.status==='new'?'selected':''}>Novo</option>
+            <option value="contacted" ${lead.status==='contacted'?'selected':''}>Contactado</option>
+            <option value="qualified" ${lead.status==='qualified'?'selected':''}>Qualificado</option>
+            <option value="closed" ${lead.status==='closed'?'selected':''}>Fechado</option>
+          </select>
+        </div>`;
+      document.querySelectorAll('.lead-card').forEach(c => c.classList.remove('selected'));
+      if (el) el.classList.add('selected');
+    } catch(e) { showToast('Erro ao carregar lead'); }
+  }
+
+  async function updateLeadStatus(id, status) {
+    const token = localStorage.getItem('authToken');
+    try {
+      const res = await fetch(API_BASE_URL + '/leads/' + id, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+        body: JSON.stringify({ status })
+      });
+      if (res.ok) { showToast('Status atualizado!'); loadLeads(); }
+    } catch(e) { showToast('Erro ao atualizar'); }
+  }
+
   // CARREGAR ESTATÍSTICAS DO DASHBOARD
   async function loadStats() {
     const token = localStorage.getItem('authToken');
@@ -927,6 +998,8 @@ textarea.form-input { resize: vertical; min-height: 90px; }
       const props = await res.json();
       const tbody = document.getElementById('propertiesTbody');
       if (!tbody) return;
+      const badgeIm = document.getElementById('badgeImoveis');
+      if (badgeIm) badgeIm.textContent = props.filter(p => p.status === 'active').length;
       if (!props.length) {
         tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--text3);">Nenhum imóvel encontrado. Clica em + Novo imóvel para adicionar.</td></tr>';
         return;
@@ -980,7 +1053,7 @@ textarea.form-input { resize: vertical; min-height: 90px; }
       const parsed = JSON.parse(user);
       const nameEl = document.querySelector('.admin-name');
       if (nameEl) nameEl.textContent = parsed.name;
-      setTimeout(() => { loadStats(); loadProperties(); }, 300);
+      setTimeout(() => { loadStats(); loadProperties(); loadLeads(); }, 300);
     } else {
       document.getElementById('loginScreen').style.display = 'flex';
       document.getElementById('appShell').style.display = 'none';
