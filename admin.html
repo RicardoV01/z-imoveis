@@ -462,7 +462,7 @@ textarea.form-input { resize: vertical; min-height: 90px; }
             <div class="stat-icon gold">🏠</div>
             <span class="stat-change up">▲ 12%</span>
           </div>
-          <div class="stat-value">6</div>
+          <div class="stat-value" id="statActiveProperties">—</div>
           <div class="stat-label">Imóveis ativos</div>
         </div>
         <div class="stat-card">
@@ -470,15 +470,15 @@ textarea.form-input { resize: vertical; min-height: 90px; }
             <div class="stat-icon green">✉</div>
             <span class="stat-change up">▲ 28%</span>
           </div>
-          <div class="stat-value">24</div>
-          <div class="stat-label">Leads este mês</div>
+          <div class="stat-value" id="statNewLeads">—</div>
+          <div class="stat-label">Leads novos</div>
         </div>
         <div class="stat-card">
           <div class="stat-top">
             <div class="stat-icon blue">€</div>
             <span class="stat-change up">▲ 8%</span>
           </div>
-          <div class="stat-value">€4.2M</div>
+          <div class="stat-value" id="statVolume">—</div>
           <div class="stat-label">Volume em carteira</div>
         </div>
         <div class="stat-card">
@@ -486,8 +486,8 @@ textarea.form-input { resize: vertical; min-height: 90px; }
             <div class="stat-icon red">👁</div>
             <span class="stat-change down">▼ 3%</span>
           </div>
-          <div class="stat-value">1.847</div>
-          <div class="stat-label">Visitas ao site</div>
+          <div class="stat-value" id="statTotalLeads">—</div>
+          <div class="stat-label">Total de leads</div>
         </div>
       </div>
 
@@ -722,6 +722,7 @@ textarea.form-input { resize: vertical; min-height: 90px; }
       element.classList.add('active');
     }
     if (pageId === 'imoveis') loadProperties();
+    if (pageId === 'dashboard') loadStats();
 
     // Atualiza o Breadcrumb superior
     const breadcrumbSpan = document.querySelector('#breadcrumb span');
@@ -853,6 +854,7 @@ textarea.form-input { resize: vertical; min-height: 90px; }
         const nameEl = document.querySelector('.admin-name');
         if (nameEl) nameEl.textContent = data.user.name;
         showToast('Bem-vindo, ' + data.user.name + '!');
+        loadStats();
         loadProperties();
       } else {
         showToast('Erro: ' + (data.error || 'Credenciais inválidas'));
@@ -889,6 +891,28 @@ textarea.form-input { resize: vertical; min-height: 90px; }
       }
     } catch(e) {
       showToast('Erro de ligação ao servidor');
+    }
+  }
+
+  // CARREGAR ESTATÍSTICAS DO DASHBOARD
+  async function loadStats() {
+    const token = localStorage.getItem('authToken');
+    if (!token) return;
+    try {
+      const res = await fetch(API_BASE_URL + '/stats', {
+        headers: { 'Authorization': 'Bearer ' + token }
+      });
+      const stats = await res.json();
+      const el = (id) => document.getElementById(id);
+      if (el('statActiveProperties')) el('statActiveProperties').textContent = stats.activeProperties;
+      if (el('statNewLeads')) el('statNewLeads').textContent = stats.newLeads;
+      if (el('statTotalLeads')) el('statTotalLeads').textContent = stats.totalLeads;
+      if (el('statVolume')) {
+        const vol = stats.volumeInPortfolio;
+        el('statVolume').textContent = vol >= 1000000 ? '€' + (vol/1000000).toFixed(1) + 'M' : '€' + vol.toLocaleString('pt-PT');
+      }
+    } catch(e) {
+      console.error('Erro ao carregar stats:', e);
     }
   }
 
@@ -956,7 +980,7 @@ textarea.form-input { resize: vertical; min-height: 90px; }
       const parsed = JSON.parse(user);
       const nameEl = document.querySelector('.admin-name');
       if (nameEl) nameEl.textContent = parsed.name;
-      setTimeout(loadProperties, 300);
+      setTimeout(() => { loadStats(); loadProperties(); }, 300);
     } else {
       document.getElementById('loginScreen').style.display = 'flex';
       document.getElementById('appShell').style.display = 'none';
