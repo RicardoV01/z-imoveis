@@ -70,7 +70,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
 }
 .sidebar-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
 .sidebar-logo-text { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 300; letter-spacing: 0.15em; color: var(--text); }
-.sidebar-badge { font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); background: var(--gold-pale); padding: 3px 8px; border-radius: 2px; border: 1px solid rgba(184,147,90,0.2); }
+.sidebar-badge { font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); background: var(--gold-pale); padding: 3px 8px; border-radius: 2px; border: 1px solid rgba(184,147,90,0.3); }
 .sidebar-nav { flex: 1; overflow-y: auto; padding: 12px 0; }
 .nav-section-label { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text3); padding: 16px 20px 6px; }
 .nav-item {
@@ -88,7 +88,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
 .nav-badge.red { background: var(--red); }
 .sidebar-footer { padding: 16px 20px; border-top: 1px solid var(--border); }
 .admin-profile { display: flex; align-items: center; gap: 10px; }
-.admin-avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--gold-light), var(--gold-dark)); display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: #fff; flex-shrink: 0; }
+.admin-avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--gold-light), var(--gold-dark)); display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: 600; color: #fff; }
 .admin-name { font-size: 0.85rem; font-weight: 500; color: var(--text); }
 .admin-role { font-size: 0.72rem; color: var(--text3); }
 .admin-actions { margin-left: auto; display: flex; gap: 6px; }
@@ -126,7 +126,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
 .notif-dot { position: absolute; top: 6px; right: 6px; width: 7px; height: 7px; background: var(--red); border-radius: 50%; border: 2px solid var(--surface); }
 .theme-btn { background: none; border: 1px solid var(--border); border-radius: var(--radius); padding: 7px 10px; cursor: pointer; color: var(--text2); font-size: 0.9rem; transition: all 0.2s; }
 .theme-btn:hover { border-color: var(--gold); color: var(--gold); }
-.header-cta { padding: 8px 16px; background: var(--gold); color: #fff; border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 500; cursor: pointer; letter-spacing: 0.05em; transition: background 0.2s; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+.header-cta { padding: 8px 16px; background: var(--gold); color: #fff; border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 500; cursor: pointer; transition: all 0.2s; }
 .header-cta:hover { background: var(--gold-dark); }
 
 /* ── CONTENT ── */
@@ -182,13 +182,13 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
 .table-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 28px; overflow: hidden; }
 .table-toolbar { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
 .table-filters { display: flex; gap: 8px; flex-wrap: wrap; }
-.filter-select { padding: 7px 12px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.8rem; outline: none; cursor: pointer; transition: border-color 0.2s; -webkit-appearance: none; }
+.filter-select { padding: 7px 12px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.8rem; outline: none; transition: border-color 0.2s; }
 .filter-select:focus { border-color: var(--gold); }
-.search-input { padding: 7px 12px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.8rem; outline: none; transition: border-color 0.2s; width: 200px; }
+.search-input { padding: 7px 12px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.8rem; outline: none; transition: border-color 0.2s; }
 .search-input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(184,147,90,0.1); }
 .table-wrap { overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; }
-thead th { padding: 10px 16px; text-align: left; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text3); background: var(--surface2); border-bottom: 1px solid var(--border); white-space: nowrap; }
+thead th { padding: 10px 16px; text-align: left; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text3); background: var(--surface2); border-bottom: 1px solid var(--border); }
 tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; cursor: pointer; }
 tbody tr:last-child { border-bottom: none; }
 tbody tr:hover { background: var(--surface2); }
@@ -217,7 +217,7 @@ tbody td { padding: 13px 16px; font-size: 0.85rem; color: var(--text); vertical-
 /* ROW ACTIONS */
 .row-actions { display: flex; gap: 4px; opacity: 0; transition: opacity 0.2s; }
 tbody tr:hover .row-actions { opacity: 1; }
-.action-btn { padding: 5px 10px; border-radius: 4px; border: 1px solid var(--border); background: var(--surface); color: var(--text2); font-size: 0.75rem; cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif; white-space: nowrap; }
+.action-btn { padding: 5px 10px; border-radius: 4px; border: 1px solid var(--border); background: var(--surface); color: var(--text2); font-size: 0.75rem; cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
 .action-btn:hover { border-color: var(--gold); color: var(--gold); }
 .action-btn.danger:hover { border-color: var(--red); color: var(--red); }
 
@@ -225,7 +225,7 @@ tbody tr:hover .row-actions { opacity: 1; }
 .pagination { padding: 14px 20px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
 .page-info { font-size: 0.78rem; color: var(--text3); }
 .page-btns { display: flex; gap: 4px; }
-.page-btn { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border); border-radius: 4px; background: none; cursor: pointer; font-size: 0.8rem; color: var(--text2); transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
+.page-btn { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border); border-radius: 4px; background: none; cursor: pointer; font-size: 0.8rem; transition: all 0.2s; }
 .page-btn:hover, .page-btn.active { background: var(--gold); border-color: var(--gold); color: #fff; }
 
 /* ── LEADS ── */
@@ -241,12 +241,12 @@ tbody tr:hover .row-actions { opacity: 1; }
 .lead-footer { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 
 /* LEAD DETAIL */
-.lead-detail { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); display: flex; flex-direction: column; position: sticky; top: calc(var(--header-h) + 28px); max-height: calc(100vh - var(--header-h) - 56px); overflow-y: auto; }
+.lead-detail { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); display: flex; flex-direction: column; position: sticky; top: calc(var(--header-h) + 28px); max-height: calc(100vh - var(--header-h) - 56px); }
 .lead-detail-header { padding: 20px; border-bottom: 1px solid var(--border); }
-.lead-detail-avatar { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, var(--gold-light), var(--gold-dark)); display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: #fff; margin-bottom: 12px; }
+.lead-detail-avatar { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, var(--gold-light), var(--gold-dark)); display: flex; align-items: center; justify-content: center; font-weight: 600; color: #fff; margin-bottom: 12px; }
 .lead-detail-name { font-weight: 500; font-size: 1rem; margin-bottom: 4px; }
 .lead-detail-contact { font-size: 0.8rem; color: var(--text3); line-height: 1.6; }
-.lead-detail-body { padding: 20px; flex: 1; }
+.lead-detail-body { padding: 20px; flex: 1; overflow-y: auto; }
 .detail-section-title { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text3); margin-bottom: 10px; }
 .detail-field { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 0.82rem; }
 .detail-field:last-child { border-bottom: none; }
@@ -254,10 +254,10 @@ tbody tr:hover .row-actions { opacity: 1; }
 .detail-field-val { color: var(--text); font-weight: 500; text-align: right; }
 .lead-message-box { background: var(--surface2); border-radius: var(--radius); padding: 14px; font-size: 0.82rem; color: var(--text2); line-height: 1.7; margin: 16px 0; }
 .lead-actions-panel { padding: 16px 20px; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 8px; }
-.lead-reply-input { width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.82rem; resize: none; outline: none; transition: border-color 0.2s; min-height: 72px; }
+.lead-reply-input { width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.85rem; outline: none; transition: border-color 0.2s; }
 .lead-reply-input:focus { border-color: var(--gold); }
 .lead-btn-row { display: flex; gap: 8px; }
-.btn-sm { padding: 8px 14px; border-radius: var(--radius); border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 500; transition: all 0.2s; display: flex; align-items: center; gap: 6px; }
+.btn-sm { padding: 8px 14px; border-radius: var(--radius); border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.78rem; font-weight: 500; transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
 .btn-sm.gold { background: var(--gold); color: #fff; }
 .btn-sm.gold:hover { background: var(--gold-dark); }
 .btn-sm.outline { background: none; border: 1px solid var(--border); color: var(--text2); }
@@ -268,7 +268,7 @@ tbody tr:hover .row-actions { opacity: 1; }
 /* ── MODAL ── */
 .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 500; display: none; align-items: center; justify-content: center; padding: 20px; }
 .modal-overlay.open { display: flex; }
-.modal-box { background: var(--surface); border-radius: var(--radius); width: 100%; max-width: 600px; max-height: 90vh; overflow-y: auto; box-shadow: 0 24px 80px rgba(0,0,0,0.2); animation: modalIn 0.3s var(--transition); }
+.modal-box { background: var(--surface); border-radius: var(--radius); width: 100%; max-width: 600px; max-height: 90vh; overflow-y: auto; box-shadow: 0 24px 80px rgba(0,0,0,0.2); animation: modalIn 0.3s ease-out; }
 @keyframes modalIn { from { opacity:0; transform: translateY(16px) scale(0.98); } to { opacity:1; transform:none; } }
 .modal-head { padding: 20px 24px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
 .modal-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 400; }
@@ -280,7 +280,7 @@ tbody tr:hover .row-actions { opacity: 1; }
 .form-field { display: flex; flex-direction: column; gap: 5px; }
 .form-field.full { grid-column: span 2; }
 .form-label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text3); }
-.form-input { padding: 10px 12px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.88rem; outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
+.form-input { padding: 10px 12px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 0.88rem; outline: none; transition: border-color 0.2s; }
 .form-input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(184,147,90,0.1); }
 .form-input::placeholder { color: var(--text3); }
 select.form-input { -webkit-appearance: none; cursor: pointer; }
@@ -290,7 +290,7 @@ textarea.form-input { resize: vertical; min-height: 90px; }
 .upload-icon { font-size: 2rem; margin-bottom: 8px; }
 
 /* ── TOAST ── */
-.toast { position: fixed; bottom: 24px; right: 24px; z-index: 1000; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 18px; box-shadow: 0 8px 32px rgba(0,0,0,0.12); display: flex; align-items: center; gap: 10px; font-size: 0.85rem; transform: translateY(80px); opacity: 0; transition: all 0.4s var(--transition); border-left: 3px solid var(--gold); max-width: 320px; }
+.toast { position: fixed; bottom: 24px; right: 24px; z-index: 1000; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 18px; box-shadow: 0 8px 32px rgba(0,0,0,0.15); border-left: 4px solid transparent; opacity: 0; transform: translateY(100px); transition: all 0.3s ease-out; }
 .toast.show { transform: none; opacity: 1; }
 .toast.success { border-left-color: var(--green); }
 .toast.error { border-left-color: var(--red); }
@@ -497,119 +497,117 @@ textarea.form-input { resize: vertical; min-height: 90px; }
           <div class="card-body">
             <div class="donut-wrap">
               <svg width="110" height="110" viewBox="0 0 110 110">
-                <circle cx="55" cy="55" r="42" fill="none" stroke="#E2E0D8" stroke-width="14"/>
-                <circle cx="55" cy="55" r="42" fill="none" stroke="#B8935A" stroke-width="14" stroke-dasharray="105 159" stroke-dashoffset="0" stroke-linecap="round"/>
-                <circle cx="55" cy="55" r="42" fill="none" stroke="#1A5FA8" stroke-width="14" stroke-dasharray="66 198" stroke-dashoffset="-105" stroke-linecap="round"/>
-                <circle cx="55" cy="55" r="42" fill="none" stroke="#2D7A4F" stroke-width="14" stroke-dasharray="42 222" stroke-dashoffset="-171" stroke-linecap="round"/>
-                <circle cx="55" cy="55" r="42" fill="none" stroke="#B8750A" stroke-width="14" stroke-dasharray="51 213" stroke-dashoffset="-213" stroke-linecap="round"/>
-                <text x="55" y="50" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="20" fill="#B8935A" font-weight="300">6</text>
-                <text x="55" y="65" text-anchor="middle" font-family="'DM Sans',sans-serif" font-size="9" fill="#9E9C94">imóveis</text>
+                <circle cx="55" cy="55" r="42" fill="none" stroke="#E2E0D8" stroke-width="14" stroke-dasharray="95 264" />
+                <circle cx="55" cy="55" r="42" fill="none" stroke="#B8935A" stroke-width="14" stroke-dasharray="79 264" stroke-dashoffset="-95" />
+                <circle cx="55" cy="55" r="42" fill="none" stroke="#2D7A4F" stroke-width="14" stroke-dasharray="52 264" stroke-dashoffset="-174" />
+                <circle cx="55" cy="55" r="42" fill="none" stroke="#1A5FA8" stroke-width="14" stroke-dasharray="38 264" stroke-dashoffset="-226" />
               </svg>
               <div class="donut-legend">
-                <div class="legend-item"><div class="legend-dot" style="background:#B8935A"></div>Apartamento (40%)</div>
-                <div class="legend-item"><div class="legend-dot" style="background:#1A5FA8"></div>Moradia (25%)</div>
-                <div class="legend-item"><div class="legend-dot" style="background:#2D7A4F"></div>Penthouse (20%)</div>
-                <div class="legend-item"><div class="legend-dot" style="background:#B8750A"></div>Outros (15%)</div>
+                <div class="legend-item">
+                  <div class="legend-dot" style="background: #E2E0D8;"></div>
+                  <span>Apartamentos</span>
+                </div>
+                <div class="legend-item">
+                  <div class="legend-dot" style="background: #B8935A;"></div>
+                  <span>Moradias</span>
+                </div>
+                <div class="legend-item">
+                  <div class="legend-dot" style="background: #2D7A4F;"></div>
+                  <span>Penthouses</span>
+                </div>
+                <div class="legend-item">
+                  <div class="legend-dot" style="background: #1A5FA8;"></div>
+                  <span>Villas</span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      <!-- Recent leads -->
-      <div class="card">
-        <div class="card-header">
-          <div>
-            <div class="card-title">Leads recentes</div>
-            <div class="card-subtitle">Últimos contactos recebidos</div>
-          </div>
-          <button class="btn-sm outline" onclick="showPage('leads',document.querySelector('[onclick*=leads]'))">Ver todos →</button>
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Nome</th><th>Assunto</th><th>Imóvel</th><th>Estado</th><th>Data</th><th></th>
-              </tr>
-            </thead>
-            <tbody id="dashLeadsTable"></tbody>
-          </table>
         </div>
       </div>
     </div>
 
     <!-- ═══ IMÓVEIS ═══ -->
     <div class="page" id="page-imoveis">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:6px;">
-        <div>
-          <div class="page-title">Imóveis</div>
-          <div class="page-subtitle">Gestão do portefólio completo</div>
-        </div>
-        <button class="header-cta" onclick="openAddModal()">＋ Adicionar imóvel</button>
-      </div>
+      <div class="page-title">Imóveis</div>
+      <div class="page-subtitle">Gerencie o seu portefólio de propriedades</div>
 
       <div class="table-card">
         <div class="table-toolbar">
           <div class="table-filters">
-            <select class="filter-select" onchange="filterProperties()" id="filterStatus">
-              <option value="">Todos os estados</option>
-              <option value="Ativo">Ativo</option>
-              <option value="Pendente">Pendente</option>
-              <option value="Vendido">Vendido</option>
-              <option value="Inativo">Inativo</option>
-            </select>
-            <select class="filter-select" onchange="filterProperties()" id="filterType">
-              <option value="">Todos os tipos</option>
-              <option value="Venda">Venda</option>
-              <option value="Arrendamento">Arrendamento</option>
+            <select class="filter-select">
+              <option>Todos os status</option>
+              <option>Ativo</option>
+              <option>Pendente</option>
+              <option>Vendido</option>
             </select>
           </div>
-          <input class="search-input" type="text" placeholder="🔍  Pesquisar imóvel..." oninput="filterProperties()" id="propSearch">
+          <input type="text" class="search-input" placeholder="Pesquisar imóvel...">
         </div>
         <div class="table-wrap">
           <table>
             <thead>
               <tr>
-                <th>Imóvel</th><th>Tipo</th><th>Preço</th><th>Quartos</th><th>Área</th><th>Estado</th><th>Vistas</th><th>Ações</th>
+                <th>Propriedade</th>
+                <th>Preço</th>
+                <th>Quartos</th>
+                <th>Área</th>
+                <th>Status</th>
+                <th>Data</th>
+                <th>Ações</th>
               </tr>
             </thead>
-            <tbody id="propertiesTable"></tbody>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="prop-cell">
+                    <div class="prop-thumb"></div>
+                    <div>
+                      <div class="prop-name">Apartamento Luxo Centro</div>
+                      <div class="prop-loc">Porto, Portugal</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="td-muted">€850.000</td>
+                <td class="td-muted">3</td>
+                <td class="td-muted">250 m²</td>
+                <td><span class="badge active">Ativo</span></td>
+                <td class="td-muted">3 Jun 2025</td>
+                <td>
+                  <div class="row-actions">
+                    <button class="action-btn">✎</button>
+                    <button class="action-btn danger">✕</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
           </table>
-        </div>
-        <div class="pagination">
-          <div class="page-info" id="propPageInfo">A mostrar 1–6 de 6</div>
-          <div class="page-btns">
-            <button class="page-btn">‹</button>
-            <button class="page-btn active">1</button>
-            <button class="page-btn">›</button>
-          </div>
         </div>
       </div>
     </div>
 
     <!-- ═══ LEADS ═══ -->
     <div class="page" id="page-leads">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:6px;">
-        <div>
-          <div class="page-title">Leads & Contactos</div>
-          <div class="page-subtitle">Gerencie todos os contactos recebidos</div>
-        </div>
-        <div style="display:flex;gap:8px;">
-          <select class="filter-select" onchange="filterLeads(this.value)" id="leadFilter">
-            <option value="">Todos</option>
-            <option value="new">Novos</option>
-            <option value="pending">Em curso</option>
-            <option value="done">Concluídos</option>
-          </select>
-        </div>
-      </div>
+      <div class="page-title">Leads</div>
+      <div class="page-subtitle">Gerencie seus contactos e oportunidades</div>
 
       <div class="leads-grid">
-        <div style="display:flex;flex-direction:column;gap:10px;" id="leadsList"></div>
-        <div class="lead-detail" id="leadDetail">
+        <div class="lead-cards-list">
+          <div class="lead-card">
+            <div class="lead-card-top">
+              <div class="lead-name">João Silva</div>
+              <div class="lead-time">30 mai</div>
+            </div>
+            <div class="lead-subject">Interesse em penthouse</div>
+            <div class="lead-preview">Olá, gostaria de informações sobre o penthouse no Porto...</div>
+            <div class="lead-footer">
+              <span class="badge new">Novo</span>
+            </div>
+          </div>
+        </div>
+        <div class="lead-detail">
           <div class="empty-state">
-            <div class="empty-icon">✉</div>
-            <div class="empty-text">Selecione um lead para ver os detalhes</div>
+            <div class="empty-icon">💬</div>
+            <div class="empty-text">Selecione um lead para ver detalhes</div>
           </div>
         </div>
       </div>
@@ -618,52 +616,30 @@ textarea.form-input { resize: vertical; min-height: 90px; }
     <!-- ═══ EQUIPA ═══ -->
     <div class="page" id="page-equipa">
       <div class="page-title">Equipa</div>
-      <div class="page-subtitle">Gestão dos consultores imobiliários</div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-top:8px;" id="teamCards"></div>
+      <div class="page-subtitle">Membros do seu time</div>
+
+      <div class="team-grid"></div>
     </div>
 
     <!-- ═══ DEFINIÇÕES ═══ -->
     <div class="page" id="page-definicoes">
       <div class="page-title">Definições</div>
-      <div class="page-subtitle">Configurações do site e da conta</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:900px;margin-top:8px;">
-        <div class="card">
-          <div class="card-header"><div class="card-title">Informações da empresa</div></div>
-          <div class="card-body" style="display:flex;flex-direction:column;gap:12px;">
-            <div class="form-field"><div class="form-label">Nome</div><input class="form-input" value="Z Imobiliária" type="text"></div>
-            <div class="form-field"><div class="form-label">AMI</div><input class="form-input" value="12345" type="text"></div>
-            <div class="form-field"><div class="form-label">Email</div><input class="form-input" value="info@zimobiliaria.pt" type="email"></div>
-            <div class="form-field"><div class="form-label">Telefone</div><input class="form-input" value="+351 21 000 0000" type="tel"></div>
-            <div class="form-field"><div class="form-label">WhatsApp</div><input class="form-input" value="+351 910 000 000" type="tel"></div>
-            <button class="btn-sm gold" style="width:fit-content;" onclick="showToast('✓ Definições guardadas','success')">Guardar alterações</button>
-          </div>
+      <div class="page-subtitle">Configurações da sua conta</div>
+
+      <div class="card" style="max-width: 600px;">
+        <div class="card-header">
+          <div class="card-title">Conta</div>
         </div>
-        <div class="card">
-          <div class="card-header"><div class="card-title">Conta de administrador</div></div>
-          <div class="card-body" style="display:flex;flex-direction:column;gap:12px;">
-            <div class="form-field"><div class="form-label">Nome</div><input class="form-input" value="Margarida Ferreira" type="text"></div>
-            <div class="form-field"><div class="form-label">Email</div><input class="form-input" value="admin@zimobiliaria.pt" type="email"></div>
-            <div class="form-field"><div class="form-label">Password atual</div><input class="form-input" placeholder="••••••••" type="password"></div>
-            <div class="form-field"><div class="form-label">Nova password</div><input class="form-input" placeholder="••••••••" type="password"></div>
-            <button class="btn-sm gold" style="width:fit-content;" onclick="showToast('✓ Conta atualizada','success')">Atualizar conta</button>
+        <div class="card-body" style="display: flex; flex-direction: column; gap: 16px;">
+          <div class="form-field">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-input" value="margarida@z-imoveis.pt" disabled>
           </div>
-        </div>
-        <div class="card" style="grid-column:span 2;">
-          <div class="card-header"><div class="card-title">Notificações</div></div>
-          <div class="card-body" style="display:flex;flex-direction:column;gap:16px;">
-            <label style="display:flex;justify-content:space-between;align-items:center;cursor:pointer;">
-              <div><div style="font-size:0.88rem;font-weight:500;">Email ao receber lead</div><div style="font-size:0.78rem;color:var(--text3);margin-top:2px;">Receber email sempre que um cliente preenche o formulário</div></div>
-              <input type="checkbox" checked style="width:18px;height:18px;accent-color:var(--gold);cursor:pointer;">
-            </label>
-            <label style="display:flex;justify-content:space-between;align-items:center;cursor:pointer;">
-              <div><div style="font-size:0.88rem;font-weight:500;">WhatsApp de novos leads</div><div style="font-size:0.78rem;color:var(--text3);margin-top:2px;">Notificação WhatsApp para o número da empresa</div></div>
-              <input type="checkbox" style="width:18px;height:18px;accent-color:var(--gold);cursor:pointer;">
-            </label>
-            <label style="display:flex;justify-content:space-between;align-items:center;cursor:pointer;">
-              <div><div style="font-size:0.88rem;font-weight:500;">Relatório semanal</div><div style="font-size:0.78rem;color:var(--text3);margin-top:2px;">Receber resumo semanal de visitas e leads</div></div>
-              <input type="checkbox" checked style="width:18px;height:18px;accent-color:var(--gold);cursor:pointer;">
-            </label>
+          <div class="form-field">
+            <label class="form-label">Nome</label>
+            <input type="text" class="form-input" value="Margarida Ferreira">
           </div>
+          <button class="btn-sm gold">Guardar Alterações</button>
         </div>
       </div>
     </div>
@@ -671,524 +647,6 @@ textarea.form-input { resize: vertical; min-height: 90px; }
   </div>
 </div>
 
-<!-- ═══ MODAL: ADICIONAR/EDITAR IMÓVEL ═══ -->
-<div class="modal-overlay" id="propModal">
-  <div class="modal-box">
-    <div class="modal-head">
-      <div class="modal-title" id="modalTitle">Adicionar imóvel</div>
-      <button class="modal-close" onclick="closePropModal()">✕</button>
-    </div>
-    <div class="modal-body">
-      <div class="form-grid">
-        <div class="form-field full">
-          <div class="form-label">Título do imóvel</div>
-          <input class="form-input" type="text" id="fTitle" placeholder="Ex: Apartamento T3 no Chiado">
-        </div>
-        <div class="form-field">
-          <div class="form-label">Tipo de negócio</div>
-          <select class="form-input" id="fType">
-            <option>Venda</option>
-            <option>Arrendamento</option>
-          </select>
-        </div>
-        <div class="form-field">
-          <div class="form-label">Tipo de imóvel</div>
-          <select class="form-input" id="fCategory">
-            <option>Apartamento</option>
-            <option>Moradia</option>
-            <option>Penthouse</option>
-            <option>Quinta</option>
-            <option>Escritório</option>
-          </select>
-        </div>
-        <div class="form-field">
-          <div class="form-label">Preço (€)</div>
-          <input class="form-input" type="number" id="fPrice" placeholder="1250000">
-        </div>
-        <div class="form-field">
-          <div class="form-label">Área (m²)</div>
-          <input class="form-input" type="number" id="fArea" placeholder="185">
-        </div>
-        <div class="form-field">
-          <div class="form-label">Quartos</div>
-          <select class="form-input" id="fRooms">
-            <option>1</option><option>2</option><option selected>3</option><option>4</option><option>5</option><option>6+</option>
-          </select>
-        </div>
-        <div class="form-field">
-          <div class="form-label">WC</div>
-          <select class="form-input" id="fBath">
-            <option>1</option><option selected>2</option><option>3</option><option>4</option>
-          </select>
-        </div>
-        <div class="form-field">
-          <div class="form-label">Cidade</div>
-          <select class="form-input" id="fCity">
-            <option>Lisboa</option><option>Porto</option><option>Cascais</option><option>Sintra</option><option>Algarve</option>
-          </select>
-        </div>
-        <div class="form-field">
-          <div class="form-label">Bairro</div>
-          <input class="form-input" type="text" id="fNeighborhood" placeholder="Ex: Chiado">
-        </div>
-        <div class="form-field">
-          <div class="form-label">Certificado energético</div>
-          <select class="form-input" id="fEnergy">
-            <option>A+</option><option>A</option><option>B</option><option>B-</option><option>C</option>
-          </select>
-        </div>
-        <div class="form-field">
-          <div class="form-label">Estado</div>
-          <select class="form-input" id="fStatus">
-            <option value="Ativo">Ativo</option>
-            <option value="Pendente">Pendente</option>
-            <option value="Inativo">Inativo</option>
-          </select>
-        </div>
-        <div class="form-field full">
-          <div class="form-label">Descrição</div>
-          <textarea class="form-input" id="fDesc" placeholder="Descreva o imóvel em detalhe..."></textarea>
-        </div>
-        <div class="form-field full">
-          <div class="form-label">Imagens</div>
-          <div class="upload-area" onclick="showToast('📎 Funcionalidade de upload disponível após integração com servidor','')">
-            <div class="upload-icon">📷</div>
-            Clique para carregar imagens<br>
-            <small style="font-size:0.72rem;opacity:0.7;">JPG, PNG, WEBP — máx. 10MB cada</small>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn-sm outline" onclick="closePropModal()">Cancelar</button>
-      <button class="btn-sm gold" onclick="saveProp()">💾 Guardar imóvel</button>
-    </div>
-  </div>
-</div>
-
-<!-- TOAST -->
-<div class="toast" id="toast">
-  <span id="toastIcon">✓</span>
-  <span id="toastText"></span>
-</div>
-
-<script>
-// ── DATA ──
-let properties = [
-  { id:1, title:'Penthouse no Chiado', type:'Venda', category:'Penthouse', price:4200000, area:320, rooms:4, bath:3, city:'Lisboa', neighborhood:'Chiado', energy:'A+', status:'Ativo', views:284, desc:'Penthouse com terraço privativo de 120m² e vista panorâmica sobre Lisboa.', leads:7 },
-  { id:2, title:'Moradia em Cascais', type:'Venda', category:'Moradia', price:3500000, area:480, rooms:5, bath:4, city:'Cascais', neighborhood:'Cascais', energy:'A', status:'Ativo', views:196, desc:'Moradia de arquitetura contemporânea com jardim e piscina aquecida.', leads:4 },
-  { id:3, title:'Apartamento T3 Príncipe Real', type:'Venda', category:'Apartamento', price:1250000, area:185, rooms:3, bath:2, city:'Lisboa', neighborhood:'Príncipe Real', energy:'A+', status:'Ativo', views:312, desc:'Apartamento renovado com materiais nobres.', leads:9 },
-  { id:4, title:'T4 Foz do Douro', type:'Venda', category:'Apartamento', price:2800000, area:265, rooms:4, bath:3, city:'Porto', neighborhood:'Foz do Douro', energy:'A', status:'Pendente', views:143, desc:'Moradia geminada com vista mar.', leads:3 },
-  { id:5, title:'Studio de Luxo no Bairro Alto', type:'Arrendamento', category:'Apartamento', price:3500, area:85, rooms:1, bath:1, city:'Lisboa', neighborhood:'Bairro Alto', energy:'B', status:'Ativo', views:421, desc:'Studio sofisticado totalmente mobilado.', leads:6 },
-  { id:6, title:'T2 Boavista Premium', type:'Arrendamento', category:'Apartamento', price:2200, area:120, rooms:2, bath:2, city:'Porto', neighborhood:'Boavista', energy:'A+', status:'Inativo', views:88, desc:'Apartamento moderno em edifício de luxo.', leads:2 },
-];
-
-let leads = [
-  { id:1, name:'Pedro Sousa', email:'pedro.sousa@gmail.com', phone:'+351 912 345 678', subject:'Comprar imóvel', property:'Penthouse no Chiado', message:'Olá, tenho interesse na penthouse no Chiado. Gostaria de agendar uma visita o mais brevemente possível. Estou disponível nos próximos fins de semana.', status:'new', date:'Hoje, 14:32', initials:'PS' },
-  { id:2, name:'Isabel Rodrigues', email:'isabel.r@outlook.com', phone:'+351 963 456 789', subject:'Arrendar imóvel', property:'Studio Bairro Alto', message:'Boa tarde, estou interessada no studio do Bairro Alto. Sou executiva e procuro algo central e bem mobilado. Pode enviar mais informações?', status:'pending', date:'Hoje, 10:15', initials:'IR' },
-  { id:3, name:'Carlos Mendes', email:'c.mendes@empresa.pt', phone:'+351 934 567 890', subject:'Investimento', property:'Geral', message:'Tenho capital para investir em imóveis de luxo em Lisboa. Procuro imóveis com rendimento acima de 4% ao ano. Podem apresentar opções?', status:'new', date:'Ontem, 18:45', initials:'CM' },
-  { id:4, name:'Ana Lima', email:'ana.lima@hotmail.com', phone:'+351 921 678 901', subject:'Comprar imóvel', property:'Moradia em Cascais', message:'Vi a moradia em Cascais no vosso site e fiquei encantada. Somos uma família de 4 pessoas à procura de moradia com jardim perto do mar.', status:'new', date:'Ontem, 09:22', initials:'AL' },
-  { id:5, name:'João Ferreira', email:'joao.f@gmail.com', phone:'+351 915 789 012', subject:'Comprar imóvel', property:'T4 Foz do Douro', message:'Tenho interesse no T4 na Foz do Douro. Podem enviar mais fotografias e informação sobre a localização exata?', status:'done', date:'12 Mai, 16:00', initials:'JF' },
-  { id:6, name:'Sofia Alves', email:'sofia.alves@gmail.com', phone:'+351 966 890 123', subject:'Informações', property:'Geral', message:'Estou a considerar comprar um apartamento em Lisboa até €2M. Podem enviar o vosso portefólio completo?', status:'pending', date:'11 Mai, 11:30', initials:'SA' },
-];
-
-const team = [
-  { name:'Margarida Ferreira', role:'Diretora Comercial', initials:'MF', phone:'+351 910 000 001', email:'mf@zimobiliaria.pt', props:3, leads:12 },
-  { name:'Ricardo Alves', role:'Consultor Sénior', initials:'RA', phone:'+351 910 000 002', email:'ra@zimobiliaria.pt', props:2, leads:8 },
-  { name:'Sofia Lopes', role:'Especialista em Luxo', initials:'SL', phone:'+351 910 000 003', email:'sl@zimobiliaria.pt', props:1, leads:6 },
-  { name:'André Costa', role:'Consultor Premium', initials:'AC', phone:'+351 910 000 004', email:'ac@zimobiliaria.pt', props:0, leads:3 },
-];
-
-let editingId = null;
-let selectedLead = null;
-
-// ── NAVIGATION ──
-function showPage(name, el) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  document.getElementById('page-' + name).classList.add('active');
-  if (el) el.classList.add('active');
-  const labels = { dashboard:'Dashboard', imoveis:'Imóveis', leads:'Leads', equipa:'Equipa', definicoes:'Definições' };
-  document.getElementById('breadcrumb').innerHTML = `Z Admin / <span>${labels[name]||name}</span>`;
-  if (name === 'leads') renderLeads();
-  if (name === 'equipa') renderTeam();
-  if (window.innerWidth < 768) closeSidebar();
-}
-
-// ── SIDEBAR ──
-function toggleSidebar() {
-  const s = document.getElementById('sidebar');
-  const o = document.getElementById('sidebarOverlay');
-  const open = s.classList.contains('open');
-  s.classList.toggle('open', !open);
-  o.classList.toggle('open', !open);
-}
-function closeSidebar() {
-  document.getElementById('sidebar').classList.remove('open');
-  document.getElementById('sidebarOverlay').classList.remove('open');
-}
-
-// ── THEME ──
-function toggleTheme() {
-  const d = document.documentElement;
-  const dark = d.getAttribute('data-theme') === 'dark';
-  d.setAttribute('data-theme', dark ? 'light' : 'dark');
-  localStorage.setItem('z-admin-theme', dark ? 'light' : 'dark');
-}
-(function() {
-  const t = localStorage.getItem('z-admin-theme');
-  if (t) document.documentElement.setAttribute('data-theme', t);
-})();
-
-// ── FORMAT ──
-function fmtPrice(p, type) {
-  if (type === 'Arrendamento') return '€' + p.toLocaleString('pt-PT') + '/mês';
-  if (p >= 1000000) return '€' + (p/1000000).toFixed(1).replace('.0','') + 'M';
-  return '€' + p.toLocaleString('pt-PT');
-}
-function statusBadge(s) {
-  const map = { 'Ativo':'active', 'Pendente':'pending', 'Vendido':'sold', 'Inativo':'inactive' };
-  return `<span class="badge ${map[s]||'inactive'}">${s}</span>`;
-}
-function leadBadge(s) {
-  const map = { new:'new', pending:'pending', done:'active' };
-  const labels = { new:'Novo', pending:'Em curso', done:'Concluído' };
-  return `<span class="badge ${map[s]||'inactive'}">${labels[s]||s}</span>`;
-}
-
-// ── BAR CHART ──
-function renderBarChart() {
-  const data = [8,12,6,14,19,9,11,16,22,18,14,24];
-  const months = ['J','F','M','A','M','J','J','A','S','O','N','D'];
-  const max = Math.max(...data);
-  document.getElementById('barChart').innerHTML = data.map((v,i) => `
-    <div class="bar-wrap">
-      <div class="bar" style="height:${(v/max)*100}%;background:${i===11?'#B8935A':'#E2E0D8'};min-height:4px;" title="${v} leads"></div>
-      <div class="bar-label">${months[i]}</div>
-    </div>
-  `).join('');
-}
-
-// ── PROPERTIES TABLE ──
-function renderProperties(list) {
-  list = list || properties;
-  const tbody = document.getElementById('propertiesTable');
-  if (!list.length) { tbody.innerHTML = `<tr><td colspan="8"><div class="empty-state"><div class="empty-icon">🏠</div><div class="empty-text">Nenhum imóvel encontrado</div></div></td></tr>`; return; }
-  tbody.innerHTML = list.map(p => `
-    <tr onclick="editProp(${p.id})">
-      <td>
-        <div class="prop-cell">
-          <div class="prop-thumb">
-            <svg width="24" height="24" viewBox="0 0 80 80" fill="none" opacity="0.3">
-              <path d="M10 42L40 20L70 42" stroke="#B8935A" stroke-width="2"/>
-              <rect x="10" y="42" width="60" height="33" stroke="#B8935A" stroke-width="1.5"/>
-              <rect x="30" y="55" width="20" height="20" stroke="#B8935A" stroke-width="1"/>
-            </svg>
-          </div>
-          <div>
-            <div class="prop-name">${p.title}</div>
-            <div class="prop-loc">📍 ${p.neighborhood}, ${p.city}</div>
-          </div>
-        </div>
-      </td>
-      <td><span style="font-size:0.78rem;color:var(--text3);">${p.type}</span></td>
-      <td class="td-bold">${fmtPrice(p.price, p.type)}</td>
-      <td class="td-muted">${p.rooms} qts · ${p.bath} wc</td>
-      <td class="td-muted">${p.area} m²</td>
-      <td>${statusBadge(p.status)}</td>
-      <td class="td-muted">👁 ${p.views}</td>
-      <td>
-        <div class="row-actions">
-          <button class="action-btn" onclick="event.stopPropagation();editProp(${p.id})">✏ Editar</button>
-          <button class="action-btn danger" onclick="event.stopPropagation();deleteProp(${p.id})">✕</button>
-        </div>
-      </td>
-    </tr>
-  `).join('');
-  document.getElementById('propPageInfo').textContent = `A mostrar 1–${list.length} de ${list.length}`;
-}
-
-function filterProperties() {
-  const status = document.getElementById('filterStatus').value;
-  const type = document.getElementById('filterType').value;
-  const search = document.getElementById('propSearch').value.toLowerCase();
-  let list = properties.filter(p => {
-    const matchS = !status || p.status === status;
-    const matchT = !type || p.type === type;
-    const matchQ = !search || p.title.toLowerCase().includes(search) || p.city.toLowerCase().includes(search) || p.neighborhood.toLowerCase().includes(search);
-    return matchS && matchT && matchQ;
-  });
-  renderProperties(list);
-}
-
-// ── DASH LEADS TABLE ──
-function renderDashLeads() {
-  document.getElementById('dashLeadsTable').innerHTML = leads.slice(0,5).map(l => `
-    <tr onclick="showPage('leads',document.querySelector('[onclick*=leads]'))">
-      <td><div style="font-weight:500;">${l.name}</div><div class="td-muted">${l.email}</div></td>
-      <td class="td-muted">${l.subject}</td>
-      <td class="td-muted">${l.property}</td>
-      <td>${leadBadge(l.status)}</td>
-      <td class="td-muted">${l.date}</td>
-      <td><div class="row-actions"><button class="action-btn" onclick="event.stopPropagation();showPage('leads',document.querySelector('[onclick*=leads]'));setTimeout(()=>selectLead(${l.id}),100)">Ver →</button></div></td>
-    </tr>
-  `).join('');
-}
-
-// ── LEADS ──
-function renderLeads(filter) {
-  let list = filter ? leads.filter(l => l.status === filter) : leads;
-  document.getElementById('leadsList').innerHTML = list.map(l => `
-    <div class="lead-card ${selectedLead===l.id?'selected':''}" onclick="selectLead(${l.id})">
-      <div class="lead-card-top">
-        <div>
-          <div class="lead-name">${l.name}</div>
-          <div style="font-size:0.75rem;color:var(--text3);margin-top:1px;">${l.email}</div>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
-          <div class="lead-time">${l.date}</div>
-          ${leadBadge(l.status)}
-        </div>
-      </div>
-      <div class="lead-subject" style="font-weight:500;">${l.subject} — ${l.property}</div>
-      <div class="lead-preview">${l.message}</div>
-    </div>
-  `).join('');
-  if (!list.length) document.getElementById('leadsList').innerHTML = `<div class="empty-state"><div class="empty-icon">✉</div><div class="empty-text">Nenhum lead encontrado</div></div>`;
-}
-
-function filterLeads(val) { renderLeads(val||null); selectedLead=null; document.getElementById('leadDetail').innerHTML=`<div class="empty-state"><div class="empty-icon">✉</div><div class="empty-text">Selecione um lead para ver os detalhes</div></div>`; }
-
-function selectLead(id) {
-  selectedLead = id;
-  const l = leads.find(x => x.id === id);
-  renderLeads(document.getElementById('leadFilter').value||null);
-  document.getElementById('leadDetail').innerHTML = `
-    <div class="lead-detail-header">
-      <div class="lead-detail-avatar">${l.initials}</div>
-      <div class="lead-detail-name">${l.name}</div>
-      <div class="lead-detail-contact">${l.email}<br>${l.phone}</div>
-    </div>
-    <div class="lead-detail-body">
-      <div class="detail-section-title">Detalhes do pedido</div>
-      <div class="detail-field"><span class="detail-field-label">Assunto</span><span class="detail-field-val">${l.subject}</span></div>
-      <div class="detail-field"><span class="detail-field-label">Imóvel</span><span class="detail-field-val">${l.property}</span></div>
-      <div class="detail-field"><span class="detail-field-label">Data</span><span class="detail-field-val">${l.date}</span></div>
-      <div class="detail-field"><span class="detail-field-label">Estado</span><span class="detail-field-val">${leadBadge(l.status)}</span></div>
-      <div style="margin-top:20px;">
-        <div class="detail-section-title">Mensagem</div>
-        <div class="lead-message-box">${l.message}</div>
-      </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;">
-        <button class="btn-sm outline" onclick="markLead(${l.id},'pending')">⟳ Em curso</button>
-        <button class="btn-sm gold" onclick="markLead(${l.id},'done')">✓ Concluído</button>
-        <button class="btn-sm danger" onclick="deleteLead(${l.id})">✕ Eliminar</button>
-      </div>
-    </div>
-    <div class="lead-actions-panel">
-      <div class="detail-section-title">Responder</div>
-      <textarea class="lead-reply-input" placeholder="Escreva a sua resposta..." id="replyBox${l.id}"></textarea>
-      <div class="lead-btn-row">
-        <button class="btn-sm gold" onclick="sendReply(${l.id})">✉ Enviar email</button>
-        <a href="https://wa.me/${l.phone.replace(/\s/g,'').replace('+','')}" target="_blank" class="btn-sm outline" style="text-decoration:none;">💬 WhatsApp</a>
-      </div>
-    </div>
-  `;
-}
-
-function markLead(id, status) {
-  leads = leads.map(l => l.id===id ? {...l, status} : l);
-  selectLead(id);
-  showToast('✓ Lead atualizado', 'success');
-}
-
-function deleteLead(id) {
-  if (!confirm('Eliminar este lead?')) return;
-  leads = leads.filter(l => l.id !== id);
-  selectedLead = null;
-  renderLeads();
-  document.getElementById('leadDetail').innerHTML = `<div class="empty-state"><div class="empty-icon">✉</div><div class="empty-text">Selecione um lead para ver os detalhes</div></div>`;
-  showToast('Lead eliminado', '');
-}
-
-function sendReply(id) {
-  const box = document.getElementById('replyBox'+id);
-  if (!box || !box.value.trim()) { showToast('⚠ Escreva uma mensagem primeiro', ''); return; }
-  box.value = '';
-  showToast('✓ Resposta enviada por email', 'success');
-}
-
-// ── TEAM ──
-function renderTeam() {
-  document.getElementById('teamCards').innerHTML = team.map(m => `
-    <div class="card">
-      <div class="card-body" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;padding:28px 20px;">
-        <div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#D4AF7A,#8B6B3A);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:#fff;">${m.initials}</div>
-        <div>
-          <div style="font-weight:500;font-size:0.95rem;">${m.name}</div>
-          <div style="font-size:0.75rem;color:var(--gold);margin-top:3px;">${m.role}</div>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;margin-top:4px;">
-          <div style="background:var(--surface2);border-radius:var(--radius);padding:10px;text-align:center;">
-            <div style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:300;">${m.props}</div>
-            <div style="font-size:0.68rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.1em;">Imóveis</div>
-          </div>
-          <div style="background:var(--surface2);border-radius:var(--radius);padding:10px;text-align:center;">
-            <div style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:300;">${m.leads}</div>
-            <div style="font-size:0.68rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.1em;">Leads</div>
-          </div>
-        </div>
-        <div style="font-size:0.78rem;color:var(--text3);">${m.email}</div>
-        <div style="display:flex;gap:8px;width:100%;">
-          <a href="tel:${m.phone}" class="btn-sm outline" style="flex:1;text-decoration:none;justify-content:center;">📞 Ligar</a>
-          <a href="https://wa.me/${m.phone.replace(/\s/g,'').replace('+','')}" target="_blank" class="btn-sm gold" style="flex:1;text-decoration:none;justify-content:center;">💬 WA</a>
-        </div>
-      </div>
-    </div>
-  `).join('');
-}
-
-// ── MODAL ──
-function openAddModal() {
-  editingId = null;
-  document.getElementById('modalTitle').textContent = 'Adicionar imóvel';
-  ['fTitle','fPrice','fArea','fNeighborhood','fDesc'].forEach(id => document.getElementById(id).value = '');
-  document.getElementById('fRooms').value = '3';
-  document.getElementById('fBath').value = '2';
-  document.getElementById('fStatus').value = 'Ativo';
-  document.getElementById('propModal').classList.add('open');
-}
-
-function editProp(id) {
-  const p = properties.find(x => x.id === id);
-  editingId = id;
-  document.getElementById('modalTitle').textContent = 'Editar imóvel';
-  document.getElementById('fTitle').value = p.title;
-  document.getElementById('fType').value = p.type;
-  document.getElementById('fCategory').value = p.category;
-  document.getElementById('fPrice').value = p.price;
-  document.getElementById('fArea').value = p.area;
-  document.getElementById('fRooms').value = String(p.rooms);
-  document.getElementById('fBath').value = String(p.bath);
-  document.getElementById('fCity').value = p.city;
-  document.getElementById('fNeighborhood').value = p.neighborhood;
-  document.getElementById('fEnergy').value = p.energy;
-  document.getElementById('fStatus').value = p.status;
-  document.getElementById('fDesc').value = p.desc;
-  document.getElementById('propModal').classList.add('open');
-}
-
-function closePropModal() { document.getElementById('propModal').classList.remove('open'); }
-
-function saveProp() {
-  const title = document.getElementById('fTitle').value.trim();
-  if (!title) { showToast('⚠ Introduza o título do imóvel', ''); return; }
-  const data = {
-    title, type: document.getElementById('fType').value,
-    category: document.getElementById('fCategory').value,
-    price: parseInt(document.getElementById('fPrice').value)||0,
-    area: parseInt(document.getElementById('fArea').value)||0,
-    rooms: parseInt(document.getElementById('fRooms').value),
-    bath: parseInt(document.getElementById('fBath').value),
-    city: document.getElementById('fCity').value,
-    neighborhood: document.getElementById('fNeighborhood').value,
-    energy: document.getElementById('fEnergy').value,
-    status: document.getElementById('fStatus').value,
-    desc: document.getElementById('fDesc').value,
-    views: 0, leads: 0,
-  };
-  if (editingId) {
-    properties = properties.map(p => p.id===editingId ? {...p,...data} : p);
-    showToast('✓ Imóvel atualizado com sucesso', 'success');
-  } else {
-    data.id = Date.now();
-    properties.unshift(data);
-    showToast('✓ Imóvel adicionado com sucesso', 'success');
-  }
-  closePropModal();
-  renderProperties();
-}
-
-function deleteProp(id) {
-  if (!confirm('Tem a certeza que deseja eliminar este imóvel?')) return;
-  properties = properties.filter(p => p.id !== id);
-  renderProperties();
-  showToast('Imóvel eliminado', '');
-}
-
-// ── TOAST ──
-function showToast(msg, type) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className = 'toast show' + (type ? ' '+type : '');
-  clearTimeout(t._t);
-  t._t = setTimeout(() => t.classList.remove('show'), 3500);
-}
-
-// ── GLOBAL SEARCH ──
-function globalSearch(q) {
-  if (!q) return;
-}
-
-function showNotifications() { showToast('🔔 4 novos leads aguardam resposta', ''); }
-function doLogout() { if (confirm('Terminar sessão?')) window.location.href = 'index.html'; }
-
-// ── INIT ──
-renderBarChart();
-renderProperties();
-renderDashLeads();
-
-// Close modal on overlay click
-document.getElementById('propModal').addEventListener('click', e => { if (e.target===e.currentTarget) closePropModal(); });
-</script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-  // Exemplo de função para ler os imóveis direto do Supabase no Admin
-async function loadPropertiesFromDB() {
-  try {
-    const response = await fetch(`${SUPABASE_URL}/rest/v1/imoveis?select=*&order=id.desc`, {
-      headers: {
-        'apikey': SUPABASE_KEY,
-        'Authorization': 'Bearer ' + SUPABASE_KEY,
-        'Content-Type': 'application/json'
-      }
-    });
-    if (!response.ok) throw new Error('Erro na API do servidor');
-    const data = await response.json();
-    
-    if (data && data.length > 0) {
-      // Atualiza a variável global do admin com os dados vindos do servidor
-      properties = data.map(p => ({
-        id: p.id,
-        title: p.titulo,
-        price: p.preco,
-        type: p.tipo,
-        category: p.category, // Mapeie aqui de acordo com as colunas da sua tabela
-        area: p.area,
-        rooms: p.quartos,
-        bath: p.wc,
-        energy: p.energia,
-        status: p.estado,
-        desc: p.descricao,
-        views: p.views || 0,
-        leads: p.leads || 0
-      }));
-      renderProperties(); // Atualiza a tabela na interface do Admin
-    }
-  } catch(e) {
-    showToast('❌ Erro ao ligar ao servidor. Usando dados locais.', 'error');
-  }
-}
-
-  // Variáveis globais do Supabase (as mesmas que funcionam no index.html)
-  const SUPABASE_URL = 'https://nfviumkttvkqzeuerkyj.supabase.co';
-  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5mdml1bWt0dHZrcXpldWVya3lqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk1MzgyMDksImV4cCI6MjA5NTExNDIwOX0.sN9MeiKi-3bK2gUzcrfYJc6Y8pr4HgVO4nRlFc2c31A';
-
-  // Inicialização do cliente Supabase para o Admin
-  const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-  // Chame esta função no carregamento da página (Init)
-  loadPropertiesFromDB();
-</script>
+<script src="admin.js"></script>
 </body>
 </html>
