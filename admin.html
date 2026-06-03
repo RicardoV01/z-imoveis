@@ -583,30 +583,7 @@ textarea.form-input { resize: vertical; min-height: 90px; }
                 <th>Ações</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <div class="prop-cell">
-                    <div class="prop-thumb"></div>
-                    <div>
-                      <div class="prop-name">Apartamento Luxo Centro</div>
-                      <div class="prop-loc">Porto, Portugal</div>
-                    </div>
-                  </div>
-                </td>
-                <td class="td-muted">€850.000</td>
-                <td class="td-muted">3</td>
-                <td class="td-muted">250 m²</td>
-                <td><span class="badge active">Ativo</span></td>
-                <td class="td-muted">3 Jun 2025</td>
-                <td>
-                  <div class="row-actions">
-                    <button class="action-btn">✎</button>
-                    <button class="action-btn danger">✕</button>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
+            <tbody id="propertiesTbody"><tr><td colspan="7" style="text-align:center;padding:40px;color:var(--text3);">A carregar imóveis...</td></tr></tbody>
           </table>
         </div>
       </div>
@@ -744,6 +721,7 @@ textarea.form-input { resize: vertical; min-height: 90px; }
       document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
       element.classList.add('active');
     }
+    if (pageId === 'imoveis') loadProperties();
 
     // Atualiza o Breadcrumb superior
     const breadcrumbSpan = document.querySelector('#breadcrumb span');
@@ -875,6 +853,7 @@ textarea.form-input { resize: vertical; min-height: 90px; }
         const nameEl = document.querySelector('.admin-name');
         if (nameEl) nameEl.textContent = data.user.name;
         showToast('Bem-vindo, ' + data.user.name + '!');
+        loadProperties();
       } else {
         showToast('Erro: ' + (data.error || 'Credenciais inválidas'));
       }
@@ -913,6 +892,60 @@ textarea.form-input { resize: vertical; min-height: 90px; }
     }
   }
 
+  // CARREGAR IMÓVEIS DA API
+  async function loadProperties() {
+    const token = localStorage.getItem('authToken');
+    if (!token) return;
+    try {
+      const res = await fetch(API_BASE_URL + '/properties', {
+        headers: { 'Authorization': 'Bearer ' + token }
+      });
+      const props = await res.json();
+      const tbody = document.getElementById('propertiesTbody');
+      if (!tbody) return;
+      if (!props.length) {
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--text3);">Nenhum imóvel encontrado. Clica em + Novo imóvel para adicionar.</td></tr>';
+        return;
+      }
+      tbody.innerHTML = props.map(p => `
+        <tr>
+          <td><div class="prop-cell"><div class="prop-thumb"></div><div>
+            <div class="prop-name">${p.title}</div>
+            <div class="prop-loc">${p.location}</div>
+          </div></div></td>
+          <td class="td-muted">€${p.price.toLocaleString('pt-PT')}</td>
+          <td class="td-muted">${p.bedrooms || '-'}</td>
+          <td class="td-muted">${p.area ? p.area + ' m²' : '-'}</td>
+          <td><span class="badge ${p.status}">${p.status === 'active' ? 'Ativo' : p.status === 'sold' ? 'Vendido' : p.status === 'pending' ? 'Pendente' : p.status}</span></td>
+          <td class="td-muted">${new Date(p.createdAt).toLocaleDateString('pt-PT')}</td>
+          <td><div class="row-actions">
+            <button class="action-btn danger" onclick="deleteProperty('${p._id}')">✕</button>
+          </div></td>
+        </tr>`).join('');
+    } catch(e) {
+      console.error('Erro ao carregar imóveis:', e);
+    }
+  }
+
+  async function deleteProperty(id) {
+    if (!confirm('Tens a certeza que queres apagar este imóvel?')) return;
+    const token = localStorage.getItem('authToken');
+    try {
+      const res = await fetch(API_BASE_URL + '/properties/' + id, {
+        method: 'DELETE',
+        headers: { 'Authorization': 'Bearer ' + token }
+      });
+      if (res.ok) {
+        showToast('Imóvel apagado com sucesso!');
+        loadProperties();
+      } else {
+        showToast('Erro ao apagar imóvel');
+      }
+    } catch(e) {
+      showToast('Erro de ligação ao servidor');
+    }
+  }
+
   // Verificar sessão ao carregar
   window.addEventListener('DOMContentLoaded', () => {
     const token = localStorage.getItem('authToken');
@@ -923,6 +956,7 @@ textarea.form-input { resize: vertical; min-height: 90px; }
       const parsed = JSON.parse(user);
       const nameEl = document.querySelector('.admin-name');
       if (nameEl) nameEl.textContent = parsed.name;
+      setTimeout(loadProperties, 300);
     } else {
       document.getElementById('loginScreen').style.display = 'flex';
       document.getElementById('appShell').style.display = 'none';
