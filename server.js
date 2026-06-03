@@ -391,6 +391,15 @@ app.get('/api/stats', verifyToken, async (req, res) => {
 // ==================== START SERVER ====================
 
 const PORT = process.env.PORT || 5000;
+// Servir a página inicial
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// Servir a página de admin explicitamente caso acedas a /admin
+app.get('/admin', (req, res) => {
+  res.sendFile(path.join(__dirname, 'admin.html'));
+});
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
