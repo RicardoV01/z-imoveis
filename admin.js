@@ -111,7 +111,9 @@ async function loadDashboard() {
 
     const stats = await response.json();
 
-    document.querySelector('.stats-grid').innerHTML = `
+    const statsGrid = document.querySelector('.stats-grid');
+if (!statsGrid) return;
+statsGrid.innerHTML = `
       <div class="stat-card">
         <div class="stat-top">
           <div class="stat-icon gold">🏠</div>
