@@ -165,10 +165,10 @@ body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t
 .pill-btn { padding: 5px 12px; border-radius: 20px; border: 1px solid var(--border); background: none; font-size: 0.72rem; cursor: pointer; color: var(--text2); transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
 .pill-btn.active, .pill-btn:hover { background: var(--gold); border-color: var(--gold); color: #fff; }
 
-/* MINI CHART (SVG bars) */
-.mini-chart { display: flex; align-items: flex-end; gap: 6px; height: 120px; padding: 8px 0; }
-.bar-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; height: 100%; }
-.bar { width: 100%; border-radius: 3px 3px 0 0; transition: opacity 0.2s; cursor: pointer; }
+/* MINI CHART (CSS bars) */
+.mini-chart { display: flex; align-items: flex-end; gap: 12px; height: 140px; padding: 8px 0; justify-content: space-between; }
+.bar-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; height: 100%; justify-content: flex-end; }
+.bar { width: 100%; max-width: 30px; background: var(--gold); border-radius: 3px 3px 0 0; transition: opacity 0.2s; cursor: pointer; min-height: 5px; }
 .bar:hover { opacity: 0.8; }
 .bar-label { font-size: 0.65rem; color: var(--text3); }
 
@@ -336,10 +336,8 @@ textarea.form-input { resize: vertical; min-height: 90px; }
 </head>
 <body>
 
-<!-- SIDEBAR OVERLAY -->
 <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
 
-<!-- SIDEBAR -->
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-header">
     <a href="index.html" class="sidebar-logo">
@@ -399,10 +397,8 @@ textarea.form-input { resize: vertical; min-height: 90px; }
   </div>
 </aside>
 
-<!-- MAIN -->
 <div class="main">
 
-  <!-- HEADER -->
   <header class="header">
     <div class="header-left">
       <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
@@ -425,10 +421,8 @@ textarea.form-input { resize: vertical; min-height: 90px; }
     </div>
   </header>
 
-  <!-- CONTENT -->
   <div class="content">
 
-    <!-- ═══ DASHBOARD ═══ -->
     <div class="page active" id="page-dashboard">
       <div class="page-title">Dashboard</div>
       <div class="page-subtitle">Resumo de atividade — Maio 2025</div>
@@ -469,7 +463,6 @@ textarea.form-input { resize: vertical; min-height: 90px; }
       </div>
 
       <div class="charts-row">
-        <!-- Bar chart -->
         <div class="card">
           <div class="card-header">
             <div>
@@ -482,11 +475,17 @@ textarea.form-input { resize: vertical; min-height: 90px; }
             </div>
           </div>
           <div class="card-body">
-            <div class="mini-chart" id="barChart"></div>
+            <div class="mini-chart" id="barChart">
+              <div class="bar-wrap"><div class="bar" style="height: 30%;"></div><span class="bar-label">Jan</span></div>
+              <div class="bar-wrap"><div class="bar" style="height: 45%;"></div><span class="bar-label">Fev</span></div>
+              <div class="bar-wrap"><div class="bar" style="height: 60%;"></div><span class="bar-label">Mar</span></div>
+              <div class="bar-wrap"><div class="bar" style="height: 85%;"></div><span class="bar-label">Abr</span></div>
+              <div class="bar-wrap"><div class="bar" style="height: 50%;"></div><span class="bar-label">Mai</span></div>
+              <div class="bar-wrap"><div class="bar" style="height: 70%;"></div><span class="bar-label">Jun</span></div>
+            </div>
           </div>
         </div>
 
-        <!-- Donut -->
         <div class="card">
           <div class="card-header">
             <div>
@@ -526,7 +525,6 @@ textarea.form-input { resize: vertical; min-height: 90px; }
       </div>
     </div>
 
-    <!-- ═══ IMÓVEIS ═══ -->
     <div class="page" id="page-imoveis">
       <div class="page-title">Imóveis</div>
       <div class="page-subtitle">Gerencie o seu portefólio de propriedades</div>
@@ -585,14 +583,13 @@ textarea.form-input { resize: vertical; min-height: 90px; }
       </div>
     </div>
 
-    <!-- ═══ LEADS ═══ -->
     <div class="page" id="page-leads">
       <div class="page-title">Leads</div>
       <div class="page-subtitle">Gerencie seus contactos e oportunidades</div>
 
       <div class="leads-grid">
         <div class="lead-cards-list">
-          <div class="lead-card">
+          <div class="lead-card" onclick="selectLead(this)">
             <div class="lead-card-top">
               <div class="lead-name">João Silva</div>
               <div class="lead-time">30 mai</div>
@@ -604,7 +601,7 @@ textarea.form-input { resize: vertical; min-height: 90px; }
             </div>
           </div>
         </div>
-        <div class="lead-detail">
+        <div class="lead-detail" id="leadDetailBox">
           <div class="empty-state">
             <div class="empty-icon">💬</div>
             <div class="empty-text">Selecione um lead para ver detalhes</div>
@@ -613,15 +610,15 @@ textarea.form-input { resize: vertical; min-height: 90px; }
       </div>
     </div>
 
-    <!-- ═══ EQUIPA ═══ -->
     <div class="page" id="page-equipa">
       <div class="page-title">Equipa</div>
       <div class="page-subtitle">Membros do seu time</div>
-
-      <div class="team-grid"></div>
+      <div class="empty-state">
+        <div class="empty-icon">◎</div>
+        <div class="empty-text">Nenhum membro da equipa registado.</div>
+      </div>
     </div>
 
-    <!-- ═══ DEFINIÇÕES ═══ -->
     <div class="page" id="page-definicoes">
       <div class="page-title">Definições</div>
       <div class="page-subtitle">Configurações da sua conta</div>
@@ -639,7 +636,7 @@ textarea.form-input { resize: vertical; min-height: 90px; }
             <label class="form-label">Nome</label>
             <input type="text" class="form-input" value="Margarida Ferreira">
           </div>
-          <button class="btn-sm gold">Guardar Alterações</button>
+          <button class="btn-sm gold" onclick="showToast('Alterações guardadas com sucesso!')">Guardar Alterações</button>
         </div>
       </div>
     </div>
@@ -647,6 +644,140 @@ textarea.form-input { resize: vertical; min-height: 90px; }
   </div>
 </div>
 
-<script src="admin.js"></script>
+<div class="modal-overlay" id="addModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div class="modal-title">Adicionar Novo Imóvel</div>
+      <button class="modal-close" onclick="closeAddModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-field full">
+          <label class="form-label">Título do Imóvel</label>
+          <input type="text" class="form-input" placeholder="Ex: Moradia T4 com Piscina">
+        </div>
+        <div class="form-field">
+          <label class="form-label">Preço (€)</label>
+          <input type="number" class="form-input" placeholder="0.00">
+        </div>
+        <div class="form-field">
+          <label class="form-label">Localização</label>
+          <input type="text" class="form-input" placeholder="Cidade, País">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-sm outline" onclick="closeAddModal()">Cancelar</button>
+      <button class="btn-sm gold" onclick="closeAddModal(); showToast('Imóvel adicionado!')">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast success" id="globalToast">Operação realizada com sucesso!</div>
+
+<script>
+  // LÓGICA DE NAVEGAÇÃO ENTRE ABAS (PÁGINAS)
+  function showPage(pageId, element) {
+    // Esconde todas as páginas
+    document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+    
+    // Mostra a página selecionada
+    const targetPage = document.getElementById('page-' + pageId);
+    if(targetPage) targetPage.classList.add('active');
+
+    // Atualiza a classe ativa no menu lateral
+    if(element) {
+      document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+      element.classList.add('active');
+    }
+
+    // Atualiza o Breadcrumb superior
+    const breadcrumbSpan = document.querySelector('#breadcrumb span');
+    if(breadcrumbSpan) {
+      breadcrumbSpan.textContent = pageId.charAt(0).toUpperCase() + pageId.slice(1);
+    }
+
+    // Se estiver no mobile, fecha a sidebar após clique
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    if(sidebar.classList.contains('open')) {
+      sidebar.classList.remove('open');
+      overlay.classList.remove('open');
+    }
+  }
+
+  // CONTROLE DO MENU LATERAL (MOBILE)
+  function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('open');
+  }
+
+  // CONTROLE DE MUDANÇA DE TEMA (LIGHT / DARK)
+  function toggleTheme() {
+    const html = document.documentElement;
+    const currentTheme = html.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', newTheme);
+    showToast(`Tema alterado para: ${newTheme}`);
+  }
+
+  // MODAL DE ADICIONAR IMÓVEL
+  function openAddModal() {
+    document.getElementById('addModal').classList.add('open');
+  }
+  function closeAddModal() {
+    document.getElementById('addModal').classList.remove('open');
+  }
+
+  // FEEDBACK DE TOAST
+  function showToast(message) {
+    const toast = document.getElementById('globalToast');
+    toast.textContent = message;
+    toast.classList.add('show');
+    setTimeout(() => {
+      toast.classList.remove('show');
+    }, 3000);
+  }
+
+  // FUNÇÕES DE LOGOUT E PESQUISA MOCKADAS
+  function doLogout() {
+    alert('A efetuar logout...');
+  }
+  function globalSearch(val) {
+    console.log("A pesquisar por: " + val);
+  }
+  function showNotifications() {
+    showToast("Nenhuma notificação nova.");
+  }
+
+  // SELEÇÃO SIMULADA DE LEADS
+  function selectLead(element) {
+    document.querySelectorAll('.lead-card').forEach(card => card.classList.remove('selected'));
+    element.classList.add('selected');
+    
+    const detailBox = document.getElementById('leadDetailBox');
+    detailBox.innerHTML = `
+      <div class="lead-detail-header">
+        <div class="lead-detail-avatar">JS</div>
+        <div class="lead-detail-name">João Silva</div>
+        <div class="lead-detail-contact">joao.silva@email.com<br>+351 912 345 678</div>
+      </div>
+      <div class="lead-detail-body">
+        <div class="detail-section-title">Mensagem</div>
+        <div class="lead-message-box">
+          Olá, gostaria de obter informações e agendar uma visita para a penthouse listada no Porto. Obrigado.
+        </div>
+      </div>
+      <div class="lead-actions-panel">
+        <input type="text" class="lead-reply-input" placeholder="Escreva uma resposta...">
+        <div class="lead-btn-row">
+          <button class="btn-sm gold" onclick="showToast('Resposta enviada!')">Responder</button>
+        </div>
+      </div>
+    `;
+  }
+</script>
 </body>
 </html>
