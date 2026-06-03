@@ -113,18 +113,16 @@ app.post('/api/auth/register', async (req, res) => {
       name,
       email,
       password: hashedPassword,
-      role: 'agent',
+      role: 'admin', // Alterado para 'admin' para poderes criar a tua conta de controlo
     });
 
     await user.save();
 
-const token = jwt.sign(
-  { id: user._id, role: user.role }, // <-- Adicionado o user.role aqui
-  process.env.JWT_SECRET || 'your-secret-key',
-  { expiresIn: '7d' }
-); 
-      expiresIn: '7d',
-    });
+    const token = jwt.sign(
+      { id: user._id, role: user.role },
+      process.env.JWT_SECRET || 'your-secret-key',
+      { expiresIn: '7d' }
+    ); 
 
     res.status(201).json({ 
       message: 'User registered successfully',
@@ -155,13 +153,11 @@ app.post('/api/auth/login', async (req, res) => {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
 
-const token = jwt.sign(
-  { id: user._id, role: user.role }, // <-- Adicionado o user.role aqui
-  process.env.JWT_SECRET || 'your-secret-key',
-  { expiresIn: '7d' }
-);
-      expiresIn: '7d',
-    });
+    const token = jwt.sign(
+      { id: user._id, role: user.role },
+      process.env.JWT_SECRET || 'your-secret-key',
+      { expiresIn: '7d' }
+    );
 
     res.json({ 
       token,
@@ -174,7 +170,6 @@ const token = jwt.sign(
 
 // ==================== PROPERTY ROUTES ====================
 
-// Get all properties
 app.get('/api/properties', async (req, res) => {
   try {
     const properties = await Property.find().populate('createdBy', 'name email');
@@ -184,7 +179,6 @@ app.get('/api/properties', async (req, res) => {
   }
 });
 
-// Get single property
 app.get('/api/properties/:id', async (req, res) => {
   try {
     const property = await Property.findById(req.params.id).populate('createdBy', 'name email');
@@ -197,7 +191,6 @@ app.get('/api/properties/:id', async (req, res) => {
   }
 });
 
-// Create property
 app.post('/api/properties', verifyToken, async (req, res) => {
   try {
     const { title, location, price, bedrooms, bathrooms, area, description, imageUrl, type } = req.body;
@@ -226,7 +219,6 @@ app.post('/api/properties', verifyToken, async (req, res) => {
   }
 });
 
-// Update property
 app.put('/api/properties/:id', verifyToken, async (req, res) => {
   try {
     const { title, location, price, bedrooms, bathrooms, area, description, imageUrl, status, type } = req.body;
@@ -247,7 +239,6 @@ app.put('/api/properties/:id', verifyToken, async (req, res) => {
   }
 });
 
-// Delete property
 app.delete('/api/properties/:id', verifyToken, async (req, res) => {
   try {
     const property = await Property.findByIdAndDelete(req.params.id);
@@ -262,7 +253,6 @@ app.delete('/api/properties/:id', verifyToken, async (req, res) => {
 
 // ==================== LEAD ROUTES ====================
 
-// Get all leads
 app.get('/api/leads', verifyToken, async (req, res) => {
   try {
     const leads = await Lead.find()
@@ -274,7 +264,6 @@ app.get('/api/leads', verifyToken, async (req, res) => {
   }
 });
 
-// Get single lead
 app.get('/api/leads/:id', verifyToken, async (req, res) => {
   try {
     const lead = await Lead.findById(req.params.id)
@@ -289,7 +278,6 @@ app.get('/api/leads/:id', verifyToken, async (req, res) => {
   }
 });
 
-// Create lead (public)
 app.post('/api/leads', async (req, res) => {
   try {
     const { name, email, phone, subject, message, propertyInterest } = req.body;
@@ -315,28 +303,26 @@ app.post('/api/leads', async (req, res) => {
   }
 });
 
-// Update lead
 app.put('/api/leads/:id', verifyToken, async (req, res) => {
   try {
     const { status, assignedTo, notes } = req.body;
 
-    const lead = await Lead.findByIdAndUpdate(
+    const key = await Lead.findByIdAndUpdate(
       req.params.id,
       { status, assignedTo, notes, updatedAt: Date.now() },
       { new: true }
     ).populate('assignedTo', 'name email');
 
-    if (!lead) {
+    if (!key) {
       return res.status(404).json({ error: 'Lead not found' });
     }
 
-    res.json(lead);
+    res.json(key);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
-// Delete lead
 app.delete('/api/leads/:id', verifyToken, async (req, res) => {
   try {
     const lead = await Lead.findByIdAndDelete(req.params.id);
@@ -351,7 +337,6 @@ app.delete('/api/leads/:id', verifyToken, async (req, res) => {
 
 // ==================== TEAM ROUTES ====================
 
-// Get all users (team members)
 app.get('/api/team', verifyToken, async (req, res) => {
   try {
     const users = await User.find({}, '-password');
@@ -361,7 +346,6 @@ app.get('/api/team', verifyToken, async (req, res) => {
   }
 });
 
-// Get current user
 app.get('/api/auth/me', verifyToken, async (req, res) => {
   try {
     const user = await User.findById(req.userId).select('-password');
@@ -396,18 +380,21 @@ app.get('/api/stats', verifyToken, async (req, res) => {
   }
 });
 
-// ==================== START SERVER ====================
+// ==================== FRONTEND FALLBACKS ====================
 
-const PORT = process.env.PORT || 5000;
-// Servir a página inicial
+// Rota inicial
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// Servir a página de admin explicitamente caso acedas a /admin
+// Forçar a rota /admin a abrir o admin.html sem precisar de escrever a extensão .html
 app.get('/admin', (req, res) => {
   res.sendFile(path.join(__dirname, 'admin.html'));
 });
+
+// ==================== START SERVER ====================
+
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
