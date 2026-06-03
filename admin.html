@@ -1180,14 +1180,15 @@ async function loadPropertiesFromDB() {
   }
 }
 
-// Chame esta função no carregamento da página (Init)
-loadPropertiesFromDB();
   // Variáveis globais do Supabase (as mesmas que funcionam no index.html)
   const SUPABASE_URL = 'https://nfviumkttvkqzeuerkyj.supabase.co';
   const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5mdml1bWt0dHZrcXpldWVya3lqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk1MzgyMDksImV4cCI6MjA5NTExNDIwOX0.sN9MeiKi-3bK2gUzcrfYJc6Y8pr4HgVO4nRlFc2c31A';
-  
+
   // Inicialização do cliente Supabase para o Admin
   const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  // Chame esta função no carregamento da página (Init)
+  loadPropertiesFromDB();
 </script>
 </body>
 </html>
