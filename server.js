@@ -118,7 +118,11 @@ app.post('/api/auth/register', async (req, res) => {
 
     await user.save();
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET || 'your-secret-key', {
+const token = jwt.sign(
+  { id: user._id, role: user.role }, // <-- Adicionado o user.role aqui
+  process.env.JWT_SECRET || 'your-secret-key',
+  { expiresIn: '7d' }
+); 
       expiresIn: '7d',
     });
 
