@@ -1,5 +1,5 @@
 // API Configuration
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL = 'https://z-imoveis.onrender.com/api';
 let authToken = localStorage.getItem('authToken');
 
 // ==================== AUTH FUNCTIONS ====================
