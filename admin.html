@@ -1143,6 +1143,45 @@ document.getElementById('propModal').addEventListener('click', e => { if (e.targ
 </script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+  // Exemplo de função para ler os imóveis direto do Supabase no Admin
+async function loadPropertiesFromDB() {
+  try {
+    const response = await fetch(`${SUPABASE_URL}/rest/v1/imoveis?select=*&order=id.desc`, {
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Content-Type': 'application/json'
+      }
+    });
+    if (!response.ok) throw new Error('Erro na API do servidor');
+    const data = await response.json();
+    
+    if (data && data.length > 0) {
+      // Atualiza a variável global do admin com os dados vindos do servidor
+      properties = data.map(p => ({
+        id: p.id,
+        title: p.titulo,
+        price: p.preco,
+        type: p.tipo,
+        category: p.category, // Mapeie aqui de acordo com as colunas da sua tabela
+        area: p.area,
+        rooms: p.quartos,
+        bath: p.wc,
+        energy: p.energia,
+        status: p.estado,
+        desc: p.descricao,
+        views: p.views || 0,
+        leads: p.leads || 0
+      }));
+      renderProperties(); // Atualiza a tabela na interface do Admin
+    }
+  } catch(e) {
+    showToast('❌ Erro ao ligar ao servidor. Usando dados locais.', 'error');
+  }
+}
+
+// Chame esta função no carregamento da página (Init)
+loadPropertiesFromDB();
   // Variáveis globais do Supabase (as mesmas que funcionam no index.html)
   const SUPABASE_URL = 'https://nfviumkttvkqzeuerkyj.supabase.co';
   const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5mdml1bWt0dHZrcXpldWVya3lqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk1MzgyMDksImV4cCI6MjA5NTExNDIwOX0.sN9MeiKi-3bK2gUzcrfYJc6Y8pr4HgVO4nRlFc2c31A';
