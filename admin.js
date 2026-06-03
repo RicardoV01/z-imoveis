@@ -442,7 +442,7 @@ function createLeadsContainer() {
   return container;
 }
 
-async function selectLead(leadId) {
+async function selectLead(leadId, el) {
   if (!authToken) return;
 
   try {
