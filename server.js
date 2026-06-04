@@ -380,16 +380,14 @@ app.get('/api/stats', verifyToken, async (req, res) => {
   }
 });
 
-// ==================== FRONTEND FALLBACKS ====================
-
-// Rota inicial
+// ==================== FRONTEND FALLBACKS ====================\n\n// Rota inicial
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(path.join(__dirname, 'index.html')); // Garante que o teu index (3).html principal está renomeado para index.html no servidor
 });
 
-// Forçar a rota /admin a abrir o admin.html sem precisar de escrever a extensão .html
+// Forçar a rota /admin a abrir o ficheiro correto do painel administrativo
 app.get('/admin', (req, res) => {
-  res.sendFile(path.join(__dirname, 'admin.html'));
+  res.sendFile(path.join(__dirname, 'admin.html')); // O teu admin (6).html deve ser renomeado para admin.html e incluir o script do admin.js
 });
 
 // ==================== START SERVER ====================
