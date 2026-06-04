@@ -1625,30 +1625,35 @@ async function sbInsert(table, data) {
   return res.json();
 }
 
-// ── LOAD PROPERTIES FROM SUPABASE ──
 async function loadPropertiesFromDB() {
   try {
-    const data = await sbFetch('imoveis', 'select=*&order=id.desc');
+    const res = await fetch('/api/properties');
+    if (!res.ok) throw new Error('API error');
+    const data = await res.json();
+
     if (data && data.length > 0) {
-      // Map DB fields to site format
       properties = data.map(p => ({
-        id: p.id,
-        title: p.titulo,
-        price: p.tipo === 'Arrendamento' ? '€' + Number(p.preco).toLocaleString('pt-PT') + '/mês' : '€' + (p.preco >= 1000000 ? (p.preco/1000000).toFixed(1).replace('.0','') + 'M' : Number(p.preco).toLocaleString('pt-PT')),
-        type: p.tipo,
-        location: p.bairro + ', ' + p.cidade,
+        id: p._id,
+        title: p.title,
+        price: p.status === 'rent'
+          ? '€' + Number(p.price).toLocaleString('pt-PT') + '/mês'
+          : '€' + (p.price >= 1000000
+              ? (p.price / 1000000).toFixed(1).replace('.0', '') + 'M'
+              : Number(p.price).toLocaleString('pt-PT')),
+        type: p.type,
+        location: p.location,
         area: p.area,
-        rooms: p.quartos,
-        bath: p.wc,
-        badge: p.estado === 'Arrendamento' ? 'Arrendamento' : 'Destaque',
-        desc: p.descricao,
-        energy: p.energia,
-        img: p.imagem_url || null
+        rooms: p.bedrooms,
+        bath: p.bathrooms,
+        badge: p.status === 'active' ? 'Destaque' : p.status,
+        desc: p.description || '',
+        energy: 'A',
+        img: p.imageUrl || null
       }));
       renderProperties();
     }
   } catch(e) {
-    console.warn('Supabase não disponível, a usar dados locais:', e.message);
+    console.warn('API não disponível, a usar dados locais:', e.message);
   }
 }
 
