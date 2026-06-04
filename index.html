@@ -1765,21 +1765,24 @@ function renderTestimonials() {
   `).join('');
 }
 
-// RENDER BLOG
+// RENDER BLOG (Apenas os primeiros 3 artigos)
 function renderBlog() {
-  document.getElementById('blogGrid').innerHTML = blogPosts.map((p, i) => `
-    <div class="blog-card reveal" style="transition-delay:${i*0.1}s">
-      <div class="blog-img" style="${p.img ? '' : `background:linear-gradient(${140+i*20}deg,#${ ['2D2920','1E1B14','252118','1A1714','1A1714'][i]},#1E1B14);`}">
-        ${p.img
-          ? `<div class="blog-img-inner" style="width:100%;height:100%;"><img src="${p.img}" alt="${p.title}" style="width:100%;height:100%;object-fit:cover;transition:transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94);"></div>`
-          : `<div class="blog-img-inner" style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;"><svg width="50" height="50" viewBox="0 0 80 80" fill="none" opacity="0.15"><rect x="15" y="20" width="50" height="60" stroke="#B8935A" stroke-width="1.5"/><rect x="25" y="32" width="30" height="2" fill="#B8935A"/><rect x="25" y="40" width="20" height="2" fill="#B8935A"/><rect x="25" y="48" width="25" height="2" fill="#B8935A"/></svg></div>`
-        }
+  const container = document.getElementById('blogGrid');
+  if (!container) return;
+  
+  // Limpa o container e renderiza apenas os 3 primeiros com o .slice(0, 3)
+  container.innerHTML = blogData.slice(0, 3).map((item, index) => {
+    return `
+      <div class="blog-card reveal ${index === 0 ? '' : index === 1 ? 'reveal-delay-1' : 'reveal-delay-2'}">
+        <div class="blog-img">
+          <div class="blog-img-inner" style="background: ${item.bg || 'linear-gradient(135deg, #2D2920 0%, #1A1916 100%)'};"></div>
+        </div>
+        <span class="blog-cat">${item.category}</span>
+        <h3 class="blog-title">${item.title}</h3>
+        <div class="blog-meta">Por ${item.author}</div>
       </div>
-      <div class="blog-cat">${p.cat}</div>
-      <div class="blog-title">${p.title}</div>
-      <div class="blog-meta">${p.date} · ${p.author}</div>
-    </div>
-  `).join('');
+    `;
+  }).join('');
 }
 
 // NAV SCROLL
