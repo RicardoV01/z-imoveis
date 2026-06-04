@@ -347,7 +347,7 @@ textarea.form-input { resize: vertical; min-height: 90px; }
         <input id="loginEmail" type="email" class="form-input" placeholder="email@exemplo.com" style="width:100%;"></div>
       <div style="margin-bottom:24px;"><label style="font-size:0.78rem; color:var(--text2); display:block; margin-bottom:6px;">Password</label>
         <input id="loginPassword" type="password" class="form-input" placeholder="" style="width:100%;" onkeydown="if(event.key==='Enter')doLogin()"></div>
-      <button id="loginBtn" onclick="()" style="width:100%; padding:12px; background:var(--gold); color:#fff; border:none; border-radius:var(--radius); font-size:0.9rem; cursor:pointer;">Entrar</button>
+      <button id="loginBtn" onclick="doLogin()" style="width:100%; padding:12px; background:var(--gold); color:#fff; border:none; border-radius:var(--radius); font-size:0.9rem; cursor:pointer;">Entrar</button>
       <div style="text-align:center; margin-top:16px; font-size:0.82rem; color:var(--text3);">Nao tens conta? <span onclick="document.getElementById('loginForm').style.display='none';document.getElementById('registerForm').style.display='block';" style="color:var(--gold); cursor:pointer;">Registar</span></div>
     </div>
     <div id="registerForm" style="display:none;">
@@ -698,6 +698,10 @@ textarea.form-input { resize: vertical; min-height: 90px; }
 <div class="toast success" id="globalToast">Operação realizada com sucesso!</div>
 
 <script>
+  const supabaseUrl = 'https://kocwmvpawbppyrgiudig.supabase.co';
+  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtvY3dtdnBhd2JwcHlyZ2l1ZGlnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA1Nzc3NTUsImV4cCI6MjA5NjE1Mzc1NX0.YFR96Aca4UW_bANyTVnGR3tu4HoVfLE0yqetGaPwGDk';
+  const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
   // LÓGICA DE NAVEGAÇÃO ENTRE ABAS (PÁGINAS)
   function showPage(pageId, element) {
     // Esconde todas as páginas
@@ -749,8 +753,6 @@ textarea.form-input { resize: vertical; min-height: 90px; }
   }
 
   // MODAL DE ADICIONAR IMÓVEL
-  const API_BASE_URL = 'https://z-imoveis.onrender.com/api';
-
   function openAddModal() {
     document.getElementById('addModal').classList.add('open');
   }
@@ -773,32 +775,19 @@ textarea.form-input { resize: vertical; min-height: 90px; }
       return;
     }
 
-    const token = localStorage.getItem('authToken');
-    if (!token) {
-      showToast('Sessão expirada. Por favor faz login novamente.');
-      return;
-    }
-
     try {
-      const response = await fetch(`${API_BASE_URL}/properties`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({ title, price: Number(price), location, type, bedrooms: Number(bedrooms), area: Number(area), description, imageUrl })
-      });
+      const { error } = await supabase
+        .from('properties')
+        .insert([{ title, price: Number(price), location, type, bedrooms: Number(bedrooms), area: Number(area), description, imageUrl }]);
 
-      if (response.ok) {
-        closeAddModal();
-        showToast('Imóvel adicionado com sucesso!');
-        setTimeout(() => location.reload(), 1500);
-      } else {
-        const err = await response.json();
-        showToast('Erro: ' + (err.error || 'Não foi possível guardar'));
-      }
+      if (error) throw error;
+
+      closeAddModal();
+      showToast('Imóvel adicionado com sucesso!');
+      loadProperties();
     } catch (e) {
-      showToast('Erro de ligação ao servidor');
+      console.error(e);
+      showToast('Erro: ' + (e.message || 'Não foi possível guardar'));
     }
   }
 
@@ -1005,19 +994,6 @@ textarea.form-input { resize: vertical; min-height: 90px; }
     }
   }
 
-  // CARREGAR ESTATÍSTICAS DO DASHBOARD
-  function loadUserProfile() {
-    const user = localStorage.getItem('currentUser');
-    if (!user) return;
-    const u = JSON.parse(user);
-    const sidebarName = document.getElementById('sidebarName');
-    if (sidebarName) sidebarName.textContent = u.name;
-    const settingsEmail = document.getElementById('settingsEmail');
-    if (settingsEmail) settingsEmail.value = u.email || '';
-    const settingsName = document.getElementById('settingsName');
-    if (settingsName) settingsName.value = u.name || '';
-  }
-
   // CARREGAR ESTATÍSTICAS DO DASHBOARD EM TEMPO REAL
   async function loadStats() {
     try {
@@ -1118,42 +1094,21 @@ textarea.form-input { resize: vertical; min-height: 90px; }
       showToast('Erro ao carregar a lista de imóveis.');
     }
   }
-      tbody.innerHTML = props.map(p => `
-        <tr>
-          <td><div class="prop-cell"><div class="prop-thumb"></div><div>
-            <div class="prop-name">${p.title}</div>
-            <div class="prop-loc">${p.location}</div>
-          </div></div></td>
-          <td class="td-muted">€${p.price.toLocaleString('pt-PT')}</td>
-          <td class="td-muted">${p.bedrooms || '-'}</td>
-          <td class="td-muted">${p.area ? p.area + ' m²' : '-'}</td>
-          <td><span class="badge ${p.status}">${p.status === 'active' ? 'Ativo' : p.status === 'sold' ? 'Vendido' : p.status === 'pending' ? 'Pendente' : p.status}</span></td>
-          <td class="td-muted">${new Date(p.createdAt).toLocaleDateString('pt-PT')}</td>
-          <td><div class="row-actions">
-            <button class="action-btn danger" onclick="deleteProperty('${p._id}')">✕</button>
-          </div></td>
-        </tr>`).join('');
-    } catch(e) {
-      console.error('Erro ao carregar imóveis:', e);
-    }
-  }
+
 
   async function deleteProperty(id) {
     if (!confirm('Tens a certeza que queres apagar este imóvel?')) return;
-    const token = localStorage.getItem('authToken');
     try {
-      const res = await fetch(API_BASE_URL + '/properties/' + id, {
-        method: 'DELETE',
-        headers: { 'Authorization': 'Bearer ' + token }
-      });
-      if (res.ok) {
-        showToast('Imóvel apagado com sucesso!');
-        loadProperties();
-      } else {
-        showToast('Erro ao apagar imóvel');
-      }
+      const { error } = await supabase
+        .from('properties')
+        .delete()
+        .eq('id', id);
+      if (error) throw error;
+      showToast('Imóvel apagado com sucesso!');
+      loadProperties();
     } catch(e) {
-      showToast('Erro de ligação ao servidor');
+      console.error(e);
+      showToast('Erro ao apagar imóvel.');
     }
   }
 
