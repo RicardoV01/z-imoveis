@@ -1,5 +1,8 @@
-// API Configuration
-const API_BASE_URL = 'https://z-imoveis.onrender.com/api';
+// Configuração Dinâmica da API (Funciona em Localhost e em Produção no Render)
+const API_BASE_URL = window.location.origin.includes('localhost') 
+  ? 'http://localhost:5000/api' 
+  : `${window.location.origin}/api`;
+
 let authToken = localStorage.getItem('authToken');
 
 // ==================== AUTH FUNCTIONS ====================
