@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR" data-theme="light">
 <head>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0A0A0A">
@@ -346,7 +347,7 @@ textarea.form-input { resize: vertical; min-height: 90px; }
         <input id="loginEmail" type="email" class="form-input" placeholder="email@exemplo.com" style="width:100%;"></div>
       <div style="margin-bottom:24px;"><label style="font-size:0.78rem; color:var(--text2); display:block; margin-bottom:6px;">Password</label>
         <input id="loginPassword" type="password" class="form-input" placeholder="" style="width:100%;" onkeydown="if(event.key==='Enter')doLogin()"></div>
-      <button id="loginBtn" onclick="doLogin()" style="width:100%; padding:12px; background:var(--gold); color:#fff; border:none; border-radius:var(--radius); font-size:0.9rem; cursor:pointer;">Entrar</button>
+      <button id="loginBtn" onclick="()" style="width:100%; padding:12px; background:var(--gold); color:#fff; border:none; border-radius:var(--radius); font-size:0.9rem; cursor:pointer;">Entrar</button>
       <div style="text-align:center; margin-top:16px; font-size:0.82rem; color:var(--text3);">Nao tens conta? <span onclick="document.getElementById('loginForm').style.display='none';document.getElementById('registerForm').style.display='block';" style="color:var(--gold); cursor:pointer;">Registar</span></div>
     </div>
     <div id="registerForm" style="display:none;">
@@ -811,159 +812,197 @@ textarea.form-input { resize: vertical; min-height: 90px; }
     }, 3000);
   }
 
-  // LOGIN / LOGOUT
-  function doLogout() {
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('currentUser');
-    document.getElementById('loginScreen').style.display = 'flex';
-    document.getElementById('appShell').style.display = 'none';
-    showToast('Sessão terminada.');
-  }
-
+// EFETUAR LOGIN NO SUPABASE
   async function doLogin() {
     const email = document.getElementById('loginEmail').value;
     const password = document.getElementById('loginPassword').value;
     const btn = document.getElementById('loginBtn');
 
-    if (!email || !password) { showToast('Preenche email e password'); return; }
+    if (!email || !password) { 
+      showToast('Preenche o email e a password'); 
+      return; 
+    }
 
     btn.textContent = 'A entrar...';
     btn.disabled = true;
 
     try {
-      const res = await fetch(`${API_BASE_URL}/auth/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
-      });
-      const data = await res.json();
-      if (res.ok) {
-        localStorage.setItem('authToken', data.token);
-        localStorage.setItem('currentUser', JSON.stringify(data.user));
-        document.getElementById('loginScreen').style.display = 'none';
-        document.getElementById('appShell').style.display = 'flex';
-        const nameEl = document.querySelector('.admin-name');
-        if (nameEl) nameEl.textContent = data.user.name;
-        showToast('Bem-vindo, ' + data.user.name + '!');
-        loadStats();
-        loadProperties();
-        loadLeads();
-        loadUserProfile();
-      } else {
-        showToast('Erro: ' + (data.error || 'Credenciais inválidas'));
-      }
+      // Faz a autenticação direta contra os utilizadores do Supabase
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+      
+      if (error) throw error;
+
+      showToast('Bem-vindo, ' + (data.user.email.split('@')[0]) + '!');
+      
+      // Esconde o ecrã de login e mostra a app
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('appShell').style.display = 'flex';
+      
+      // Carrega os dados das tabelas imediatamente
+      loadStats();
+      loadProperties();
+      loadLeads();
+      loadUserProfile(data.user);
+
     } catch(e) {
-      showToast('Erro de ligação ao servidor');
+      console.error(e);
+      showToast('Erro: Credenciais inválidas ou erro de ligação.');
+    } finally {
+      btn.textContent = 'Entrar';
+      btn.disabled = false;
     }
-    btn.textContent = 'Entrar';
-    btn.disabled = false;
   }
 
+  // CRIAR NOVA CONTA NO SUPABASE
   async function doRegister() {
     const name = document.getElementById('regName').value;
     const email = document.getElementById('regEmail').value;
     const password = document.getElementById('regPassword').value;
 
-    if (!name || !email || !password) { showToast('Preenche todos os campos'); return; }
+    if (!name || !email || !password) { 
+      showToast('Preenche todos os campos'); 
+      return; 
+    }
 
     try {
-      const res = await fetch(`${API_BASE_URL}/auth/register`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, password })
+      // Regista o utilizador na base de dados de autenticação do Supabase
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: { display_name: name } // Guarda o nome nas propriedades metadados do utilizador
+        }
       });
-      const data = await res.json();
-      if (res.ok) {
-        localStorage.setItem('authToken', data.token);
-        localStorage.setItem('currentUser', JSON.stringify(data.user));
-        document.getElementById('loginScreen').style.display = 'none';
-        document.getElementById('appShell').style.display = 'flex';
-        showToast('Conta criada com sucesso!');
-      } else {
-        showToast('Erro: ' + (data.error || 'Não foi possível registar'));
-      }
+
+      if (error) throw error;
+
+      showToast('Conta criada com sucesso! Já podes fazer login.');
+      // Volta para o formulário de login para entrar
+      document.getElementById('registerForm').style.display = 'none';
+      document.getElementById('loginForm').style.display = 'block';
+
     } catch(e) {
-      showToast('Erro de ligação ao servidor');
+      console.error(e);
+      showToast('Erro ao registar: ' + e.message);
     }
   }
 
-  // CARREGAR LEADS DA API
-  async function loadLeads() {
-    const token = localStorage.getItem('authToken');
-    if (!token) return;
+  // TERMINAR SESSÃO (LOGOUT)
+  async function doLogout() {
     try {
-      const res = await fetch(API_BASE_URL + '/leads', {
-        headers: { 'Authorization': 'Bearer ' + token }
-      });
-      const leads = await res.json();
+      await supabase.auth.signOut();
+      
+      document.getElementById('loginScreen').style.display = 'flex';
+      document.getElementById('appShell').style.display = 'none';
+      showToast('Sessão terminada.');
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  // CARREGAR LEADS DO SUPABASE
+  async function loadLeads() {
+    try {
+      // Procura todas as leads ordenadas pelas mais recentes
+      const { data: leads, error } = await supabase
+        .from('leads')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+
       const list = document.getElementById('leadCardsList');
       if (!list) return;
 
-      // Atualizar badge
+      // Atualiza o badge vermelho de novas mensagens no menu lateral
       const badge = document.getElementById('badgeLeads');
-      if (badge) badge.textContent = leads.filter(l => l.status === 'new').length || 0;
+      if (badge) {
+        badge.textContent = leads.filter(l => l.status === 'new').length || 0;
+      }
 
-      if (!leads.length) {
+      if (!leads || !leads.length) {
         list.innerHTML = '<div style="text-align:center;padding:40px;color:var(--text3);">Nenhum lead encontrado.</div>';
         return;
       }
+
+      // Renderiza os cartões na barra lateral de leads (Nota: mudámos de l._id para l.id)
       list.innerHTML = leads.map(l => `
-        <div class="lead-card" onclick="selectLeadById('${l._id}', this)">
+        <div class="lead-card" onclick="selectLeadById('${l.id}', this)">
           <div class="lead-card-top">
-            <div class="lead-name">${l.name}</div>
-            <div class="lead-time">${new Date(l.createdAt).toLocaleDateString('pt-PT')}</div>
+            <div class="lead-name">${l.name || 'Anónimo'}</div>
+            <div class="lead-time">${l.created_at ? new Date(l.created_at).toLocaleDateString('pt-PT') : ''}</div>
           </div>
           <div class="lead-subject">${l.subject || 'Sem assunto'}</div>
-          <div class="lead-preview">${l.message.substring(0, 80)}...</div>
+          <div class="lead-preview">${l.message ? l.message.substring(0, 80) : ''}...</div>
           <div class="lead-footer">
-            <span class="badge ${l.status}">${l.status === 'new' ? 'Novo' : l.status === 'contacted' ? 'Contactado' : l.status === 'qualified' ? 'Qualificado' : 'Fechado'}</span>
+            <span class="badge ${l.status || 'new'}">
+              ${l.status === 'new' ? 'Novo' : l.status === 'contacted' ? 'Contactado' : l.status === 'qualified' ? 'Qualificado' : 'Fechado'}
+            </span>
           </div>
         </div>`).join('');
     } catch(e) {
       console.error('Erro ao carregar leads:', e);
+      showToast('Erro ao carregar contactos.');
     }
   }
 
+  // SELECCIONAR E VER DETALHES DE UMA LEAD
   async function selectLeadById(id, el) {
-    const token = localStorage.getItem('authToken');
     try {
-      const res = await fetch(API_BASE_URL + '/leads/' + id, {
-        headers: { 'Authorization': 'Bearer ' + token }
-      });
-      const lead = await res.json();
+      // Procura a lead específica pelo ID no Supabase
+      const { data: lead, error } = await supabase
+        .from('leads')
+        .select('*')
+        .eq('id', id)
+        .single(); // Traz apenas um objeto em vez de uma lista
+
+      if (error) throw error;
+
       const box = document.getElementById('leadDetailBox');
+      if (!box) return;
+
       box.innerHTML = `
         <div class="lead-detail-header">
-          <div class="lead-detail-avatar">${lead.name[0].toUpperCase()}</div>
-          <div class="lead-detail-name">${lead.name}</div>
-          <div class="lead-detail-contact">${lead.email}<br>${lead.phone || ''}</div>
+          <div class="lead-detail-avatar">${lead.name ? lead.name[0].toUpperCase() : '?'}</div>
+          <div class="lead-detail-name">${lead.name || 'Anónimo'}</div>
+          <div class="lead-detail-contact">${lead.email || ''}<br>${lead.phone || ''}</div>
         </div>
         <div class="lead-detail-body">
           <div class="detail-section-title">Mensagem</div>
-          <div class="lead-message-box">${lead.message}</div>
+          <div class="lead-message-box">${lead.message || ''}</div>
           <div class="detail-section-title" style="margin-top:16px;">Status</div>
-          <select class="form-input" onchange="updateLeadStatus('${lead._id}', this.value)" style="width:100%;margin-top:8px;">
-            <option value="new" ${lead.status==='new'?'selected':''}>Novo</option>
-            <option value="contacted" ${lead.status==='contacted'?'selected':''}>Contactado</option>
-            <option value="qualified" ${lead.status==='qualified'?'selected':''}>Qualificado</option>
-            <option value="closed" ${lead.status==='closed'?'selected':''}>Fechado</option>
+          <select class="form-input" onchange="updateLeadStatus('${lead.id}', this.value)" style="width:100%;margin-top:8px;">
+            <option value="new" ${lead.status === 'new' ? 'selected' : ''}>Novo</option>
+            <option value="contacted" ${lead.status === 'contacted' ? 'selected' : ''}>Contactado</option>
+            <option value="qualified" ${lead.status === 'qualified' ? 'selected' : ''}>Qualificado</option>
+            <option value="closed" ${lead.status === 'closed' ? 'selected' : ''}>Fechado</option>
           </select>
         </div>`;
+
       document.querySelectorAll('.lead-card').forEach(c => c.classList.remove('selected'));
       if (el) el.classList.add('selected');
-    } catch(e) { showToast('Erro ao carregar lead'); }
+    } catch(e) { 
+      console.error(e);
+      showToast('Erro ao carregar os detalhes do contacto.'); 
+    }
   }
 
+  // ATUALIZAR STATUS DA LEAD (Novo, Contactado, etc.)
   async function updateLeadStatus(id, status) {
-    const token = localStorage.getItem('authToken');
     try {
-      const res = await fetch(API_BASE_URL + '/leads/' + id, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
-        body: JSON.stringify({ status })
-      });
-      if (res.ok) { showToast('Status atualizado!'); loadLeads(); }
-    } catch(e) { showToast('Erro ao atualizar'); }
+      const { error } = await supabase
+        .from('leads')
+        .update({ status })
+        .eq('id', id);
+
+      if (error) throw error;
+
+      showToast('Status atualizado com sucesso!');
+      loadLeads(); // Atualiza a lista lateral para mudar a cor do badge
+    } catch(e) { 
+      console.error(e);
+      showToast('Erro ao atualizar o estado.'); 
+    }
   }
 
   // CARREGAR ESTATÍSTICAS DO DASHBOARD
@@ -979,44 +1018,106 @@ textarea.form-input { resize: vertical; min-height: 90px; }
     if (settingsName) settingsName.value = u.name || '';
   }
 
+  // CARREGAR ESTATÍSTICAS DO DASHBOARD EM TEMPO REAL
   async function loadStats() {
-    const token = localStorage.getItem('authToken');
-    if (!token) return;
     try {
-      const res = await fetch(API_BASE_URL + '/stats', {
-        headers: { 'Authorization': 'Bearer ' + token }
-      });
-      const stats = await res.json();
+      // 1. Puxa todos os imóveis e todas as leads em simultâneo
+      const [propsResult, leadsResult] = await Promise.all([
+        supabase.from('properties').select('price, status'),
+        supabase.from('leads').select('status')
+      ]);
+
+      if (propsResult.error) throw propsResult.error;
+      if (leadsResult.error) throw leadsResult.error;
+
+      const props = propsResult.data || [];
+      const leads = leadsResult.data || [];
+
+      // 2. Faz os cálculos matemáticos com os dados recebidos
+      const activePropertiesCount = props.filter(p => p.status === 'active').length;
+      const totalLeadsCount = leads.length;
+      const newLeadsCount = leads.filter(l => l.status === 'new').length;
+      
+      // Calcula o volume total somando o preço de todos os imóveis ativos
+      const volumeInPortfolio = props
+        .filter(p => p.status === 'active')
+        .reduce((sum, p) => sum + (Number(p.price) || 0), 0);
+
+      // 3. Injeta os resultados calculados nas caixas do teu HTML
       const el = (id) => document.getElementById(id);
-      if (el('statActiveProperties')) el('statActiveProperties').textContent = stats.activeProperties;
-      if (el('statNewLeads')) el('statNewLeads').textContent = stats.newLeads;
-      if (el('statTotalLeads')) el('statTotalLeads').textContent = stats.totalLeads;
+      if (el('statActiveProperties')) el('statActiveProperties').textContent = activePropertiesCount;
+      if (el('statNewLeads')) el('statNewLeads').textContent = newLeadsCount;
+      if (el('statTotalLeads')) el('statTotalLeads').textContent = totalLeadsCount;
+      
       if (el('statVolume')) {
-        const vol = stats.volumeInPortfolio;
-        el('statVolume').textContent = vol >= 1000000 ? '€' + (vol/1000000).toFixed(1) + 'M' : '€' + vol.toLocaleString('pt-PT');
+        el('statVolume').textContent = volumeInPortfolio >= 1000000 
+          ? '€' + (volumeInPortfolio / 1000000).toFixed(1) + 'M' 
+          : '€' + volumeInPortfolio.toLocaleString('pt-PT');
       }
     } catch(e) {
-      console.error('Erro ao carregar stats:', e);
+      console.error('Erro ao calcular estatísticas:', e);
     }
   }
 
-  // CARREGAR IMÓVEIS DA API
+// CARREGAR IMÓVEIS DO SUPABASE
   async function loadProperties() {
-    const token = localStorage.getItem('authToken');
-    if (!token) return;
     try {
-      const res = await fetch(API_BASE_URL + '/properties', {
-        headers: { 'Authorization': 'Bearer ' + token }
-      });
-      const props = await res.json();
+      // 1. Faz o pedido diretamente à tabela 'properties' do Supabase
+      const { data: props, error } = await supabase
+        .from('properties')
+        .select('*')
+        .order('created_at', { ascending: false }); // Ordena pelos mais recentes
+
+      if (error) throw error;
+
       const tbody = document.getElementById('propertiesTbody');
       if (!tbody) return;
+
+      // 2. Atualiza o contador de imóveis ativos no menu lateral
       const badgeIm = document.getElementById('badgeImoveis');
-      if (badgeIm) badgeIm.textContent = props.filter(p => p.status === 'active').length;
-      if (!props.length) {
+      if (badgeIm) {
+        badgeIm.textContent = props.filter(p => p.status === 'active').length;
+      }
+
+      // 3. Caso a tabela esteja vazia, mostra a mensagem de aviso
+      if (!props || !props.length) {
         tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--text3);">Nenhum imóvel encontrado. Clica em + Novo imóvel para adicionar.</td></tr>';
         return;
       }
+
+      // 4. Renderiza as linhas da tabela com os dados do Supabase
+      tbody.innerHTML = props.map(p => `
+        <tr>
+          <td>
+            <div class="prop-cell">
+              <div class="prop-thumb" style="background-image: url('${p.imageUrl || ''}'); background-size: cover; background-position: center;"></div>
+              <div>
+                <div class="prop-name">${p.title || 'Sem título'}</div>
+                <div class="prop-loc">${p.location || 'Sem localização'}</div>
+              </div>
+            </div>
+          </td>
+          <td class="td-muted">€${p.price ? p.price.toLocaleString('pt-PT') : '0'}</td>
+          <td class="td-muted">${p.bedrooms || '-'}</td>
+          <td class="td-muted">${p.area ? p.area + ' m²' : '-'}</td>
+          <td>
+            <span class="badge ${p.status || 'active'}">
+              ${p.status === 'active' ? 'Ativo' : p.status === 'sold' ? 'Vendido' : p.status === 'pending' ? 'Pendente' : p.status}
+            </span>
+          </td>
+          <td class="td-muted">${p.created_at ? new Date(p.created_at).toLocaleDateString('pt-PT') : '-'}</td>
+          <td>
+            <div class="row-actions">
+              <button class="action-btn danger" onclick="deleteProperty('${p.id}')">✕</button>
+            </div>
+          </td>
+        </tr>`).join('');
+
+    } catch(e) {
+      console.error('Erro ao carregar imóveis:', e);
+      showToast('Erro ao carregar a lista de imóveis.');
+    }
+  }
       tbody.innerHTML = props.map(p => `
         <tr>
           <td><div class="prop-cell"><div class="prop-thumb"></div><div>
@@ -1056,27 +1157,43 @@ textarea.form-input { resize: vertical; min-height: 90px; }
     }
   }
 
-  // Verificar sessão ao carregar
-  window.addEventListener('DOMContentLoaded', () => {
-    const token = localStorage.getItem('authToken');
-    const user = localStorage.getItem('currentUser');
-    if (token && user) {
+// VERIFICAR SESSÃO AO CARREGAR A PÁGINA
+  window.addEventListener('DOMContentLoaded', async () => {
+    // Pede ao Supabase o utilizador atualmente logado no navegador
+    const { data: { user }, error } = await supabase.auth.getUser();
+
+    if (user && !error) {
+      // Se houver utilizador, salta o ecrã de login e abre o painel
       document.getElementById('loginScreen').style.display = 'none';
       document.getElementById('appShell').style.display = 'flex';
-      const parsed = JSON.parse(user);
-      const nameEl = document.querySelector('.admin-name');
-      if (nameEl) nameEl.textContent = parsed.name;
-      setTimeout(() => { loadStats(); loadProperties(); loadLeads(); loadUserProfile(); }, 300);
+      
+      // Inicializa os dados no ecrã
+      loadUserProfile(user);
+      loadStats();
+      loadProperties();
+      loadLeads();
     } else {
+      // Se não houver sessão ativa, força a exibição do ecrã de login
       document.getElementById('loginScreen').style.display = 'flex';
       document.getElementById('appShell').style.display = 'none';
     }
   });
-  function globalSearch(val) {
-    console.log("A pesquisar por: " + val);
-  }
-  function showNotifications() {
-    showToast("Nenhuma notificação nova.");
+
+  // CARREGAR PERFIL DO UTILIZADOR LOGADO
+  function loadUserProfile(user) {
+    if (!user) return;
+    
+    // Tenta extrair o nome dos metadados, senão usa a primeira parte do email
+    const name = user.user_metadata?.display_name || user.email.split('@')[0];
+    
+    const sidebarName = document.getElementById('sidebarName');
+    if (sidebarName) sidebarName.textContent = name;
+    
+    const settingsEmail = document.getElementById('settingsEmail');
+    if (settingsEmail) settingsEmail.value = user.email || '';
+    
+    const settingsName = document.getElementById('settingsName');
+    if (settingsName) settingsName.value = name || '';
   }
 
   // SELEÇÃO SIMULADA DE LEADS
