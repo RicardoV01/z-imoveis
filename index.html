@@ -1625,32 +1625,28 @@ async function sbInsert(table, data) {
   return res.json();
 }
 
+// INIT & API CONNECTION
 async function loadPropertiesFromDB() {
   try {
+    // Faz o pedido diretamente ao backend (deteta automaticamente se está em localhost ou no Render)
     const res = await fetch('/api/properties');
-    if (!res.ok) throw new Error('API error');
-    const data = await res.json();
-
-    if (data && data.length > 0) {
-      properties = data.map(p => ({
-        id: p._id,
-        title: p.title,
-        price: p.status === 'rent'
-          ? '€' + Number(p.price).toLocaleString('pt-PT') + '/mês'
-          : '€' + (p.price >= 1000000
-              ? (p.price / 1000000).toFixed(1).replace('.0', '') + 'M'
-              : Number(p.price).toLocaleString('pt-PT')),
-        type: p.type,
-        location: p.location,
-        area: p.area,
-        rooms: p.bedrooms,
-        bath: p.bathrooms,
-        badge: p.status === 'active' ? 'Destaque' : p.status,
-        desc: p.description || '',
-        energy: 'A',
-        img: p.imageUrl || null
-      }));
-      renderProperties();
+    if (!res.ok) throw new Error('Falha ao carregar dados da API');
+    
+    const dbProperties = await res.json();
+    
+    // Se a base de dados tiver imóveis, substitui os dados locais pelos dados reais
+    if (dbProperties && dbProperties.length > 0) {
+      propertiesData = dbProperties;
+    }
+    
+    // Renderiza os imóveis atualizados da Base de Dados
+    renderProperties();
+  } catch (err) {
+    console.warn("Aviso: A carregar dados locais como fallback devido a:", err.message);
+    // Mantém o fallback local ativo apenas se o servidor estiver desligado
+    renderProperties();
+  }
+}
     }
   } catch(e) {
     console.warn('API não disponível, a usar dados locais:', e.message);
